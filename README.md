@@ -1,1 +1,1 @@
-College project and my name is ankit
+College project
