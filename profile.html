@@ -12,7 +12,7 @@
     <title>Frontendfunn - Bootstrap 5 Admin Dashboard Template</title>
 </head>
 
-<body>
+<body onload="viewdate()">
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
@@ -26,6 +26,10 @@
                 aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="container-sm text-end text-white text-wrap fs-6">
+                Date:-<span id="date" class="fw-bold"> --/--/--</span>
+                Time:-<span id="time" class="fw-bold"> --:--:--</span>
+            </div>
             <div class="collapse navbar-collapse" id="topNavBar">
 
                 <ul class="navbar-nav">
@@ -270,6 +274,10 @@
     <script src="./js/jquery.dataTables.min.js"></script>
     <script src="./js/dataTables.bootstrap5.min.js"></script>
     <script src="./js/script.js"></script>
+    <script src="./js/time.js"></script>
+    <script>
+        setInterval(updateClock, 1000);
+    </script>
 </body>
 
 </html>
