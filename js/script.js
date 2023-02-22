@@ -1,14 +1,15 @@
 const charts = document.querySelectorAll(".chart");
-
-charts.forEach(function (chart) {
+const attendancechart = charts[0];
+const leaveschart = charts[1];
+function createchart(chart) {
   var ctx = chart.getContext("2d");
   var myChart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      labels: ["Mon", "Tue", "Weds", "Thur", "Fri", "Sat"],
       datasets: [
         {
-          label: "# of Votes",
+          label: "Daily Attedance",
           data: [12, 19, 3, 5, 2, 3],
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
@@ -38,8 +39,8 @@ charts.forEach(function (chart) {
       },
     },
   });
-});
-
+}
+createchart(attendancechart);
 $(document).ready(function () {
   $(".data-table").each(function (_, table) {
     $(table).DataTable();
