@@ -227,30 +227,37 @@
                 <div class="row">
                     <h3 class="hw-3">Attendance Report</h3>
                 </div>
+
                 <form class="row g-3 justify-content-center row-cols-auto h-25">
+                    
                     <div class="col-md-7">
                         <label for="department" class="form-label">Department</label>
                         <select class="form-select" id="department">
                             <option value="NA">Choose...</option>
                             <option>Development</option>
                             <option>Testing</option>
+                            <option>Account</option>
                         </select>
                     </div>
+                    
                     <div class="col-md-2">
                         <label for="fromdate" class="form-label">From</label>
                         <input type="date" class="form-control" id="fromdate" />
                     </div>
+
                     <div class="col-md-2">
                         <label for="todate" class="form-label">To</label>
                         <input type="date" class="form-control" id="todate" />
                     </div>
-                    <div class="col-auto">
+
+                    <div class="col-md-2">
                         <button class="btn btn-success" type="submit">Submit</button>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-md-2">
                         <button class="btn btn-primary" type="reset">Reset</button>
                     </div>
                 </form>
+
                 <div class="row mt-2">
                     <div class="col-md-12 mb-3">
                         <div class="card">
