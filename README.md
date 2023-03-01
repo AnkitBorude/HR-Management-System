@@ -1,3 +1,5 @@
 College project
-partners Karan Bankar
+partners 
+Karan Bankar
 Ankit Borude
+project date
