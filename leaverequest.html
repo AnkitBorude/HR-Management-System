@@ -224,8 +224,170 @@
         <div class="container-fluid">
             <!---page content here-->
             <div class="row">
-                <h3 class="fw-bold fs-2">New Employee Details</h3>
-            </div
+                <h3 class="fw-bold fs-2">Leave Form</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="row g-3mb-5">
+                        <div class="col-md-4">
+                            <label for="EID" class="form-label">Employee Id</label>
+                            <input type="text" class="form-control" id="EID" required="" />
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="name" class="form-label">Employee name</label>
+                            <select class="form-select" id="name" required="">
+                                <option>Choose</option>
+                                <option>...</option>
+                            </select>
+                            <div class="invalid-feedback">Please select a valid</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="lt" class="form-label">Type Of Leave</label>
+                            <select class="form-select" id="lt" required="">
+                                <option>Earned Leave(EL)</option>
+                                <option>Casual Leave(CL)</option>
+                                <option>Sick Leave(SL)</option>
+                            </select>
+                            <div class="invalid-feedback">Please select a valid</div>
+                        </div>
+                        <div class="col-md-2 mt-2">
+                            <label for="sdate" class="form-label">From</label>
+                            <input type="date" class="form-control" id="sdate" />
+                        </div>
+                        <div class="col-md-2 mt-2">
+                            <label for="tdate" class="form-label">To</label>
+                            <input type="date" class="form-control" id="tdate" />
+                        </div>
+                        <div class="col-md-2 mt-2">
+                            <label for="totaldays" class="form-label">Total Days</label>
+                            <input type="number" class="form-control" id="totaldays" />
+                        </div>
+                        <div class="col-md-8">
+                            <label for="reasons" class="form-label">Reasons</label>
+                            <textarea class="form-control" id="reasons" rows="3"></textarea>
+                        </div>
+                        <div class="col-3 mt-4">
+                            <button class="btn btn-success" type="submit">Apply</button>
+                        </div>
+
+                        <div class="col-1 mt-4">
+                            <button class="btn btn-primary" type="reset">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <h3 class="fw-bold fs-4">Current Balance of Selected Employee</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mt-3" id="cards" style="width:10rem;height:5rem">
+                    <div class="card text-darktext-center bg-warning">
+                        <h5 class="card-header">EL</h5>
+                        <div class="card-body">
+                            <div class="card-text fw-bold">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-3" id="cards" style="width:10rem;height:5rem">
+                    <div class="card text-darktext-center bg-warning">
+                        <h5 class="card-header">CL</h5>
+                        <div class="card-body">
+                            <div class="card-text fw-bold">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-3" id="cards" style="width:8rem;height:5rem">
+                    <div class="card text-darktext-center bg-warning">
+                        <h5 class="card-header">SL</h5>
+                        <div class="card-body">
+                            <div class="card-text fw-bold">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <h3 class="fw-bold fs-2">Recent Leave Applications</h3>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span><i class="bi bi-table me-2"></i></span> Data Table
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-striped data-table" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Employee Id</th>
+                                            <th>Employee Name</th>
+                                            <th>Start date</th>
+                                            <th>End date</th>
+                                            <th>Total Days</th>
+                                            <th>Types</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>61</td>
+                                            <td>2011/04/25</td>
+                                            <td>$320,800</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Garrett Winters</td>
+                                            <td>Accountant</td>
+                                            <td>Tokyo</td>
+                                            <td>63</td>
+                                            <td>2011/07/25</td>
+                                            <td>$170,750</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ashton Cox</td>
+                                            <td>Junior Technical Author</td>
+                                            <td>San Francisco</td>
+                                            <td>66</td>
+                                            <td>2009/01/12</td>
+                                            <td>$86,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cedric Kelly</td>
+                                            <td>Senior Javascript Developer</td>
+                                            <td>Edinburgh</td>
+                                            <td>22</td>
+                                            <td>2012/03/29</td>
+                                            <td>$433,060</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Airi Satou</td>
+                                            <td>Accountant</td>
+                                            <td>Tokyo</td>
+                                            <td>33</td>
+                                            <td>2008/11/28</td>
+                                            <td>$162,700</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     </main>
     <script src="./js/bootstrap.bundle.min.js"></script>
@@ -236,7 +398,7 @@
     <script src="./js/script.js"></script>
     <script src="./js/time.js"></script>
     <script>
-        setInterval(updateClock, 1000*60);
+        setInterval(updateClock, 1000 * 60);
     </script>
 </body>
 
