@@ -226,17 +226,18 @@
             <div class="row">
                 <h3 class="hw-3">Roles Assignment Management</h3>
             </div>
-            
-            <div class="row border-top border-5">
+
+            <div class="row border-top border-5 mb-2">
                 <div class="col-md-9">
                     <div class="row mt-5">
-                        <div class="col-md-2">
-                           <button class="btn btn-primary">Assign</button>
+                        <div class="col-md-2 mb-2">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                onclick="GenerateRoles()">Assign</button>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 mb-2">
                             <button class="btn btn-primary">Free</button>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md-1">
                             <button class="btn btn-primary">Switch</button>
                         </div>
                     </div>
@@ -324,7 +325,7 @@
                         <p class="fs-4">Free Roles</p>
                     </div>
                     <div class="row pb-3">
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush" id="roles">
                             <li class="list-group-item">
                                 Senior Software Engineer
                                 <span class="badge bg-primary rounded-pill">1</span>
@@ -343,7 +344,7 @@
                         <p class="fs-4">Free Employees</p>
                     </div>
                     <div class="row">
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush" id="freeEmp">
                             <li class="list-group-item">
                                 Ankit Borude
                             </li>
@@ -359,6 +360,45 @@
             </div>
         </div>
     </main>
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Assign</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="SelectableEmp" class="form-label">Select Employee</label>
+                    <select class="form-select" id="SelectableEmp">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">One</option>
+                        <option value="5">Two</option>
+                        <option value="6">Three</option>
+                    </select>
+                    <label for="SelectableRole" class="form-label mt-2">Select Role</label>
+                    <select class="form-select" id="SelectableRole">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">One</option>
+                        <option value="5">Two</option>
+                        <option value="6">Three</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Assign</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
     <script src="./js/jquery-3.5.1.js"></script>
@@ -368,6 +408,40 @@
     <script src="./js/time.js"></script>
     <script>
         setInterval(updateClock, 1000 * 60);
+        function GenerateRoles() {  //copies the value of roles and employees into modal form
+            let froles = document.getElementById("roles");
+            let femp = document.getElementById("freeEmp");
+
+            let freeRoleslist = froles.getElementsByTagName("li");
+            let freeEmployeelist = femp.getElementsByTagName("li");
+
+            let SelectableEmp = document.getElementById("SelectableEmp");
+            let SelectableRole = document.getElementById("SelectableRole");
+            for (let i = 0; i < freeRoleslist.length; i++) {
+                let option = document.createElement("option");
+                let text = document.createTextNode(freeRoleslist[i].firstChild.nodeValue);
+                option.appendChild(text);
+                SelectableRole.appendChild(option);
+            }
+            for (let i = 0; i < freeEmployeelist.length; i++) {
+                let option = document.createElement("option");
+                let text = document.createTextNode(freeEmployeelist[i].firstChild.nodeValue);
+                option.appendChild(text);
+                SelectableEmp.appendChild(option);
+            }
+        }
+        function AssignRole()//assigning role 
+        {
+            //
+        }
+        function addRecordtoTable()
+        {
+
+        }
+        function updateSidelists()
+        {
+
+        }
     </script>
 </body>
 
