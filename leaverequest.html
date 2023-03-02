@@ -228,15 +228,15 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <form class="row g-3mb-5">
+                    <form class="row g-3mb-5" id="lform">
                         <div class="col-md-4">
                             <label for="EID" class="form-label">Employee Id</label>
-                            <input type="text" class="form-control" id="EID" required="" />
+                            <input type="text" class="form-control" id="eid" required="" />
                             <div class="valid-feedback">Looks good!</div>
                         </div>
                         <div class="col-md-3">
                             <label for="name" class="form-label">Employee name</label>
-                            <select class="form-select" id="name" required="">
+                            <select class="form-select" id="ename" required="">
                                 <option>Choose</option>
                                 <option>...</option>
                             </select>
@@ -244,7 +244,7 @@
                         </div>
                         <div class="col-md-3">
                             <label for="lt" class="form-label">Type Of Leave</label>
-                            <select class="form-select" id="lt" required="">
+                            <select class="form-select" id="leavetype" required="">
                                 <option>Earned Leave(EL)</option>
                                 <option>Casual Leave(CL)</option>
                                 <option>Sick Leave(SL)</option>
@@ -252,23 +252,24 @@
                             <div class="invalid-feedback">Please select a valid</div>
                         </div>
                         <div class="col-md-2 mt-2">
-                            <label for="sdate" class="form-label">From</label>
+                            <label for="sdate" class="form-label">From</label>s
                             <input type="date" class="form-control" id="sdate" />
                         </div>
                         <div class="col-md-2 mt-2">
                             <label for="tdate" class="form-label">To</label>
-                            <input type="date" class="form-control" id="tdate" />
+                            <input type="date" class="form-control" id="tdate" onchange="getDaysDifference()" />
                         </div>
                         <div class="col-md-2 mt-2">
                             <label for="totaldays" class="form-label">Total Days</label>
-                            <input type="number" class="form-control" id="totaldays" />
+                            <input type="number" class="form-control" id="totaldays" disabled />
                         </div>
                         <div class="col-md-8">
                             <label for="reasons" class="form-label">Reasons</label>
                             <textarea class="form-control" id="reasons" rows="3"></textarea>
                         </div>
                         <div class="col-3 mt-4">
-                            <button class="btn btn-success" type="submit">Apply</button>
+                            <button class="btn btn-success" type="submit"
+                                onclick="event.preventDefault(), addRecordleave()">Apply</button>
                         </div>
 
                         <div class="col-1 mt-4">
@@ -329,7 +330,7 @@
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="leavetablebody">
                                         <tr>
                                             <td>Tiger Nixon</td>
                                             <td>System Architect</td>
@@ -399,6 +400,59 @@
     <script src="./js/time.js"></script>
     <script>
         setInterval(updateClock, 1000 * 60);
+        document.getElementById('sdate').valueAsDate = new Date();//setting todays date as default value
+
+        function getDaysDifference() {
+            var date1 = new Date(document.getElementById("sdate").value);
+            var date2 = new Date(document.getElementById("tdate").value);
+            var diff;
+            if (date1 < date2) {
+                diff = new Date(date2 - date1);
+            } else {
+                diff = new Date(date1 - date2);
+            }
+            var days = diff.getDate();
+            document.getElementById('totaldays').value = days;
+        }
+        function addRecordleave() {
+            let eid = document.getElementById("eid").value;
+            let ename = document.getElementById("ename").value;
+            let leavetype = document.getElementById("leavetype").value;
+            let sdate = document.getElementById("sdate").value;
+            let tdate = document.getElementById("tdate").value;
+            let totaldays = document.getElementById("totaldays").value;
+            let reasons = document.getElementById("reasons").value;
+            updateLeaveTable(eid, ename, leavetype, sdate, tdate, totaldays, reasons);
+
+        }
+        function updateLeaveTable(...args) {
+            let tablebody = document.getElementById("leavetablebody");
+            const trow = document.createElement("tr");
+            trow.setAttribute("id", "" + args[0] + "/" + args[3]);//embeeding id of row as eid and date of leave
+            for (let i = 0; i < args.length + 1; i++) {
+                const tdata = document.createElement("td");
+                if (i < args.length) {
+                    let data = document.createTextNode(args[i]);
+                    tdata.appendChild(data);
+                }
+                else {
+                    let dbutton = document.createElement("button");
+                    dbutton.setAttribute("class", "btn btn-danger");
+                    dbutton.setAttribute("onclick", "cancelLeave(this.parentNode.parentNode.id)")
+                    const text = document.createTextNode("Cancel");
+                    dbutton.appendChild(text);
+                    tdata.appendChild(dbutton);
+                }
+                trow.appendChild(tdata);
+                tablebody.appendChild(trow);
+            }
+        }
+        function cancelLeave(id) {
+            console.log(id);
+            let tablebody = document.getElementById("leavetablebody");
+            let rowtobedeleted = document.getElementById(id);
+            tablebody.removeChild(rowtobedeleted);
+        }
     </script>
 </body>
 
