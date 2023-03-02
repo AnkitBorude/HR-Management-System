@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body onload="viewdate()">
+    <!-- top navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                aria-controls="offcanvasExample">
+                <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
+            </button>
+            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Human Resource Management
+                Software</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
+                aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="container-sm text-end text-white text-wrap fs-6">
+                Date:-<span id="date" class="fw-bold"> --/--/--</span>
+                Time:-<span id="time" class="fw-bold"> --:--:--</span>
+            </div>
+            <div class="collapse navbar-collapse" id="topNavBar">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-person-fill"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- top navigation bar -->
+    <!-- offcanvas -->
+    <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
+        <div class="offcanvas-body p-0">
+            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp"
+                class="img-thumbnail">
+            <nav class="navbar-dark">
+                <ul class="navbar-nav">
+                    <li>
+                        <div class="text-muted small fw-bold text-uppercase px-3 mb-3 mt-3">
+                            CORE
+                        </div>
+                    </li>
+                    <li>
+                        <a href="index.html" class="nav-link px-3 active">
+                            <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="text-muted small fw-bold text-uppercase px-3 mb-3 mt-3">
+                            Interface
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
+                            <span class="me-2"><i class="bi bi-people"></i></i></span>
+                            <span>Employee</span>
+                            <span class="ms-auto">
+                                <span class="right-icon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <div class="collapse" id="layouts">
+                            <ul class="navbar-nav ps-3">
+                                <li>
+                                    <a href="employee.html" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-file-person"></i></span>
+                                        <span>Employee Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="newemployee.html" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                                        <span>Add Employee</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="editemployee.html" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-gear"></i></span>
+                                        <span>Edit Employee</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="deleteemployee.html" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-person-dash"></i></span>
+                                        <span>Delete Employee</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+                            <span class="me-2"><i class="bi bi-people"></i></i></span>
+                            <span>Attendance</span>
+                            <span class="ms-auto">
+                                <span class="right-icon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <div class="collapse" id="layouts2">
+                            <ul class="navbar-nav ps-3">
+                                <li>
+                                    <a href="#" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-file-person"></i></span>
+                                        <span>Daily Attendance</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                                        <span>Attendance Report</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+                            <span class="me-2"><i class="bi bi-people"></i></i></span>
+                            <span>Leave</span>
+                            <span class="ms-auto">
+                                <span class="right-icon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <div class="collapse" id="layouts2">
+                            <ul class="navbar-nav ps-3">
+                                <li>
+                                    <a href="#" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-file-person"></i></span>
+                                        <span>Leave Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                                        <span>Leave Requistions</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                                        <span>Cancell Leave</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+                            <span class="me-2"><i class="bi bi-people"></i></i></span>
+                            <span>Role & Department </span>
+                            <span class="ms-auto">
+                                <span class="right-icon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <div class="collapse" id="layouts2">
+                            <ul class="navbar-nav ps-3">
+                                <li>
+                                    <a href="#" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-file-person"></i></span>
+                                        <span>New Role</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                                        <span>Assign & Free Role</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                                        <span>Department Profile</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-3">
+                            <span class="me-2"><i class="bi bi-book-fill"></i></span>
+                            <span>PayRoll</span>
+                        </a>
+                    </li>
+                    <li class="my-4">
+                        <hr class="dropdown-divider bg-light" />
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- offcanvas -->
+
+
+    <main class="mt-5 pt-3">
+        <div class="container-fluid">
+            <div class="row mb-5 mt-5">
+                <div class="col-md-8">
+                    <h3 class="fw-bold fs-2">Create New Roles</h3>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="fw-bold fs-4"> Total Roles:- <span id="total" class="fs-3">0</span></h3>
+                </div>
+            </div>
+            <form action="" class="row g-2">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="rolename">
+                        <label for="role">Name Of Role/Position</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <select class="form-select" id="department">
+                            <option value="0" selected>None</option>
+                            <option value="1">Fianance & Accounting</option>
+                            <option value="2">Production & Testing</option>
+                            <option value="3">HR</option>
+                            <option value="4">Sales & Marketing</option>
+                            <option value="5">Support</option>
+                        </select>
+                        <label for="floatingSelectGrid">Name of Department</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        <input type="number" class="form-control" id="bsalary">
+                        <label for="role">Base Salary</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-floating">
+                        <input type="number" class="form-control" id="maxreq">
+                        <label for="role">Max Requirement</label>
+
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-success me-md-2" type="submit"
+                        onclick="event.preventDefault(),createNewRole()">Create</button>
+                    <button class="btn btn-primary" type="reset">Reset</button>
+                </div>
+            </form>
+            <div class="row mb-5 mt-5">
+                <h3 class="fw-bold fs-4">Department-Wise Roles</h3>
+            </div>
+            <div class="row mt-5 mb-5">
+                <div class="col-md">
+                    <div class="accordion" id="mainaccor">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Fianance & Accounting
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                                <div class="accordion-body" id="1">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Production & Testing
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+                                <div class="accordion-body" id="2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Human Resource Management
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
+                                <div class="accordion-body" id="3">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Sales & Marketing
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour">
+                                <div class="accordion-body" id="4">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                Support
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive">
+                            <div class="accordion-body" id="5">
+                                <div class="row">
+                                    <div class="col-md-8">HIII</div>
+                                    <div class="col-md-2"><button class="btn btn-warning"
+                                            onclick="deleteRole(this)">Delete</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </main>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+    <script src="./js/jquery-3.5.1.js"></script>
+    <script src="./js/jquery.dataTables.min.js"></script>
+    <script src="./js/dataTables.bootstrap5.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/time.js"></script>
+    <script>
+        setInterval(updateClock, 1000 * 60);
+        var totalroles = 0;
+        function createNewRole() {
+            let rolename = document.getElementById("rolename").value;
+            let department = document.getElementById("department").value;
+            let basesalary = document.getElementById("bsalary").value;
+            let maxreq = document.getElementById("maxreq").value;
+            totalroles++;
+            document.getElementById("total").innerHTML = totalroles;
+            updateAccordion(department, rolename);
+            //space for ajax
+        }
+        function updateAccordion(dep, rolename) {
+            let row = document.createElement("div");
+            row.setAttribute("class", "row");
+            let col1 = document.createElement("div");
+            col1.setAttribute("class", "col-md-8");
+
+            let col2 = document.createElement("div");
+            col2.setAttribute("class", "col-md-2");
+
+            let dltbtn = document.createElement("button");
+            dltbtn.setAttribute("class", "btn btn-warning");
+            dltbtn.setAttribute("onclick","deleteRole(this)");
+            let deleteText = document.createTextNode("Delete");
+            dltbtn.appendChild(deleteText);
+            col2.appendChild(dltbtn);
+            let role = document.createTextNode(rolename);
+            col1.appendChild(role);
+            row.appendChild(col1);
+            row.appendChild(col2);
+            if (dep != "0") {
+                document.getElementById(dep).appendChild(row);
+            }
+
+        }
+        function deleteRole(buttonEvent)//role+id
+        {
+            let rowElement=buttonEvent.parentNode.parentNode;
+            let mainAcBody=rowElement.parentNode;
+            mainAcBody.removeChild(rowElement);
+            totalroles--;
+            document.getElementById("total").innerHTML=totalroles;
+            //tracking parent from the button on which the event has been happened
+        }
+    </script>
+</body>
+
+</html>
