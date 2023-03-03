@@ -235,7 +235,7 @@
                                 onclick="GenerateRoles()">Assign</button>
                         </div>
                         <div class="col-md-2 mb-2">
-                            <button class="btn btn-primary">Free</button>
+                            <button class="btn btn-primary" onclick="freeRole()">Free</button>
                         </div>
                         <div class="col-md-1">
                             <button class="btn btn-primary">Switch</button>
@@ -254,62 +254,25 @@
                                                 <tr>
                                                     <th>Employee Id</th>
                                                     <th>Name</th>
-                                                    <th>POsition</th>
-                                                    <th>Start date</th>
-                                                    <th>End Date</th>
-                                                    <th>Leave Type</th>
+                                                    <th>Position/Role</th>
+                                                    <th>Free/Switch</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
+                                            <tbody id="assignmentTable">
+                                                <tr id="eid102/rid145">
+                                                    <td>102</td>
                                                     <td>Tiger Nixon</td>
                                                     <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
-                                                    <td>$320,800</td>
+                                                    <td><input class="form-check-input" type="checkbox" id=""></td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Garrett Winters</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>63</td>
-                                                    <td>2011/07/25</td>
-                                                    <td>$170,750</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Ashton Cox</td>
-                                                    <td>Junior Technical Author</td>
-                                                    <td>San Francisco</td>
-                                                    <td>66</td>
-                                                    <td>2009/01/12</td>
-                                                    <td>$86,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Cedric Kelly</td>
-                                                    <td>Senior Javascript Developer</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>22</td>
-                                                    <td>2012/03/29</td>
-                                                    <td>$433,060</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Airi Satou</td>
-                                                    <td>Accountant</td>
-                                                    <td>Tokyo</td>
-                                                    <td>33</td>
-                                                    <td>2008/11/28</td>
-                                                    <td>$162,700</td>
-                                                </tr>
+
                                             </tbody>
                                             <tfoot>
                                                 <tr>
+                                                    <th>Employee Id</th>
                                                     <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Age</th>
-                                                    <th>Start date</th>
-                                                    <th>Salary</th>
+                                                    <th>Position/Role</th>
+                                                    <th>Free/Switch</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -326,15 +289,15 @@
                     </div>
                     <div class="row pb-3">
                         <ul class="list-group list-group-flush" id="roles">
-                            <li class="list-group-item">
+                            <li class="list-group-item" id="132">
                                 Senior Software Engineer
                                 <span class="badge bg-primary rounded-pill">1</span>
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item" id="321">
                                 Java Developer
                                 <span class="badge bg-primary rounded-pill mx-2">2</span>
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item" id="456">
                                 Accountant
                                 <span class="badge bg-primary rounded-pill">1</span>
                             </li>
@@ -345,13 +308,13 @@
                     </div>
                     <div class="row">
                         <ul class="list-group list-group-flush" id="freeEmp">
-                            <li class="list-group-item">
+                            <li class="list-group-item" id="100">
                                 Ankit Borude
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item" id="101">
                                 Karan Bankar
                             </li>
-                            <li class="list-group-item">
+                            <li class="list-group-item" id="102">
                                 Sandesh Pawar
                             </li>
                         </ul>
@@ -393,7 +356,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Assign</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                        onclick="AssignRole()">Assign</button>
                 </div>
             </div>
         </div>
@@ -409,7 +373,8 @@
     <script>
         setInterval(updateClock, 1000 * 60);
         function GenerateRoles() {  //copies the value of roles and employees into modal form
-            let froles = document.getElementById("roles");
+            let froles = document.getElementById("roles");//here the options of select element has
+            //id of its own id
             let femp = document.getElementById("freeEmp");
 
             let freeRoleslist = froles.getElementsByTagName("li");
@@ -417,8 +382,11 @@
 
             let SelectableEmp = document.getElementById("SelectableEmp");
             let SelectableRole = document.getElementById("SelectableRole");
+            removeAllChildNodes(SelectableEmp);
+            removeAllChildNodes(SelectableRole);//removing all childs
             for (let i = 0; i < freeRoleslist.length; i++) {
                 let option = document.createElement("option");
+                option.setAttribute("id", "rid" + freeRoleslist[i].id);
                 let text = document.createTextNode(freeRoleslist[i].firstChild.nodeValue);
                 option.appendChild(text);
                 SelectableRole.appendChild(option);
@@ -426,21 +394,145 @@
             for (let i = 0; i < freeEmployeelist.length; i++) {
                 let option = document.createElement("option");
                 let text = document.createTextNode(freeEmployeelist[i].firstChild.nodeValue);
+                option.setAttribute("id", "eid" + freeEmployeelist[i].id);
                 option.appendChild(text);
                 SelectableEmp.appendChild(option);
             }
         }
+        function removeAllChildNodes(parent) {//function to remove all childs of given parent element
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+            }
+        }
         function AssignRole()//assigning role 
         {
-            //
+            let emp = document.getElementById("SelectableEmp").selectedOptions;//passing selected elements collection
+            let role = document.getElementById("SelectableRole").selectedOptions;
+            addRecordtoTable(emp, role);//updating table
+            deleteFromfreeRoles(role);
+            deleteFromfreeEmployees(emp);
         }
-        function addRecordtoTable()
-        {
+        function freeRole() {
+            let tablebody = document.getElementById("assignmentTable");
+            let allcheckboxes = document.getElementsByTagName("input");
+            let j = 0;
+            let CheckedCheckboxarray = [];
+            for (let i = 0; i < allcheckboxes.length; i++) {
+                if (allcheckboxes[i].checked == true) {
+                    console.log("checked");
+                    CheckedCheckboxarray[j] = allcheckboxes[i];
+                    j++;
+                }
+            }
+            for (let i = 0; i < CheckedCheckboxarray.length; i++) {
+                let tablerow = CheckedCheckboxarray[i].parentNode.parentNode;
+                console.log(tablerow.id.split("/"));
+                let ids = tablerow.id.split("/");
+                let eid = ids[0].slice(3);
+                let rid = ids[1].slice(3);
+                let ename = tablerow.getElementsByTagName("td")[1].innerText;
+                let rname = tablerow.getElementsByTagName("td")[2].innerText;
+                addTofreeEmployees(eid, ename);
+                addTofreeRoles(rid, rname);
+                console.log(tablerow);
+                deletefromRecordTable(tablerow);
+            }
+        }
+        function SwichRole() {
 
         }
-        function updateSidelists()
+        function addRecordtoTable(...args)//empid,enamae,role
         {
+            let tablebody = document.getElementById("assignmentTable");
+            let tablerow = document.createElement("tr");
+            for (let i = 0; i < args.length; i++) {
+                if (i == 0) {
+                    let td = document.createElement("td");
+                    let idtextdata = document.createTextNode((args[i][0].id).slice(3));
+                    td.appendChild(idtextdata);
+                    let td2 = document.createElement("td");
+                    let nametextdata = document.createTextNode(args[i][0].value);
+                    td2.appendChild(nametextdata);
+                    tablerow.appendChild(td);
+                    tablerow.appendChild(td2);
+                }
+                else {
+                    let td = document.createElement("td");
+                    let textdata = document.createTextNode(args[i][0].value);
+                    td.appendChild(textdata);
+                    tablerow.appendChild(td);
+                }
+                tablerow.setAttribute("id", args[0][0].id + "/" + args[1][0].id);//assigning employee id to table row
+            }
+            let td = document.createElement("td");
+            let input = document.createElement("input");
+            input.setAttribute("class", "form-check-input");
+            input.setAttribute("type", "checkbox");
+            td.appendChild(input);
+            tablerow.appendChild(td);
+            tablebody.appendChild(tablerow);
+        }
+        function addTofreeRoles(roleid, rolename) {
 
+            let froles = document.getElementById("roles");
+            let allrolesli = froles.getElementsByTagName("li");
+            let flag = 1;
+            for (let i = 0; i < allrolesli.length; i++) {
+                if ((allrolesli[i].id) == roleid) {
+                    let badge = allrolesli[i].getElementsByTagName("span");
+                    let totalPositions = badge[0].innerText;
+                    badge[0].innerText = ++totalPositions;
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag == 1) {
+                let li = document.createElement("li");
+                li.setAttribute("id", roleid);
+                li.setAttribute("class", "list-group-item");
+                let textrolename = document.createTextNode(rolename);
+                let span = document.createElement("span");
+                span.setAttribute("class", "badge bg-primary rounded-pill");
+                let totalrole = document.createTextNode("1");
+                span.appendChild(totalrole);
+                li.appendChild(textrolename);
+                li.appendChild(span);
+                froles.appendChild(li);
+            }
+
+        }
+        function deleteFromfreeRoles(selectedOp) {
+            let roleId = selectedOp[0].id.slice(3);
+            let li = document.getElementById(roleId);
+            let badge = li.getElementsByTagName("span");
+            let totalPositions = badge[0].innerText;
+            if (totalPositions < 2) {
+                let parentul = li.parentNode;
+                parentul.removeChild(li);
+            }
+            else {
+                badge[0].innerText = --totalPositions;
+            }
+
+        }
+        function addTofreeEmployees(eid, ename) {
+            let femp = document.getElementById("freeEmp");
+            let li = document.createElement("li");
+            li.setAttribute("id", eid);
+            li.setAttribute("class", "list-group-item");
+            let textrolename = document.createTextNode(ename);
+            li.appendChild(textrolename);
+            femp.appendChild(li);
+        }
+        function deletefromRecordTable(row) {
+            let tablebody = row.parentNode;
+            tablebody.removeChild(row);
+        }
+        function deleteFromfreeEmployees(selectedOp) {
+            let eId = selectedOp[0].id.slice(3);
+            let li = document.getElementById(eId);
+            let parentul = li.parentNode;
+            parentul.removeChild(li);
         }
     </script>
 </body>
