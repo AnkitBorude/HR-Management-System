@@ -238,7 +238,7 @@
                             <button class="btn btn-primary" onclick="freeRole()">Free</button>
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-primary">Switch</button>
+                            <button class="btn btn-primary" onclick="SwichRole()">Switch</button>
                         </div>
                     </div>
                     <div class="row mt-2">
@@ -440,6 +440,40 @@
         }
         function SwichRole() {
 
+            let tablebody = document.getElementById("assignmentTable");
+            let allcheckboxes = document.getElementsByTagName("input");
+            let j = 0;
+            let CheckedCheckboxarray = [];
+            for (let i = 0; i < allcheckboxes.length; i++) {
+                if (allcheckboxes[i].checked == true) {
+                    console.log("checked");
+                    CheckedCheckboxarray[j] = allcheckboxes[i];
+                    j++;
+                }
+            }
+            if (CheckedCheckboxarray.length > 2 || CheckedCheckboxarray.length==1) {
+                return false;
+            }
+            let tablerow1 = CheckedCheckboxarray[0].parentNode.parentNode;
+            let tablerow2 = CheckedCheckboxarray[1].parentNode.parentNode;
+            let ids1 = tablerow1.id.split("/");
+            let eid1 = ids1[0];
+            let rid1 = ids1[1];
+
+            let ids2 = tablerow2.id.split("/");
+            let eid2 = ids2[0];
+            let rid2 = ids2[1];
+
+            let newid1 = eid1 + "/" + rid2;
+            let newid2 = eid2 + "/" + rid1;
+
+            let rname1 = tablerow1.getElementsByTagName("td")[2].innerText;
+            let rname2 = tablerow2.getElementsByTagName("td")[2].innerText;
+            tablerow1.getElementsByTagName("td")[2].innerText = rname2;
+            tablerow2.getElementsByTagName("td")[2].innerText = rname1;
+            tablerow1.id = newid1;
+            tablerow2.id = newid2;
+            return true;
         }
         function addRecordtoTable(...args)//empid,enamae,role
         {
