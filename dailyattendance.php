@@ -234,66 +234,45 @@
                                 <table id="example" class="table table-striped data-table" style="width: 100%">
                                     <thead>
                                         <tr>
+                                            <th>EID</th>
                                             <th>Name</th>
                                             <th>Position</th>
                                             <th>Sign In</th>
                                             <th>Sign Out</th>
                                             <th>Remark</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr id="1"><!--each row has been assigned id from 1-->
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td><span><button class="btn btn-primary" name="1"
-                                                        onclick="signin(this.name)">Sign
-                                                        In</button></span></td>
-                                            <td><span><button class="btn btn-success" name="1"
-                                                        onclick="signout(this.name)" disabled>Sign
-                                                        Out</button></span></td>
-                                            <td><span class="badge text-light bg-danger">Absent</span>
-                                            </td>
-                                        </tr>
-                                        <tr id="2">
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td><span><button class="btn btn-primary" name="2"
-                                                        onclick="signin(this.name)">Sign
-                                                        In</button></span></td>
-                                            <td><span><button class="btn btn-success" name="2"
-                                                        onclick="signout(this.name)" disabled>Sign
-                                                        Out</button></span></td>
-                                            <td><span class="badge text-light bg-danger">Absent</span>
-                                            </td>
-                                        </tr>
-                                        <tr id="3">
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td><span><button class="btn btn-primary" name="3"
-                                                        onclick="signin(this.name)">Sign
-                                                        In</button></span></td>
-                                            <td><span><button class="btn btn-success" name="3"
-                                                        onclick="signout(this.name)" disabled>Sign
-                                                        Out</button></span></td>
-                                            <td><span class="badge text-light bg-danger">Absent</span>
-                                            </td>
-                                        </tr>
-                                        <tr id="4">
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td><span><button class="btn btn-primary" name="4"
-                                                        onclick="signin(this.name)">Sign
-                                                        In</button></span></td>
-                                            <td><span><button class="btn btn-success" name="4"
-                                                        onclick="signout(this.name)" disabled>Sign
-                                                        Out</button></span></td>
-                                            <td><span class="badge text-light bg-danger">Absent</span>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                        $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                                        $result = pg_query($connection, " select employee_id,employee_full_name,role_name from Employees left join Role on Employees.fkrole_id=Role.role_id");
+                                        while ($row = pg_fetch_row($result)) {
+                                            echo "<tr id='$row[0]'>";
+                                            echo "<td> $row[0]</td>";
+                                            $array = explode(" ", $row[1]);
+                                            echo "<td> $array[0]  $array[2]</td>";
+                                            if (is_null($row[2])) {
+                                                echo "<td> Not Assigned</td>";
+                                            } else {
+                                                echo "<td>$row[2]</td>";
+                                            }
+                                            echo "<td><span><button class='btn btn-primary' name='$row[0]'
+                                            onclick='signin(this.name)'>Sign
+                                            In</button></span></td>";
+                                            echo " <td><span><button class='btn btn-success' name='$row[0]' id=''
+                                            onclick='signout(this.name,this.id)' disabled>Sign
+                                            Out</button></span></td>";
+                                            echo " <td><span class='badge text-light bg-danger'>Absent</span>
+                                            </td>";
+                                            echo "</tr>";
+                                        }
+                                        pg_free_result($result);
+                                        pg_close($connection);
+                                        ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
+                                            <th>EID</th>
                                             <th>Name</th>
                                             <th>Position</th>
                                             <th>Sign In</th>
@@ -318,7 +297,7 @@
     <script src="./js/time.js"></script>
     <script src="./js/attendance.js"></script>
     <script>
-        setInterval(updateClock, 1000 * 60);//update the clock after 1 min interval
+    setInterval(updateClock, 1000 * 60); //update the clock after 1 min interval
     </script>
 </body>
 
