@@ -255,6 +255,8 @@
                                             echo "<td><a class='btn btn-primary' href='profile.php?id=$row[0]'>Show</a></td>";
                                             echo "</tr>";
                                         }
+                                        pg_free_result($result);
+                                        pg_close($connection);
                                         ?>
                                     </tbody>
                                     <tfoot>

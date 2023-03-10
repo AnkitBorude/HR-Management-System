@@ -1,3 +1,11 @@
+<?php
+$eid = $_GET["id"];
+$connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+$result = pg_query($connection, "select Employees.*,role_name,department_name from Employees left join Role on Employees.fkrole_id=Role.role_id left join Department on Role.fkdepartment_id=Department.department_id where Employees.employee_id=$eid;");
+$row = pg_fetch_row($result);
+pg_free_result($result);
+pg_close($connection);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -228,42 +236,78 @@
                     <div class="card pt-3 mt-4" style="width: 10rem;">
                         <img src="images/profile.png" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-text">Ankit Borude</h5>
-                            <h6 class="card-text">Junior Developer</h5>
+                            <h5 class="card-text">
+                                <?php $array = explode(" ", $row[1]);
+                                echo "<td> $array[0]  $array[2]</td>"; ?></h5>
+                            <h6 class="card-text">
+                                <?php if (is_null($row[17])) {
+                                    echo "<td> Not Assigned</td>";
+                                } else {
+                                    echo "<td>$row[3]</td>";
+                                } ?></h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-10">
                     <div class="card bg-primary-subtle mt-4">
                         <div class="card-header">
-                            Profile
+                            Personal Details
                         </div>
                         <div class="card-body">
                             <ul class="list-group">
-                                <li class="list-group-item">Full Name :-<span class="fw-bold">Ankit Ravsaheb
-                                        Borude</span></li>
-                                <li class="list-group-item">Age <span class="fw-bold">21</span></li>
-                                <li class="list-group-item">City <span class="fw-bold">Ahmednagar</span></li>
-                                <li class="list-group-item">Gender<span class="fw-bold">Male</span></li>
-                                <li class="list-group-item">Email :- <span
-                                        class="fw-bold">ankitborude250@gmail.com</span></li>
+                                <li class="list-group-item">Full Name :-<span class="fw-bold">
+                                        <?php echo $row[1] ?>
+                                    </span></li>
+                                <li class="list-group-item">Date OF Birth <span class="fw-bold">
+                                        <?php echo $row[3] ?></span></li>
+                                <li class="list-group-item">Gender<span class="fw-bold"> <?php echo $row[4] ?></span>
+                                </li>
+                                <li class="list-group-item">Email :- <span class="fw-bold"> <?php echo $row[2] ?></span>
+                                </li>
+                                <li class="list-group-item">Phone no:- <span
+                                        class="fw-bold"><?php echo $row[5] ?></span></li>
+                                <li class="list-group-item">City <span class="fw-bold"><?php echo $row[6] ?></span></li>
+                                <li class="list-group-item">State <span class="fw-bold"><?php echo $row[7] ?></span>
+                                </li>
+                                <li class="list-group-item">Pincode <span class="fw-bold"><?php echo $row[8] ?></span>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="card mt-4 mb-4">
+                    <div class="card-header">
+                        Employement
+                    </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item">Date Of Joining :- <span class="fw-bold">12/12/2020</span></li>
-                            <li class="list-group-item">Department <span class="fw-bold">Development</span> </li>
-                            <li class="list-group-item">Total Leave Remaining<span class="fw-bold">12</span></li>
-                            <li class="list-group-item">No. of Days absent/on leave (current month) <span
-                                    class="fw-bold">2</span></li>
-                            <li class="list-group-item">On Probation/Notice Period <span class="fw-bold">NO</span></li>
+                            <li class="list-group-item">Date Of Joining :- <span
+                                    class="fw-bold"><?php echo $row[9] ?></span></li>
+                            <li class="list-group-item">Department <span class="fw-bold">
+                                    <?php if (is_null($row[18])) {
+                                        echo "<td> Not Assigned</td>";
+                                    } else {
+                                        echo "<td>$row[3]</td>";
+                                    } ?></span> </li>
                         </ul>
                     </div>
                 </div>
-                <a class="btn btn-primary mb-4" href="employee.html">Go Back</a>
+                <div class="card mt-4 mb-4">
+                    <div class="card-header">
+                        Bank and Tax Details
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">PAN No. <span class="fw-bold"><?php echo $row[10] ?>
+                                </span></li>
+                            <li class="list-group-item">A/C No. <span class="fw-bold"><?php echo $row[11] ?></span>
+                            </li>
+                            <li class="list-group-item">IFSC Code <span class="fw-bold"><?php echo $row[12] ?></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <a class="btn btn-primary mb-4" href="employee.php">Go Back</a>
             </div>
         </div>
         </div>
@@ -276,7 +320,7 @@
     <script src="./js/script.js"></script>
     <script src="./js/time.js"></script>
     <script>
-        setInterval(updateClock, 1000*60);
+    setInterval(updateClock, 1000 * 60);
     </script>
 </body>
 
