@@ -16,14 +16,12 @@
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                aria-controls="offcanvasExample">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button>
             <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Human Resource Management
                 Software</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-                aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="container-sm text-end text-white text-wrap fs-6">
@@ -34,8 +32,7 @@
 
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-fill"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -50,8 +47,7 @@
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
         <div class="offcanvas-body p-0">
-            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp"
-                class="img-thumbnail">
+            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp" class="img-thumbnail">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <li>
@@ -60,7 +56,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="index.html" class="nav-link px-3 active">
+                        <a href="index.html" class="nav-link px-3">
                             <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                             <span>Dashboard</span>
                         </a>
@@ -84,13 +80,13 @@
                         <div class="collapse show" id="layouts">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="employee.html" class="nav-link px-3">
+                                    <a href="employee.html" class="nav-link px-3 active">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Employee Profile</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="newemployee.html" class="nav-link px-3 active">
+                                    <a href="newemployee.html" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Add Employee</span>
                                     </a>
@@ -224,128 +220,56 @@
     <main class="mt-5 pt-3">
         <div class="container-fluid">
             <div class="row">
-                <h3 class="fw-bold fs-2">New Employee Details</h3>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <form class="row g-3 needs-validation mb-5" method="get" action="#">
-
-                        <div class="col-md-4">
-                            <label for="fname" class="form-label">Full name</label>
-                            <input type="text" name="fname" class="form-control" id="fname" required />
+                <div class="col-md-12 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span><i class="bi bi-table me-2"></i></span> Data Table
                         </div>
-                        <div class="col-md-4">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required />
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-striped data-table" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>EID</th>
+                                            <th>Name</th>
+                                            <th>Role</th>
+                                            <th>Start date</th>
+                                            <th>Profile</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                                        $result = pg_query($connection, " select employee_id,employee_full_name,employee_date_of_join,role_name from Employees left join Role on Employees.fkrole_id=Role.role_id");
+                                        while ($row = pg_fetch_row($result)) {
+                                            echo "<tr id='$row[0]'>";
+                                            echo "<td> $row[0]</td>";
+                                            $array = explode(" ", $row[1]);
+                                            echo "<td> $array[0]  $array[2]</td>";
+                                            if (is_null($row[3])) {
+                                                echo "<td> Not Assigned</td>";
+                                            } else {
+                                                echo "<td>$row[3]</td>";
+                                            }
+                                            echo "<td> $row[2]</td>";
+                                            echo "<td><a class='btn btn-primary' href='profile.php?id=$row[0]'>Show</a></td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>EID</th>
+                                            <th>Name</th>
+                                            <th>Role</th>
+                                            <th>Start date</th>
+                                            <th>Profile</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
-
-                        <div class="col-md-2">
-                            <label for="dob" class="form-label">Date Of Birth</label>
-                            <input type="date" class="form-control" id="dob" name="dob" />
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="gender" class="form-label">Gender</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked>
-                                <label class="form-check-label" for="male">
-                                  Male
-                                </label>
-                              </div>
-                              <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="female" value="female">
-                                <label class="form-check-label" for="female">
-                                  Female
-                                </label>
-                              </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="phoneno" class="form-label">Phone no.</label>
-                            <input type="text" class="form-control" id="phoneno" name="phoneno" required/>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="city" class="form-label">City</label>
-                            <input type="text" class="form-control" id="city" name="city" required/>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="state" class="form-label">State</label>
-                            <select class="form-select" id="state" name="state" required>
-                                <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                <option value="Assam">Assam</option>
-                                <option value="Bihar">Bihar</option>
-                                <option value="Chandigarh">Chandigarh</option>
-                                <option value="Chhattisgarh">Chhattisgarh</option>
-                                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
-                                <option value="Daman and Diu">Daman and Diu</option>
-                                <option value="Delhi">Delhi</option>
-                                <option value="Lakshadweep">Lakshadweep</option>
-                                <option value="Puducherry">Puducherry</option>
-                                <option value="Goa">Goa</option>
-                                <option value="Gujarat">Gujarat</option>
-                                <option value="Haryana">Haryana</option>
-                                <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                                <option value="Jharkhand">Jharkhand</option>
-                                <option value="Karnataka">Karnataka</option>
-                                <option value="Kerala">Kerala</option>
-                                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                <option value="Maharashtra">Maharashtra</option>
-                                <option value="Manipur">Manipur</option>
-                                <option value="Meghalaya">Meghalaya</option>
-                                <option value="Mizoram">Mizoram</option>
-                                <option value="Nagaland">Nagaland</option>
-                                <option value="Odisha">Odisha</option>
-                                <option value="Punjab">Punjab</option>
-                                <option value="Rajasthan">Rajasthan</option>
-                                <option value="Sikkim">Sikkim</option>
-                                <option value="Tamil Nadu">Tamil Nadu</option>
-                                <option value="Telangana">Telangana</option>
-                                <option value="Tripura">Tripura</option>
-                                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                <option value="Uttarakhand">Uttarakhand</option>
-                                <option value="West Bengal">West Bengal</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-2">
-                            <label for="pincode" class="form-label">Pincode</label>
-                            <input type="text" class="form-control" id="pincode" name="pincode" required/>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="inputEmail4" class="form-label">Date Of Joining</label>
-                            <input type="date" class="form-control" id="sdate" />
-                        </div>
-
-                        <div class="col-md-3">
-                            <label for="panno" class="form-label">PAN No.</label>
-                            <input type="text" class="form-control" id="panno" name="panno" required/>
-                            <div class="invalid-feedback">Please provide PAN No.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="bankac" class="form-label">Bank A/C</label>
-                            <input type="text" class="form-control" id="bankac" required/>
-                            <div class="invalid-feedback">Please provide a/c no..</div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <label for="ifsccode" class="form-label">IFSC Code</label>
-                            <input type="text" class="form-control" id="ifsccode" name="ifsccode" required/>
-                            <div class="invalid-feedback">Please provide ifsc no..</div>
-                        </div>
-
-                        <div class="col-10">
-                            <button class="btn btn-success" type="submit">Submit form</button>
-                        </div>
-
-                        <div class="col-2">
-                            <button class="btn btn-primary" type="reset">Reset</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -359,7 +283,6 @@
     <script src="./js/time.js"></script>
     <script>
         setInterval(updateClock, 1000 * 60);
-        document.getElementById('sdate').valueAsDate = new Date();//setting todays date as default value
     </script>
 </body>
 
