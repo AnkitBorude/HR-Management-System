@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body onload="viewdate()">
+<body onload="viewdate(),getTodaysData()">
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">

@@ -35,4 +35,19 @@ if ($_GET["type"] == "signin") {
     }
     pg_free_result($result);
 } else if ($_GET["type"] == "daydata") {
+    $date = $_GET["date"];
+    if ($result = pg_query($connection, "select fkemployee_id,attendance_id,attendance_sign_in,attendance_sign_out from Attendance where attendance_date = '$date'")) {
+        $array = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $array[] = $row;
+        }
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'data' => $array]));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
 }
+pg_close($connection);

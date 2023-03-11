@@ -5,8 +5,7 @@ function viewdate() {//userformat
     document.getElementById("date").innerHTML = currdate = today.toLocaleDateString();
     updateClock();
 }
-function getDBdate() {//returning date for db purpose
-    const today = new Date();
+function getDBdate(today) {//returning date for db purpose
     const yyyy = today.getFullYear();
     let mm = today.getMonth() + 1; // Months start at 0!
     let dd = today.getDate();
