@@ -49,5 +49,21 @@ if ($_GET["type"] == "signin") {
         echo (json_encode(['status' => 'error', 'message' => $error]));
     }
     pg_free_result($result);
+} else if ($_GET["type"] == "rangedata") {
+    $fromdate = $_GET["from"];
+    $todate = $_GET["to"];
+    if ($result = pg_query($connection, "select employee_id,employee_full_name,role_name, attendance_sign_in,attendance_sign_out,attendance_date from Attendance right join Employees on Attendance.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id and attendance_date between '$fromdate' and '$todate'")) {
+        $array = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $array[] = $row;
+        }
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'data' => $array]));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
 }
 pg_close($connection);

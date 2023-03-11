@@ -13,8 +13,6 @@ function signinUpdateDom(x, datetimeobj, attendid) {//taking id of row,date obje
     ptag.appendChild(node);
     signinspan.removeChild(btn);
     signinspan.appendChild(ptag);
-
-    var datetimeobj = new Date();
     var tdate = new Date();
     tdate.setHours(10, 00);//office time of start 10 AM
     if (datetimeobj.getHours() > tdate.getHours()) {
@@ -62,7 +60,6 @@ function signoutUpdateDom(x, datetimeobj) {
     const btn = signoutspan.firstChild;
     signoutspan.removeChild(btn);
     signoutspan.appendChild(ptag);
-    var datetimeobj = new Date();
     var closingdate = new Date();
     closingdate.setHours(17, 00);//closing time of start 17 PM
 
@@ -135,10 +132,10 @@ function addRemarkbatch(tablecolumn, remark) {
         spantagpresent.appendChild(present);
         tablecolumn.appendChild(spantagpresent);
     }
-    else if (remark == "overtime") {
+    else{
         const spantagovertime = document.createElement("span");
         spantagovertime.setAttribute("class", "badge text-dark bg-secondary");
-        const overtime = document.createTextNode("Overtime");
+        const overtime = document.createTextNode(remark);
         spantagovertime.appendChild(overtime);
         tablecolumn.appendChild(spantagovertime);
     }
@@ -181,11 +178,12 @@ async function getTodaysData() {
     let resultAsjson = await daydataresp.json();
     for (let i = 0; i < resultAsjson.data.length; i++) {
         var sidate = new Date(tdate + "T" + resultAsjson.data[i].attendance_sign_in);//converting db time to iso formate for constructing date object
+        signinUpdateDom(resultAsjson.data[i].fkemployee_id, sidate, resultAsjson.data[i].attendance_id);//passing values to update dom(signindom)
         if (resultAsjson.data[i].attendance_sign_out != null) {
             var sodate = new Date(tdate + "T" + resultAsjson.data[i].attendance_sign_out);
             signoutUpdateDom(resultAsjson.data[i].fkemployee_id, sodate);
         }
-        signinUpdateDom(resultAsjson.data[i].fkemployee_id, sidate, resultAsjson.data[i].attendance_id);//passing values to update dom(signindom)
+
     }
 
 }

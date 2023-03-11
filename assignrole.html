@@ -451,7 +451,7 @@
                     j++;
                 }
             }
-            if (CheckedCheckboxarray.length > 2 || CheckedCheckboxarray.length==1) {
+            if (CheckedCheckboxarray.length > 2 || CheckedCheckboxarray.length == 1) {
                 return false;
             }
             let tablerow1 = CheckedCheckboxarray[0].parentNode.parentNode;
@@ -479,7 +479,7 @@
         {
             let tablebody = document.getElementById("assignmentTable");
             let tablerow = document.createElement("tr");
-            for (let i = 0; i < args.length; i++) {
+            for (let i = 0; i < args.length; i++) {//looping through passed arguments
                 if (i == 0) {
                     let td = document.createElement("td");
                     let idtextdata = document.createTextNode((args[i][0].id).slice(3));
