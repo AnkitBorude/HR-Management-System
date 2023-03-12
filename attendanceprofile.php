@@ -15,12 +15,14 @@
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button>
             <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Human Resource Management
                 Software</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
+                aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="container-sm text-end text-white text-wrap fs-6">
@@ -30,7 +32,8 @@
             <div class="collapse navbar-collapse" id="topNavBar">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             <i class="bi bi-person-fill"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -46,7 +49,8 @@
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
         <div class="offcanvas-body p-0">
-            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp" class="img-thumbnail">
+            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp"
+                class="img-thumbnail">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <li>
@@ -247,7 +251,8 @@
                     </div>
 
                     <div class="col-md-2">
-                        <button class="btn btn-success" type="submit" onclick="event.preventDefault(),getData()">Submit</button>
+                        <button class="btn btn-success" type="submit"
+                            onclick="event.preventDefault(),getData()">Submit</button>
                     </div>
                     <div class="col-md-2">
                         <button class="btn btn-primary" type="reset">Reset</button>
@@ -308,160 +313,160 @@
     <script src="./js/time.js"></script>
     <script src="./js/attendance.js"></script>
     <script>
-        setInterval(updateClock, 1000 * 60);
-        async function getData() {
-            var sdate = document.getElementById("fromdate").value;
-            var fdate = document.getElementById("todate").value;
-            let dataresp = await fetch("/HR-Management-System/api/attendanceAPI.php?type=rangedata&from=" + sdate +
-                "&to=" + fdate);
-            let resultAsjson = await dataresp.json();
-            console.log(resultAsjson);
-            for (let i = 0; i < resultAsjson.data.length; i++) {
-                await createrow(resultAsjson.data[i]);
-            }
+    setInterval(updateClock, 1000 * 60);
+    async function getData() {
+        var sdate = document.getElementById("fromdate").value;
+        var fdate = document.getElementById("todate").value;
+        let dataresp = await fetch("/HR-Management-System/api/attendanceAPI.php?type=rangedata&from=" + sdate +
+            "&to=" + fdate);
+        let resultAsjson = await dataresp.json();
+        console.log(resultAsjson);
+        for (let i = 0; i < resultAsjson.data.length; i++) {
+            await createrow(resultAsjson.data[i]);
+        }
+    }
+
+
+    function createrow(jsonrow) {
+        var dtsiobject;
+        var dtsoobject;
+        var isSignined = false;
+        var isSignouted = false;
+        let tablebody = document.getElementById("datatable");
+        let tablerow = document.createElement("tr");
+
+        let td = document.createElement("td");
+        let idtextdata = document.createTextNode(jsonrow.employee_id);
+        td.appendChild(idtextdata);
+
+        let td2 = document.createElement("td");
+        let idtextdata2 = document.createTextNode(jsonrow.employee_full_name);
+        td2.appendChild(idtextdata2);
+
+        let td3 = document.createElement("td");
+        if (jsonrow.role_name != null) {
+            let idtextdata3 = document.createTextNode(jsonrow.role_name);
+            td3.appendChild(idtextdata3);
+        } else {
+            let idtextdata3 = document.createTextNode("Not Assigned");
+            td3.appendChild(idtextdata3);
         }
 
+        let td4 = document.createElement("td");
+        if (jsonrow.attendance_sign_in != null) {
+            var sidate = dtsiobject = new Date(jsonrow.attendance_date + "T" + jsonrow.attendance_sign_in);
+            let idtextdata4 = document.createTextNode(getUserformatTime(sidate));
+            isSignined = true;
+            td4.appendChild(idtextdata4);
 
-        function createrow(jsonrow) {
-            var dtsiobject;
-            var dtsoobject;
-            var isSignined = false;
-            var isSignouted = false;
-            let tablebody = document.getElementById("datatable");
-            let tablerow = document.createElement("tr");
-
-            let td = document.createElement("td");
-            let idtextdata = document.createTextNode(jsonrow.employee_id);
-            td.appendChild(idtextdata);
-
-            let td2 = document.createElement("td");
-            let idtextdata2 = document.createTextNode(jsonrow.employee_full_name);
-            td2.appendChild(idtextdata2);
-
-            let td3 = document.createElement("td");
-            if (jsonrow.role_name != null) {
-                let idtextdata3 = document.createTextNode(jsonrow.role_name);
-                td3.appendChild(idtextdata3);
-            } else {
-                let idtextdata3 = document.createTextNode("Not Assigned");
-                td3.appendChild(idtextdata3);
-            }
-
-            let td4 = document.createElement("td");
-            if (jsonrow.attendance_sign_in != null) {
-                var sidate = dtsiobject = new Date(jsonrow.attendance_date + "T" + jsonrow.attendance_sign_in);
-                let idtextdata4 = document.createTextNode(getUserformatTime(sidate));
-                isSignined = true;
-                td4.appendChild(idtextdata4);
-
-            } else {
-                let idtextdata4 = document.createTextNode("Absent");
-                td4.appendChild(idtextdata4);
-            }
-
-            let td5 = document.createElement("td");
-            if (jsonrow.attendance_sign_out != null) {
-                var sodate = dtsoobject = new Date(jsonrow.attendance_date + "T" + jsonrow.attendance_sign_out);
-                let idtextdata5 = document.createTextNode(getUserformatTime(sodate));
-                td5.appendChild(idtextdata5);
-                isSignouted = true;
-            } else {
-                let idtextdata5 = document.createTextNode("Absent");
-                td5.appendChild(idtextdata5);
-            }
-
-            let td6 = document.createElement("td");
-            if (jsonrow.attendance_date != null) {
-                date = new Date(jsonrow.attendance_date); //constructing date object directly from json data
-                let idtextdata6 = document.createTextNode(date.toLocaleDateString());
-                td6.appendChild(idtextdata6);
-            } else {
-                let idtextdata6 = document.createTextNode("Absent");
-                td6.appendChild(idtextdata6);
-            }
-            let td7 = document.createElement("td");
-            const spantaghalfda = document.createElement("span");
-            spantaghalfda.setAttribute("class", "badge text-dark bg-danger");
-            const halfda = document.createTextNode("Absent");
-            spantaghalfda.appendChild(halfda);
-            td7.appendChild(spantaghalfda);
-            td7.setAttribute("id", jsonrow.employee_id);
-            tablerow.appendChild(td);
-            tablerow.appendChild(td2);
-            tablerow.appendChild(td3);
-            tablerow.appendChild(td4);
-            tablerow.appendChild(td5);
-            tablerow.appendChild(td6);
-            tablerow.appendChild(td7);
-            tablebody.append(tablerow);
-            if (isSignined == true) {
-                addsiremarktotable(document.getElementById(jsonrow.employee_id), dtsiobject);
-            }
-            if (isSignouted == true) {
-                addsoremarktotable(document.getElementById(jsonrow.employee_id), dtsoobject);
-            }
+        } else {
+            let idtextdata4 = document.createTextNode("Absent");
+            td4.appendChild(idtextdata4);
         }
 
+        let td5 = document.createElement("td");
+        if (jsonrow.attendance_sign_out != null) {
+            var sodate = dtsoobject = new Date(jsonrow.attendance_date + "T" + jsonrow.attendance_sign_out);
+            let idtextdata5 = document.createTextNode(getUserformatTime(sodate));
+            td5.appendChild(idtextdata5);
+            isSignouted = true;
+        } else {
+            let idtextdata5 = document.createTextNode("Absent");
+            td5.appendChild(idtextdata5);
+        }
 
-        function addsiremarktotable(remark, datetimeobj) {
+        let td6 = document.createElement("td");
+        if (jsonrow.attendance_date != null) {
+            date = new Date(jsonrow.attendance_date); //constructing date object directly from json data
+            let idtextdata6 = document.createTextNode(date.toLocaleDateString());
+            td6.appendChild(idtextdata6);
+        } else {
+            let idtextdata6 = document.createTextNode("Absent");
+            td6.appendChild(idtextdata6);
+        }
+        let td7 = document.createElement("td");
+        const spantaghalfda = document.createElement("span");
+        spantaghalfda.setAttribute("class", "badge text-dark bg-danger");
+        const halfda = document.createTextNode("Absent");
+        spantaghalfda.appendChild(halfda);
+        td7.appendChild(spantaghalfda);
+        td7.setAttribute("id", jsonrow.employee_id + "" +
+            jsonrow.attendance_date);
+        tablerow.appendChild(td);
+        tablerow.appendChild(td2);
+        tablerow.appendChild(td3);
+        tablerow.appendChild(td4);
+        tablerow.appendChild(td5);
+        tablerow.appendChild(td6);
+        tablerow.appendChild(td7);
+        tablebody.append(tablerow);
+        if (isSignined == true) {
+            addsiremarktotable(document.getElementById(jsonrow.employee_id + "" + jsonrow.attendance_date), dtsiobject);
+        }
+        if (isSignouted == true) {
+            addsoremarktotable(document.getElementById(jsonrow.employee_id + "" +
+                jsonrow.attendance_date), dtsoobject);
+        }
+    }
 
-            console.log(datetimeobj);
-            console.log(datetimeobj.getHours());
-            var tdate = new Date();
-            tdate.setHours(10, 00); //office time of start 10 AM
-            if ((datetimeobj.getHours()) > tdate.getHours()) {
+
+    function addsiremarktotable(remark, datetimeobj) {
+
+        console.log(datetimeobj);
+        console.log(datetimeobj.getHours());
+        var tdate = new Date();
+        tdate.setHours(10, 00); //office time of start 10 AM
+        if ((datetimeobj.getHours()) > tdate.getHours()) {
+            removeRemark(remark);
+            addRemarkbatch(remark, "signin");
+            addRemarkbatch(remark, "late");
+        } else if (datetimeobj.getHours() == tdate.getHours()) {
+            if (datetimeobj.getMinutes() > tdate.getMinutes()) {
                 removeRemark(remark);
                 addRemarkbatch(remark, "signin");
                 addRemarkbatch(remark, "late");
-            } else if (datetimeobj.getHours() == tdate.getHours()) {
-                if (datetimeobj.getMinutes() > tdate.getMinutes()) {
-                    removeRemark(remark);
-                    addRemarkbatch(remark, "signin");
-                    addRemarkbatch(remark, "late");
 
-                } else {
-
-                    removeRemark(remark);
-                    addRemarkbatch(remark, "signin");
-                }
             } else {
 
                 removeRemark(remark);
                 addRemarkbatch(remark, "signin");
             }
+        } else {
+
+            removeRemark(remark);
+            addRemarkbatch(remark, "signin");
         }
+    }
 
-        function addsoremarktotable(remark, datetimeobj) {
+    function addsoremarktotable(remark, datetimeobj) {
 
-            var closingdate = new Date();
-            closingdate.setHours(17, 00); //closing time of start 17 PM
+        var closingdate = new Date();
+        closingdate.setHours(17, 00); //closing time of start 17 PM
 
-            if (datetimeobj.getHours() < closingdate.getHours()) {
+        if (datetimeobj.getHours() < closingdate.getHours()) {
 
+            removeRemark(remark);
+            removeRemark(remark);
+            addRemarkbatch(remark, "halfday");
+        } else if (datetimeobj.getHours() == closingdate.getHours()) {
+            if (datetimeobj.getMinutes() > closingdate.getMinutes() + 30) {
                 removeRemark(remark);
                 removeRemark(remark);
-                addRemarkbatch(remark, "halfday");
-            } else if (datetimeobj.getHours() == closingdate.getHours()) {
-                if (datetimeobj.getMinutes() > closingdate.getMinutes() + 30) {
-                    removeRemark(remark);
-                    removeRemark(remark);
-                    var totalot = getDifferenceeinHour(closingdate, datetimeobj);
-                    addRemarkbatch(remark, "overtime" + totalot);
-                    addRemarkbatch(remark, "present");
+                addRemarkbatch(remark, "overtime");
+                addRemarkbatch(remark, "present");
 
-                } else {
-                    //removeRemark(remark);
-                    removeRemark(remark);
-                    addRemarkbatch(remark, "present");
-                }
             } else {
+                //removeRemark(remark);
                 removeRemark(remark);
-                removeRemark(remark);
-                var totalot = getDifferenceeinHour(closingdate, datetimeobj);
-                addRemarkbatch(remark, "overtime " + totalot);
                 addRemarkbatch(remark, "present");
             }
+        } else {
+            removeRemark(remark);
+            removeRemark(remark);
+            addRemarkbatch(remark, "overtime");
+            addRemarkbatch(remark, "present");
         }
+    }
     </script>
 </body>
 
