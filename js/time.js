@@ -26,3 +26,8 @@ function getUserformatTime(datetimeobj) {
     let time = datetimeobj.toLocaleTimeString('en-US', { hour: "numeric", minute: "numeric" });
     return time;
 }
+function addDaystoDate(dateobj, totaldaystoadd) {
+    let dateCopy = new Date(dateobj);
+    dateCopy.setDate(dateobj.getDate() + totaldaystoadd);
+    return dateCopy;
+}

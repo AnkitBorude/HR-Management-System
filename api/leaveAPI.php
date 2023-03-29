@@ -62,6 +62,32 @@ if ($_GET["type"] == "leavebalance") {
         header("Content-type:application/json");
         echo (json_encode(['status' => 'success', 'data' => $array]));
     }
+} else if ($_GET["type"] == "leavedata") {
+    $date = $_GET["date"];
+    $tommorrow = $_GET["tommorrow"];
+    if ($result = pg_query($connection, "select employee_full_name as ename,role_name as role,leave_type,leave_reason,leave_applied_date,fkemployee_id as emp_id from Leave right join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id where '$date' >= leave_start_date and '$date'<=leave_end_date;")) {
+        $array = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $array[] = $row;
+        }
+        $result = pg_query($connection, "select count(*) from Leave right join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id where '$date' >= leave_start_date and '$date'<=leave_end_date");
+        $todaytotal = pg_fetch_row($result);
+
+        $result = pg_query($connection, "select count(*) from Leave where '$tommorrow' >= leave_start_date and '$tommorrow'<=leave_end_date");
+        $tommorrowtot = pg_fetch_row($result);
+
+        $result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_type='cl'");
+        $cltotal = pg_fetch_row($result);
+
+        $result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_type='sl'");
+        $sltotal = pg_fetch_row($result);
+
+        $result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_type='el'");
+        $eltotal = pg_fetch_row($result);
+
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'data' => $array, 'todaytotal' => $todaytotal[0], 'tommorrowtotal' => $tommorrowtot[0], 'cltotal' => $cltotal[0], 'eltotal' => $eltotal[0], 'sltotal' => $sltotal[0]]));
+    }
 }
 
 pg_close($connection);

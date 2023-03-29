@@ -17,7 +17,7 @@
     </style>
 </head>
 
-<body onload="viewdate()">
+<body onload="viewdate(),getTodaysLeaves()">
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
@@ -231,7 +231,7 @@
                   ;">
                         <h5 class="card-header">Today On Leave</h5>
                         <div class="card-body">
-                            <div class="card-text fs-2 fw-bold ">56</div>
+                            <div class="card-text fs-2 fw-bold " id="tdol">0</div>
                         </div>
                     </div>
                 </div>
@@ -239,7 +239,7 @@
                     <div class="card text-dark h-100 text-center bg-warning">
                         <h5 class="card-header">Tommorrow On Leave</h5>
                         <div class="card-body">
-                            <div class="card-text fs-2 fw-bold">56</div>
+                            <div class="card-text fs-2 fw-bold" id="tmol">0</div>
                         </div>
                     </div>
                 </div>
@@ -247,7 +247,7 @@
                     <div class="card text-dark h-100 text-center bg-secondary">
                         <h5 class="card-header">Sick Leave Today</h5>
                         <div class="card-body">
-                            <div class="card-text fs-2 fw-bold">100 %</div>
+                            <div class="card-text fs-2 fw-bold" id="slt">0</div>
                         </div>
                     </div>
                 </div>
@@ -255,7 +255,7 @@
                     <div class="card text-dark h-100 text-center bg-primary">
                         <h5 class="card-header">Casual Leave Today</h5>
                         <div class="card-body">
-                            <div class="card-text fs-2 fw-bold">10 Hr</div>
+                            <div class="card-text fs-2 fw-bold" id="clt">0</div>
                         </div>
                     </div>
                 </div>
@@ -263,14 +263,14 @@
                     <div class="card text-dark h-100 text-center bg-primary">
                         <h5 class="card-header">Privilege Leave Today</h5>
                         <div class="card-body">
-                            <div class="card-text fs-2 fw-bold">10 Hr</div>
+                            <div class="card-text fs-2 fw-bold" id="elt">0</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="row">
-                    <h3 class="hw-3">Leave Report</h3>
+                    <h3 class="hw-3">Leave Report or Cancel Leave</h3>
                 </div>
 
                 <form class="row g-3 justify-content-center row-cols-auto h-25">
@@ -345,56 +345,16 @@
                                                 <th>Specified Reasons</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-                                                <td>2011/07/25</td>
-                                                <td>$170,750</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ashton Cox</td>
-                                                <td>Junior Technical Author</td>
-                                                <td>San Francisco</td>
-                                                <td>66</td>
-                                                <td>2009/01/12</td>
-                                                <td>$86,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cedric Kelly</td>
-                                                <td>Senior Javascript Developer</td>
-                                                <td>Edinburgh</td>
-                                                <td>22</td>
-                                                <td>2012/03/29</td>
-                                                <td>$433,060</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Airi Satou</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>33</td>
-                                                <td>2008/11/28</td>
-                                                <td>$162,700</td>
-                                            </tr>
+                                        <tbody id="leavetablebodytoday">
+
                                         </tbody>
                                         <tfoot>
                                             <tr>
+                                                <th>Employee Id</th>
                                                 <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>POsition</th>
+                                                <th>Type</th>
+                                                <th>Specified Reasons</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -419,62 +379,36 @@
                                             <tr>
                                                 <th>Employee Id</th>
                                                 <th>Name</th>
-                                                <th>POsition</th>
                                                 <th>Total EL </th>
                                                 <TH>Total CL</TH>
                                                 <th>Total SL</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-                                                <td>2011/07/25</td>
-                                                <td>$170,750</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ashton Cox</td>
-                                                <td>Junior Technical Author</td>
-                                                <td>San Francisco</td>
-                                                <td>66</td>
-                                                <td>2009/01/12</td>
-                                                <td>$86,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cedric Kelly</td>
-                                                <td>Senior Javascript Developer</td>
-                                                <td>Edinburgh</td>
-                                                <td>22</td>
-                                                <td>2012/03/29</td>
-                                                <td>$433,060</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Airi Satou</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>33</td>
-                                                <td>2008/11/28</td>
-                                                <td>$162,700</td>
-                                            </tr>
+                                            <?php
+                                            $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                                            $result = pg_query($connection, "select employee_id,employee_full_name,employee_el_balance,employee_cl_balance,employee_sl_balance from Employees;");
+                                            while ($row = pg_fetch_row($result)) {
+                                                echo "<tr>";
+                                                echo "<td> $row[0]</td>";
+                                                $array = explode(" ", $row[1]);
+                                                echo "<td> $array[0]  $array[2]</td>";
+                                                echo "<td>$row[2]</td>";
+                                                echo "<td> $row[3]</td>";
+                                                echo "<td> $row[4]</td>";
+                                                echo "</tr>";
+                                            }
+                                            pg_free_result($result);
+                                            pg_close($connection);
+                                            ?>
                                         </tbody>
                                         <tfoot>
                                             <tr>
+                                                <th>Employee Id</th>
                                                 <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>Total EL </th>
+                                                <TH>Total CL</TH>
+                                                <th>Total SL</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -501,7 +435,6 @@
             let dataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=rangedata&from=" + sdate +
                 "&to=" + fdate);
             let resultAsjson = await dataresp.json();
-            console.log(resultAsjson);
             for (let i = 0; i < resultAsjson.data.length; i++) {
                 updateLeaveTable(resultAsjson.data[i]);
             }
@@ -562,6 +495,55 @@
             tablerow.appendChild(td7);
             tablerow.appendChild(td8);
             tablebody.append(tablerow);
+        }
+        async function getTodaysLeaves() {
+            let today = getDBdate(new Date());
+            let tommorrow = getDBdate(addDaystoDate(new Date(), 1)); //tommorrows date
+            let dataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=leavedata&date=" + today + "&tommorrow=" + tommorrow);
+            let resultAsjson = await dataresp.json();
+            let tablebody = document.getElementById("leavetablebodytoday");
+            console.log(resultAsjson);
+
+            for (let i = 0; i < resultAsjson.data.length; i++) {
+                const tablerow = document.createElement("tr");
+
+                let td = document.createElement("td");
+                let idtextdata = document.createTextNode(resultAsjson.data[i].emp_id);
+                td.appendChild(idtextdata);
+
+                let td1 = document.createElement("td");
+                let idtextdata1 = document.createTextNode(resultAsjson.data[i].ename);
+                td1.appendChild(idtextdata1);
+
+                let td2 = document.createElement("td");
+                if (resultAsjson.data[i].role != null) {
+                    let idtextdata2 = document.createTextNode(resultAsjson.data[i].role);
+                    td2.appendChild(idtextdata2);
+                } else {
+                    let idtextdata2 = document.createTextNode("Not Assigned");
+                    td2.appendChild(idtextdata2);
+                }
+
+                let td3 = document.createElement("td");
+                let idtextdata3 = document.createTextNode(resultAsjson.data[i].leave_type);
+                td3.appendChild(idtextdata3);
+
+                let td4 = document.createElement("td");
+                let idtextdata4 = document.createTextNode(resultAsjson.data[i].leave_reason);
+                td4.appendChild(idtextdata4);
+
+                tablerow.appendChild(td);
+                tablerow.appendChild(td1);
+                tablerow.appendChild(td2);
+                tablerow.appendChild(td3);
+                tablerow.appendChild(td4);
+                tablebody.append(tablerow);
+            }
+            document.getElementById("tdol").innerHTML = resultAsjson.todaytotal;
+            document.getElementById("tmol").innerHTML = resultAsjson.tommorrowtotal;
+            document.getElementById("slt").innerHTML = resultAsjson.sltotal;
+            document.getElementById("elt").innerHTML = resultAsjson.eltotal;
+            document.getElementById("clt").innerHTML = resultAsjson.cltotal;
         }
     </script>
 </body>
