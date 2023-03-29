@@ -479,13 +479,20 @@
             let idtextdata7 = document.createTextNode(jsonrow.leave_total_days);
             td7.appendChild(idtextdata7);
 
+            let dt = new Date(jsonrow.leave_start_date);
             let td8 = document.createElement("td");
-            let dbutton = document.createElement("button");
-            dbutton.setAttribute("class", "btn btn-danger");
-            dbutton.setAttribute("onclick", "cancelLeave(this.parentNode.parentNode.id)")
-            const text = document.createTextNode("Cancel");
-            dbutton.appendChild(text);
-            td8.appendChild(dbutton);
+            if (dt > new Date()) {//user would not be able to delete the levae if it currently under taken
+
+                let dbutton = document.createElement("button");
+                dbutton.setAttribute("class", "btn btn-danger");
+                dbutton.setAttribute("onclick", "cancelLeave(this.parentNode.parentNode.id)")
+                const text = document.createTextNode("Cancel");
+                dbutton.appendChild(text);
+                td8.appendChild(dbutton);
+            } else {
+                let txt = document.createTextNode("On Leave");
+                td8.appendChild(txt);
+            }
             tablerow.appendChild(td);
             tablerow.appendChild(td2);
             tablerow.appendChild(td3);
@@ -502,8 +509,6 @@
             let dataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=leavedata&date=" + today + "&tommorrow=" + tommorrow);
             let resultAsjson = await dataresp.json();
             let tablebody = document.getElementById("leavetablebodytoday");
-            console.log(resultAsjson);
-
             for (let i = 0; i < resultAsjson.data.length; i++) {
                 const tablerow = document.createElement("tr");
 
@@ -544,6 +549,17 @@
             document.getElementById("slt").innerHTML = resultAsjson.sltotal;
             document.getElementById("elt").innerHTML = resultAsjson.eltotal;
             document.getElementById("clt").innerHTML = resultAsjson.cltotal;
+        }
+
+        async function cancelLeave(id) {
+            let tablerow = document.getElementById(id);
+            let tablebody = document.getElementById("leavetablebody");
+            let leavetype = tablerow.getElementsByTagName("td")[3].innerHTML;
+            let totaldays = parseInt(tablerow.getElementsByTagName("td")[6].innerHTML);
+            let eid = parseInt(tablerow.getElementsByTagName("td")[0].innerHTML);
+            let dataresponse = await fetch("/HR-Management-System/api/leaveAPI.php?type=deleteleave&leaveid=" + id + "&leavetype=" + leavetype + "&totaldays=" + totaldays + "&eid=" + eid);
+            let rowtobedeleted = document.getElementById(id);
+            tablebody.removeChild(rowtobedeleted);
         }
     </script>
 </body>
