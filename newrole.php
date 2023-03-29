@@ -15,14 +15,12 @@
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                aria-controls="offcanvasExample">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button>
             <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Human Resource Management
                 Software</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-                aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="container-sm text-end text-white text-wrap fs-6">
@@ -32,8 +30,7 @@
             <div class="collapse navbar-collapse" id="topNavBar">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-fill"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -49,8 +46,7 @@
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
         <div class="offcanvas-body p-0">
-            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp"
-                class="img-thumbnail">
+            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp" class="img-thumbnail">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <li>
@@ -241,11 +237,17 @@
                     <div class="form-floating">
                         <select class="form-select" id="department">
                             <option value="0" selected>None</option>
-                            <option value="1">Fianance & Accounting</option>
-                            <option value="2">Production & Testing</option>
-                            <option value="3">HR</option>
-                            <option value="4">Sales & Marketing</option>
-                            <option value="5">Support</option>
+                            <?php
+                            $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                            $result = pg_query($connection, "select department_id,department_name from Department");
+                            while ($row = pg_fetch_row($result)) {
+                                echo "<option value=$row[0]>";
+                                echo "$row[1]";
+                                echo "</option>";
+                            }
+                            pg_free_result($result);
+                            pg_close($connection);
+                            ?>
                         </select>
                         <label for="floatingSelectGrid">Name of Department</label>
                     </div>
@@ -264,8 +266,7 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-success me-md-2" type="submit"
-                        onclick="event.preventDefault(),createNewRole()">Create</button>
+                    <button class="btn btn-success me-md-2" type="submit" onclick="event.preventDefault(),createNewRole()">Create</button>
                     <button class="btn btn-primary" type="reset">Reset</button>
                 </div>
             </form>
@@ -277,8 +278,7 @@
                     <div class="accordion" id="mainaccor">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     Fianance & Accounting
                                 </button>
                             </h2>
@@ -291,8 +291,7 @@
 
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     Production & Testing
                                 </button>
                             </h2>
@@ -303,8 +302,7 @@
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                     Human Resource Management
                                 </button>
                             </h2>
@@ -316,8 +314,7 @@
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                     Sales & Marketing
                                 </button>
                             </h2>
@@ -330,8 +327,7 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingFive">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                 Support
                             </button>
                         </h2>
@@ -339,8 +335,7 @@
                             <div class="accordion-body" id="5">
                                 <div class="row">
                                     <div class="col-md-8">HIII</div>
-                                    <div class="col-md-2"><button class="btn btn-warning"
-                                            onclick="deleteRole(this)">Delete</button></div>
+                                    <div class="col-md-2"><button class="btn btn-warning" onclick="deleteRole(this)">Delete</button></div>
                                 </div>
                             </div>
                         </div>
@@ -360,19 +355,26 @@
     <script>
         setInterval(updateClock, 1000 * 60);
         var totalroles = 0;
+
         function createNewRole() {
             let rolename = document.getElementById("rolename").value;
-            let department = document.getElementById("department").value;
+            let department = document.getElementById("department").selectedOptions[0];
             let basesalary = document.getElementById("bsalary").value;
             let maxreq = document.getElementById("maxreq").value;
-            totalroles++;
+            totalroles = parseInt(maxreq) + totalroles;
+
             document.getElementById("total").innerHTML = totalroles;
-            updateAccordion(department, rolename);
+            console.log(department.id);
+            updateAccordion(parseInt(department.value) % 100, rolename, maxreq);
+
             //space for ajax
         }
-        function updateAccordion(dep, rolename) {
+
+        function updateAccordion(dep, rolename, totalroles) {
+            console.log(dep);
+            console.log(rolename);
             let row = document.createElement("div");
-            row.setAttribute("class", "row");
+            row.setAttribute("class", "row mt-2");
             let col1 = document.createElement("div");
             col1.setAttribute("class", "col-md-8");
 
@@ -381,12 +383,14 @@
 
             let dltbtn = document.createElement("button");
             dltbtn.setAttribute("class", "btn btn-warning");
-            dltbtn.setAttribute("onclick","deleteRole(this)");
+            dltbtn.setAttribute("onclick", "deleteRole(this)");
             let deleteText = document.createTextNode("Delete");
             dltbtn.appendChild(deleteText);
             col2.appendChild(dltbtn);
             let role = document.createTextNode(rolename);
+            let totalroless = document.createTextNode(" Total Roles:- " + totalroles);
             col1.appendChild(role);
+            col1.appendChild(totalroless);
             row.appendChild(col1);
             row.appendChild(col2);
             if (dep != "0") {
@@ -394,13 +398,14 @@
             }
 
         }
-        function deleteRole(buttonEvent)//role+id
+
+        function deleteRole(buttonEvent) //role+id
         {
-            let rowElement=buttonEvent.parentNode.parentNode;
-            let mainAcBody=rowElement.parentNode;
+            let rowElement = buttonEvent.parentNode.parentNode;
+            let mainAcBody = rowElement.parentNode;
             mainAcBody.removeChild(rowElement);
             totalroles--;
-            document.getElementById("total").innerHTML=totalroles;
+            document.getElementById("total").innerHTML = totalroles;
             //tracking parent from the button on which the event has been happened
         }
     </script>
