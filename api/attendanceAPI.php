@@ -1,7 +1,7 @@
 <?php
 //requested handled only sign in sign out daydata
 $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
-if ($_GET["type"] == "signin") {
+if ($_GET["type"] == "signin") {//signing in and returning attendid
     $empid = $_GET["empid"];
     $date = $_GET["date"];
     $signintime = $_GET["signintime"];

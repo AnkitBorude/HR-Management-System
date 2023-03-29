@@ -15,14 +15,12 @@
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                aria-controls="offcanvasExample">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button>
             <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Human Resource Management
                 Software</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-                aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="container-sm text-end text-white text-wrap fs-6">
@@ -32,8 +30,7 @@
             <div class="collapse navbar-collapse" id="topNavBar">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-fill"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -49,8 +46,7 @@
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
         <div class="offcanvas-body p-0">
-            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp"
-                class="img-thumbnail">
+            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp" class="img-thumbnail">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <li>
@@ -227,88 +223,99 @@
                 <h3 class="fw-bold fs-2">Leave Form</h3>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <form class="row g-3mb-5" id="lform">
-                        <div class="col-md-4">
-                            <label for="EID" class="form-label">Employee Id</label>
-                            <input type="text" class="form-control" id="eid" required="" />
-                            <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="name" class="form-label">Employee name</label>
-                            <select class="form-select" id="ename" required="">
-                                <option>Choose</option>
-                                <option>...</option>
-                            </select>
-                            <div class="invalid-feedback">Please select a valid</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="leavetypet" class="form-label">Type Of Leave</label>
-                            <select class="form-select" id="leavetype" required="">
-                                <option>Earned Leave(EL)</option>
-                                <option>Casual Leave(CL)</option>
-                                <option>Sick Leave(SL)</option>
-                            </select>
-                            <div class="invalid-feedback">Please select a valid</div>
-                        </div>
-                        <div class="col-md-2 mt-2">
-                            <label for="sdate" class="form-label">From</label>s
-                            <input type="date" class="form-control" id="sdate" />
-                        </div>
-                        <div class="col-md-2 mt-2">
-                            <label for="tdate" class="form-label">To</label>
-                            <input type="date" class="form-control" id="tdate" onchange="getDaysDifference()" />
-                        </div>
-                        <div class="col-md-2 mt-2">
-                            <label for="totaldays" class="form-label">Total Days</label>
-                            <input type="number" class="form-control" id="totaldays" disabled />
-                        </div>
-                        <div class="col-md-8">
-                            <label for="reasons" class="form-label">Reasons</label>
-                            <textarea class="form-control" id="reasons" rows="3"></textarea>
-                        </div>
-                        <div class="col-3 mt-4">
-                            <button class="btn btn-success" type="submit"
-                                onclick="event.preventDefault(), addRecordleave()">Apply</button>
-                        </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="row g-3 needs-validation mb-5" id="lform">
+                                <div class="col-md-4">
+                                    <label for="name" class="form-label">Employee name</label>
+                                    <select class="form-select" id="ename" onchange=" selectedid(),setMaximumdate()" required>
+                                        <option id=0>Choose</option>
+                                        <?php
+                                        $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                                        $result = pg_query($connection, "select employee_id,employee_full_name from Employees");
+                                        while ($row = pg_fetch_row($result)) {
+                                            echo "<option id='$row[0]'>";
+                                            $array = explode(" ", $row[1]);
+                                            echo "<td> $array[0]  $array[2]</option>";
+                                        }
+                                        pg_free_result($result);
+                                        pg_close($connection);
+                                        ?>
+                                    </select>
+                                    <div class="invalid-feedback">Please select a valid</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="leavetypet" class="form-label">Type Of Leave</label>
+                                    <select class="form-select" id="leavetype" onchange="setMaximumdate()" required>
+                                        <option id="el">Earned Leave(EL)</option>
+                                        <option id="cl">Casual Leave(CL)</option>
+                                        <option id="sl">Sick Leave(SL)</option>
+                                    </select>
+                                    <div class=" invalid-feedback">Please select a valid
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mt-2">
+                                    <label for="sdate" class="form-label">From</label>s
+                                    <input type="date" class="form-control" id="sdate" onchange="setMaximumdate()" required />
+                                </div>
+                                <div class="col-md-2 mt-2">
+                                    <label for="tdate" class="form-label">To</label>
+                                    <input type="date" class="form-control" id="tdate" onchange="getDaysDifference()" required />
+                                </div>
+                                <div class=" col-md-2 mt-2">
+                                    <label for="totaldays" class="form-label">Total Days</label>
+                                    <input type="number" class="form-control" id="totaldays" max="30" required disabled />
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="reasons" class="form-label">Reasons</label>
+                                    <textarea class="form-control" id="reasons" rows="3" required></textarea>
+                                </div>
+                                <div class="col-3 mt-4">
+                                    <button class="btn btn-success" type="submit" onclick="event.preventDefault(), addRecordleave()">Apply</button>
+                                </div>
 
-                        <div class="col-1 mt-4">
-                            <button class="btn btn-primary" type="reset">Reset</button>
+                                <div class="col-1 mt-4">
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row mt-2">
+                        <h3 class="fw-bold fs-4">Balance</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mt-3" id="cards">
+                            <div class="card text-dark text-center bg-info" style="width:4rem;height:5rem">
+                                <h5 class="card-header">EL</h5>
+                                <div class="card-body">
+                                    <div class="card-text fw-bold" id="elbalance">0</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-md-4 mt-3" id="cards">
+                            <div class="card text-dark text-center bg-success" style="width:4rem;height:5rem">
+                                <h5 class="card-header">CL</h5>
+                                <div class="card-body">
+                                    <div class="card-text fw-bold" id="clbalance">0</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-3" id="cards">
+                            <div class="card text-dark text-center bg-primary" style="width:4rem;height:5rem">
+                                <h5 class="card-header">SL</h5>
+                                <div class="card-body">
+                                    <div class="card-text fw-bold" id="slbalance">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row mt-5">
-                <h3 class="fw-bold fs-4">Current Balance of Selected Employee</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-4 mt-3" id="cards" style="width:10rem;height:5rem">
-                    <div class="card text-darktext-center bg-warning">
-                        <h5 class="card-header">EL</h5>
-                        <div class="card-body">
-                            <div class="card-text fw-bold">0</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mt-3" id="cards" style="width:10rem;height:5rem">
-                    <div class="card text-darktext-center bg-warning">
-                        <h5 class="card-header">CL</h5>
-                        <div class="card-body">
-                            <div class="card-text fw-bold">0</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mt-3" id="cards" style="width:8rem;height:5rem">
-                    <div class="card text-darktext-center bg-warning">
-                        <h5 class="card-header">SL</h5>
-                        <div class="card-body">
-                            <div class="card-text fw-bold">0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-5">
-                <h3 class="fw-bold fs-2">Recent Leave Applications</h3>
+                <h3 class="fw-bold fs-3">Recent Leave Applications</h3>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12 mb-3">
@@ -323,63 +330,24 @@
                                         <tr>
                                             <th>Employee Id</th>
                                             <th>Employee Name</th>
+                                            <th>Leave Type</th>
                                             <th>Start date</th>
                                             <th>End date</th>
                                             <th>Total Days</th>
-                                            <th>Types</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody id="leavetablebody">
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012/03/29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>33</td>
-                                            <td>2008/11/28</td>
-                                            <td>$162,700</td>
-                                        </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
+                                            <th>Employee Id</th>
+                                            <th>Employee Name</th>
+                                            <th>Leave Type</th>
                                             <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>End date</th>
+                                            <th>Total Days</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -400,7 +368,9 @@
     <script src="./js/time.js"></script>
     <script>
         setInterval(updateClock, 1000 * 60);
-        document.getElementById('sdate').valueAsDate = new Date();//setting todays date as default value
+        document.getElementById('sdate').valueAsDate = new Date(); //setting todays date as default value
+        document.getElementById('sdate').setAttribute("min", getDBdate(new Date()));
+        document.getElementById('tdate').setAttribute("min", getDBdate(new Date()));
 
         function getDaysDifference() {
             var date1 = new Date(document.getElementById("sdate").value);
@@ -414,28 +384,37 @@
             var days = diff.getDate();
             document.getElementById('totaldays').value = days;
         }
-        function addRecordleave() {
-            let eid = document.getElementById("eid").value;
+
+        async function addRecordleave() {
+            let eid = document.getElementById("ename").selectedOptions[0].id;
+            let leaveid = 0;
             let ename = document.getElementById("ename").value;
-            let leavetype = document.getElementById("leavetype").value;
+            let leavetype = document.getElementById("leavetype").selectedOptions[0].id;
             let sdate = document.getElementById("sdate").value;
             let tdate = document.getElementById("tdate").value;
             let totaldays = document.getElementById("totaldays").value;
             let reasons = document.getElementById("reasons").value;
-            updateLeaveTable(eid, ename, leavetype, sdate, tdate, totaldays, reasons);
+            let applieddate = getDBdate(new Date());
+            let dataresponse = await fetch("/HR-Management-System/api/leaveAPI.php?type=newleave&eid=" + eid +
+                "&leavetype=" + leavetype + "&sdate=" + sdate + "&tdate=" + tdate + "&applieddate=" + applieddate + "&totaldays=" + totaldays + "&reasons=" + reasons);
+            let resjson = await dataresponse.json();
+            if (resjson.status == "success") {
+                leaveid = resjson.leaveid;
+                updateLeaveTable(leaveid, eid, ename, leavetype, sdate, tdate, totaldays);
+            }
 
         }
+
         function updateLeaveTable(...args) {
             let tablebody = document.getElementById("leavetablebody");
             const trow = document.createElement("tr");
-            trow.setAttribute("id", "" + args[0] + "/" + args[3]);//embeeding id of row as eid and date of leave
-            for (let i = 0; i < args.length + 1; i++) {
+            trow.setAttribute("id", args[0]); //embedding leave id
+            for (let i = 1; i < args.length + 1; i++) {
                 const tdata = document.createElement("td");
                 if (i < args.length) {
                     let data = document.createTextNode(args[i]);
                     tdata.appendChild(data);
-                }
-                else {
+                } else {
                     let dbutton = document.createElement("button");
                     dbutton.setAttribute("class", "btn btn-danger");
                     dbutton.setAttribute("onclick", "cancelLeave(this.parentNode.parentNode.id)")
@@ -447,11 +426,37 @@
                 tablebody.appendChild(trow);
             }
         }
-        function cancelLeave(id) {
+
+        async function cancelLeave(id) {
             console.log(id);
             let tablebody = document.getElementById("leavetablebody");
             let rowtobedeleted = document.getElementById(id);
             tablebody.removeChild(rowtobedeleted);
+        }
+
+        async function selectedid() {
+            console.log("selected");
+            let eid = document.getElementById("ename").selectedOptions[0].id;
+            console.log(eid);
+            let dataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=leavebalance&empid=" + eid);
+            let resultAsjson = await dataresp.json();
+            let elbalance = document.getElementById("elbalance");
+            let clbalance = document.getElementById("clbalance");
+            let slbalance = document.getElementById("slbalance");
+            elbalance.innerHTML = resultAsjson.balance.employee_el_balance;
+            clbalance.innerHTML = resultAsjson.balance.employee_cl_balance;
+            slbalance.innerHTML = resultAsjson.balance.employee_sl_balance;
+        }
+
+        function setMaximumdate() {
+            let stype = document.getElementById("leavetype").selectedOptions[0].id;
+            let balance = document.getElementById(stype + "balance").innerHTML;
+            let sdate = document.getElementById('sdate');
+            let startdate = new Date(sdate.value);
+            const dateCopy = new Date(startdate);
+            dateCopy.setDate(startdate.getDate() + parseInt(balance) - 1);
+            let fdate = document.getElementById("tdate");
+            fdate.setAttribute("max", getDBdate(dateCopy));
         }
     </script>
 </body>
