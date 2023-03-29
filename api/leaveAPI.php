@@ -34,6 +34,17 @@ if ($_GET["type"] == "leavebalance") {
         echo (json_encode(['status' => 'error', 'message' => $error]));
     }
     pg_free_result($result);
+} else if ($_GET["type"] == "deleteleave") {
+    $empid = $_GET["empid"];
+    if ($result = pg_query($connection, "")) {
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'message' => 'deleted']));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
 }
 pg_close($connection);
 

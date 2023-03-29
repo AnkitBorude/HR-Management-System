@@ -401,6 +401,7 @@
             if (resjson.status == "success") {
                 leaveid = resjson.leaveid;
                 updateLeaveTable(leaveid, eid, ename, leavetype, sdate, tdate, totaldays);
+
             }
 
         }
@@ -425,6 +426,9 @@
                 trow.appendChild(tdata);
                 tablebody.appendChild(trow);
             }
+            let balance = document.getElementById(args[3] + "balance");
+            let oldvalue = parseInt(balance.innerHTML);
+            balance.innerHTML = oldvalue - parseInt(args[6]);
         }
 
         async function cancelLeave(id) {
