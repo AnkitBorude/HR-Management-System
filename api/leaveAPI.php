@@ -35,8 +35,14 @@ if ($_GET["type"] == "leavebalance") {
     }
     pg_free_result($result);
 } else if ($_GET["type"] == "deleteleave") {
-    $empid = $_GET["empid"];
-    if ($result = pg_query($connection, "")) {
+    $leaveid = $_GET["leaveid"];
+    $leavetype = $_GET["leavetype"];
+    $totaldays = $_GET["totaldays"];
+    $eid = $_GET["eid"];
+
+    if ($result = pg_query($connection, "delete from Leave where leave_id=$leaveid")) {
+        $balanceof = "employee_" . $leavetype . "_balance";
+        pg_query($connection, "update Employees set $balanceof = $balanceof + $totaldays where employee_id= $eid");
         header("Content-type:application/json");
         echo (json_encode(['status' => 'success', 'message' => 'deleted']));
     } else {
@@ -45,7 +51,19 @@ if ($_GET["type"] == "leavebalance") {
         echo (json_encode(['status' => 'error', 'message' => $error]));
     }
     pg_free_result($result);
+} else if ($_GET["type"] == "rangedata") {
+    $fromdate = $_GET["from"];
+    $todate = $_GET["to"];
+    if ($result = pg_query($connection, "select employee_full_name,leave_id,role_name,leave_type,leave_start_date,leave_end_date,leave_total_days,leave_applied_date,fkemployee_id as emp_id from Leave right join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id and leave_start_date between '$fromdate' and '$todate'")) {
+        $array = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $array[] = $row;
+        }
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'data' => $array]));
+    }
 }
+
 pg_close($connection);
 
 //leave_id | leave_type | leave_start_date | leave_end_date | leave_total_days | leave_reason | leave_applied_date | fkemployee_id

@@ -21,14 +21,12 @@
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                aria-controls="offcanvasExample">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button>
             <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Human Resource Management
                 Software</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-                aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="container-sm text-end text-white text-wrap fs-6">
@@ -38,8 +36,7 @@
             <div class="collapse navbar-collapse" id="topNavBar">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-fill"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -55,8 +52,7 @@
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
         <div class="offcanvas-body p-0">
-            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp"
-                class="img-thumbnail">
+            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp" class="img-thumbnail">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <li>
@@ -279,9 +275,10 @@
 
                 <form class="row g-3 justify-content-center row-cols-auto h-25">
                     <div class=" col-md-2 input-group">
-                        <input type="date" class="form-control" placeholder="Choose a Date" aria-label="Choose Date">
-                        <button class="btn btn-outline-primary" type="button">Search</button>
-                        <button class="btn btn-outline-secondary" type="button">reset</button>
+                        <input type="date" class="form-control" placeholder="Choose a Date" aria-label="Choose Date" id="sdate">
+                        <input type="date" class="form-control" placeholder="Choose a Date" aria-label="Choose Date" id="tdate">
+                        <button class="btn btn-outline-primary" type="submit" onclick="event.preventDefault(),search()">Search</button>
+                        <button class="btn btn-outline-secondary" type="reset">reset</button>
                     </div>
                 </form>
 
@@ -297,65 +294,30 @@
                                         <thead>
                                             <tr>
                                                 <th>Employee Id</th>
-                                                <th>Name</th>
-                                                <th>POsition</th>
-                                                <th>Start date</th>
-                                                <th>End Date</th>
+                                                <th>Employee Name</th>
+                                                <th>Role Name</th>
                                                 <th>Leave Type</th>
+                                                <th>Start date</th>
+                                                <th>End date</th>
+                                                <th>Total Days</th>
+                                                <th>Delete</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>63</td>
-                                                <td>2011/07/25</td>
-                                                <td>$170,750</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ashton Cox</td>
-                                                <td>Junior Technical Author</td>
-                                                <td>San Francisco</td>
-                                                <td>66</td>
-                                                <td>2009/01/12</td>
-                                                <td>$86,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cedric Kelly</td>
-                                                <td>Senior Javascript Developer</td>
-                                                <td>Edinburgh</td>
-                                                <td>22</td>
-                                                <td>2012/03/29</td>
-                                                <td>$433,060</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Airi Satou</td>
-                                                <td>Accountant</td>
-                                                <td>Tokyo</td>
-                                                <td>33</td>
-                                                <td>2008/11/28</td>
-                                                <td>$162,700</td>
-                                            </tr>
+                                        <tbody id="leavetablebody">
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
+                                                <th>Employee Id</th>
+                                                <th>Employee Name</th>
+                                                <th>Role Name</th>
+                                                <th>Leave Type</th>
                                                 <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>End date</th>
+                                                <th>Total Days</th>
+                                                <th>Delete</th>
                                             </tr>
                                         </tfoot>
+
                                     </table>
                                 </div>
                             </div>
@@ -520,7 +482,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     </main>
@@ -533,6 +495,74 @@
     <script src="./js/time.js"></script>
     <script>
         setInterval(updateClock, 1000 * 60);
+        async function search() {
+            var sdate = document.getElementById("sdate").value;
+            var fdate = document.getElementById("tdate").value;
+            let dataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=rangedata&from=" + sdate +
+                "&to=" + fdate);
+            let resultAsjson = await dataresp.json();
+            console.log(resultAsjson);
+            for (let i = 0; i < resultAsjson.data.length; i++) {
+                updateLeaveTable(resultAsjson.data[i]);
+            }
+        }
+
+        function updateLeaveTable(jsonrow) {
+            let tablebody = document.getElementById("leavetablebody");
+            const tablerow = document.createElement("tr");
+            tablerow.setAttribute("id", jsonrow.leave_id); //embedding leave id
+
+            let td = document.createElement("td");
+            let idtextdata = document.createTextNode(jsonrow.emp_id);
+            td.appendChild(idtextdata);
+
+            let td2 = document.createElement("td");
+            let idtextdata2 = document.createTextNode(jsonrow.employee_full_name);
+            td2.appendChild(idtextdata2);
+
+            let td3 = document.createElement("td");
+            if (jsonrow.role_name != null) {
+                let idtextdata3 = document.createTextNode(jsonrow.role_name);
+                td3.appendChild(idtextdata3);
+            } else {
+                let idtextdata3 = document.createTextNode("Not Assigned");
+                td3.appendChild(idtextdata3);
+            }
+            let td4 = document.createElement("td");
+            let idtextdata4 = document.createTextNode(jsonrow.leave_type);
+            td4.appendChild(idtextdata4);
+
+            let td5 = document.createElement("td");
+            let date1 = new Date(jsonrow.leave_start_date); //constructing date object directly from json data
+            let idtextdata5 = document.createTextNode(date1.toLocaleDateString());
+            td5.appendChild(idtextdata5);
+
+            let td6 = document.createElement("td");
+            let date2 = new Date(jsonrow.leave_end_date); //constructing date object directly from json data
+            let idtextdata6 = document.createTextNode(date2.toLocaleDateString());
+            td6.appendChild(idtextdata6);
+
+            let td7 = document.createElement("td");
+            let idtextdata7 = document.createTextNode(jsonrow.leave_total_days);
+            td7.appendChild(idtextdata7);
+
+            let td8 = document.createElement("td");
+            let dbutton = document.createElement("button");
+            dbutton.setAttribute("class", "btn btn-danger");
+            dbutton.setAttribute("onclick", "cancelLeave(this.parentNode.parentNode.id)")
+            const text = document.createTextNode("Cancel");
+            dbutton.appendChild(text);
+            td8.appendChild(dbutton);
+            tablerow.appendChild(td);
+            tablerow.appendChild(td2);
+            tablerow.appendChild(td3);
+            tablerow.appendChild(td4);
+            tablerow.appendChild(td5);
+            tablerow.appendChild(td6);
+            tablerow.appendChild(td7);
+            tablerow.appendChild(td8);
+            tablebody.append(tablerow);
+        }
     </script>
 </body>
 

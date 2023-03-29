@@ -433,9 +433,17 @@
 
         async function cancelLeave(id) {
             console.log(id);
+            let tablerow = document.getElementById(id);
             let tablebody = document.getElementById("leavetablebody");
+            let leavetype = tablerow.getElementsByTagName("td")[2].innerHTML;
+            let totaldays = parseInt(tablerow.getElementsByTagName("td")[5].innerHTML);
+            let eid = parseInt(tablerow.getElementsByTagName("td")[0].innerHTML);
+            let dataresponse = await fetch("/HR-Management-System/api/leaveAPI.php?type=deleteleave&leaveid=" + id + "&leavetype=" + leavetype + "&totaldays=" + totaldays + "&eid=" + eid);
             let rowtobedeleted = document.getElementById(id);
             tablebody.removeChild(rowtobedeleted);
+            let balance = document.getElementById(leavetype + "balance");
+            let oldvalue = parseInt(balance.innerHTML);
+            balance.innerHTML = oldvalue + parseInt(totaldays);
         }
 
         async function selectedid() {
