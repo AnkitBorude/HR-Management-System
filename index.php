@@ -15,14 +15,12 @@
   <!-- top navigation bar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-        aria-controls="offcanvasExample">
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
         <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
       </button>
       <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Human Resource Management
         Software</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-        aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="container-sm text-end text-white text-wrap fs-6">
@@ -32,8 +30,7 @@
       <div class="collapse navbar-collapse" id="topNavBar">
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-person-fill"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -58,7 +55,7 @@
             </div>
           </li>
           <li>
-            <a href="index.html" class="nav-link px-3 active">
+            <a href="index.php" class="nav-link px-3 active">
               <span class="me-2"><i class="bi bi-speedometer2"></i></span>
               <span>Dashboard</span>
             </a>
@@ -91,12 +88,6 @@
                   <a href="newemployee.php" class="nav-link px-3">
                     <span class="me-2"><i class="bi bi-person-plus"></i></span>
                     <span>Add Employee</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="editemployee.html" class="nav-link px-3">
-                    <span class="me-2"><i class="bi bi-gear"></i></span>
-                    <span>Edit Employee</span>
                   </a>
                 </li>
                 <li>
@@ -149,21 +140,15 @@
             <div class="collapse" id="leave">
               <ul class="navbar-nav ps-3">
                 <li>
-                  <a href="leaveprofile.html" class="nav-link px-3">
+                  <a href="leaveprofile.php" class="nav-link px-3">
                     <span class="me-2"><i class="bi bi-file-person"></i></span>
                     <span>Leave Profile</span>
                   </a>
                 </li>
                 <li>
-                  <a href="leaverequest.html" class="nav-link px-3">
+                  <a href="leaverequest.php" class="nav-link px-3">
                     <span class="me-2"><i class="bi bi-person-plus"></i></span>
                     <span>Leave Requistions</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="nav-link px-3">
-                    <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                    <span>Cancell Leave</span>
                   </a>
                 </li>
               </ul>
@@ -183,25 +168,19 @@
             <div class="collapse" id="role">
               <ul class="navbar-nav ps-3">
                 <li>
-                  <a href="newrole.html" class="nav-link px-3">
+                  <a href="newrole.php" class="nav-link px-3">
                     <span class="me-2"><i class="bi bi-file-person"></i></span>
                     <span>New Role</span>
                   </a>
                 </li>
                 <li>
-                  <a href="assignrole.html" class="nav-link px-3">
+                  <a href="assignrole.php" class="nav-link px-3">
                     <span class="me-2"><i class="bi bi-person-plus"></i></span>
                     <span>Assign & Free Role</span>
                   </a>
                 </li>
               </ul>
             </div>
-          </li>
-          <li>
-            <a href="payroll.html" class="nav-link px-3">
-              <span class="me-2"><i class="bi bi-book-fill"></i></span>
-              <span>PayRoll</span>
-            </a>
           </li>
           <li class="my-4">
             <hr class="dropdown-divider bg-light" />

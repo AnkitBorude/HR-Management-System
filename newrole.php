@@ -357,14 +357,12 @@
             updateRoleTable(roleid, rolename, departmentName, basesalary, maxreq, currentHolding);
         }
 
-        function deleteRole(buttonEvent) //role+id
+        function deleteRole(rowtobedelete)
         {
-            let rowElement = buttonEvent.parentNode.parentNode;
             let mainAcBody = rowElement.parentNode;
             mainAcBody.removeChild(rowElement);
             totalroles--;
             document.getElementById("total").innerHTML = totalroles;
-            //tracking parent from the button on which the event has been happened
         }
 
         function updateRoleTable(...args) {
