@@ -24,14 +24,12 @@ pg_close($connection);
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                aria-controls="offcanvasExample">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button>
             <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Human Resource Management
                 Software</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-                aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="container-sm text-end text-white text-wrap fs-6">
@@ -42,8 +40,7 @@ pg_close($connection);
 
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-fill"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -58,8 +55,7 @@ pg_close($connection);
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
         <div class="offcanvas-body p-0">
-            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp"
-                class="img-thumbnail">
+            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp" class="img-thumbnail">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <li>
@@ -68,7 +64,7 @@ pg_close($connection);
                         </div>
                     </li>
                     <li>
-                        <a href="index.html" class="nav-link px-3">
+                        <a href="index.php" class="nav-link px-3 active">
                             <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                             <span>Dashboard</span>
                         </a>
@@ -80,7 +76,7 @@ pg_close($connection);
                     </li>
 
                     <li>
-                        <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#layouts">
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
                             <span class="me-2"><i class="bi bi-people"></i></i></span>
                             <span>Employee</span>
                             <span class="ms-auto">
@@ -89,28 +85,22 @@ pg_close($connection);
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse show" id="layouts">
+                        <div class="collapse" id="layouts">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="employee.html" class="nav-link px-3 active">
+                                    <a href="employee.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Employee Profile</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="newemployee.html" class="nav-link px-3">
+                                    <a href="newemployee.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Add Employee</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="editemployee.html" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-gear"></i></span>
-                                        <span>Edit Employee</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="deleteemployee.html" class="nav-link px-3">
+                                    <a href="deleteemployee.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-dash"></i></span>
                                         <span>Delete Employee</span>
                                     </a>
@@ -132,13 +122,13 @@ pg_close($connection);
                         <div class="collapse" id="layouts2">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="dailyattendance.html" class="nav-link px-3">
+                                    <a href="dailyattendance.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Daily Attendance</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="attendanceprofile.html" class="nav-link px-3">
+                                    <a href="attendanceprofile.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Attendance Report</span>
                                     </a>
@@ -147,7 +137,7 @@ pg_close($connection);
                         </div>
                     </li>
                     <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#leave">
                             <span class="me-2"><i class="bi bi-people"></i></i></span>
                             <span>Leave</span>
                             <span class="ms-auto">
@@ -156,24 +146,18 @@ pg_close($connection);
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse" id="layouts2">
+                        <div class="collapse" id="leave">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="leaveprofile.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Leave Profile</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="leaverequest.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Leave Requistions</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Cancell Leave</span>
                                     </a>
                                 </li>
                             </ul>
@@ -181,7 +165,7 @@ pg_close($connection);
                     </li>
 
                     <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#role">
                             <span class="me-2"><i class="bi bi-people"></i></i></span>
                             <span>Role & Department </span>
                             <span class="ms-auto">
@@ -190,34 +174,22 @@ pg_close($connection);
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse" id="layouts2">
+                        <div class="collapse" id="role">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="newrole.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>New Role</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="assignrole.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Assign & Free Role</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Department Profile</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-3">
-                            <span class="me-2"><i class="bi bi-book-fill"></i></span>
-                            <span>PayRoll</span>
-                        </a>
                     </li>
                     <li class="my-4">
                         <hr class="dropdown-divider bg-light" />
@@ -264,8 +236,7 @@ pg_close($connection);
                                 </li>
                                 <li class="list-group-item">Email :- <span class="fw-bold"> <?php echo $row[2] ?></span>
                                 </li>
-                                <li class="list-group-item">Phone no:- <span
-                                        class="fw-bold"><?php echo $row[5] ?></span></li>
+                                <li class="list-group-item">Phone no:- <span class="fw-bold"><?php echo $row[5] ?></span></li>
                                 <li class="list-group-item">City <span class="fw-bold"><?php echo $row[6] ?></span></li>
                                 <li class="list-group-item">State <span class="fw-bold"><?php echo $row[7] ?></span>
                                 </li>
@@ -281,8 +252,7 @@ pg_close($connection);
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item">Date Of Joining :- <span
-                                    class="fw-bold"><?php echo $row[9] ?></span></li>
+                            <li class="list-group-item">Date Of Joining :- <span class="fw-bold"><?php echo $row[9] ?></span></li>
                             <li class="list-group-item">Department <span class="fw-bold">
                                     <?php if (is_null($row[18])) {
                                         echo "<td> Not Assigned</td>";
@@ -320,7 +290,7 @@ pg_close($connection);
     <script src="./js/script.js"></script>
     <script src="./js/time.js"></script>
     <script>
-    setInterval(updateClock, 1000 * 60);
+        setInterval(updateClock, 1000 * 60);
     </script>
 </body>
 

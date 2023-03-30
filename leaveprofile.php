@@ -61,7 +61,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="index.html" class="nav-link px-3 active">
+                        <a href="index.php" class="nav-link px-3 active">
                             <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                             <span>Dashboard</span>
                         </a>
@@ -85,25 +85,19 @@
                         <div class="collapse" id="layouts">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="employee.html" class="nav-link px-3">
+                                    <a href="employee.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Employee Profile</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="newemployee.html" class="nav-link px-3">
+                                    <a href="newemployee.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Add Employee</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="editemployee.html" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-gear"></i></span>
-                                        <span>Edit Employee</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="deleteemployee.html" class="nav-link px-3">
+                                    <a href="deleteemployee.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-dash"></i></span>
                                         <span>Delete Employee</span>
                                     </a>
@@ -125,13 +119,13 @@
                         <div class="collapse" id="layouts2">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="dailyattendance.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Daily Attendance</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="attendanceprofile.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Attendance Report</span>
                                     </a>
@@ -140,7 +134,7 @@
                         </div>
                     </li>
                     <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#leave">
                             <span class="me-2"><i class="bi bi-people"></i></i></span>
                             <span>Leave</span>
                             <span class="ms-auto">
@@ -149,24 +143,18 @@
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse" id="layouts2">
+                        <div class="collapse" id="leave">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="leaveprofile.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Leave Profile</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="leaverequest.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Leave Requistions</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Cancell Leave</span>
                                     </a>
                                 </li>
                             </ul>
@@ -174,7 +162,7 @@
                     </li>
 
                     <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#role">
                             <span class="me-2"><i class="bi bi-people"></i></i></span>
                             <span>Role & Department </span>
                             <span class="ms-auto">
@@ -183,34 +171,22 @@
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse" id="layouts2">
+                        <div class="collapse" id="role">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="newrole.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>New Role</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="assignrole.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Assign & Free Role</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Department Profile</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-3">
-                            <span class="me-2"><i class="bi bi-book-fill"></i></span>
-                            <span>PayRoll</span>
-                        </a>
                     </li>
                     <li class="my-4">
                         <hr class="dropdown-divider bg-light" />
@@ -481,7 +457,7 @@
 
             let dt = new Date(jsonrow.leave_start_date);
             let td8 = document.createElement("td");
-            if (dt > new Date()) {//user would not be able to delete the levae if it currently under taken
+            if (dt > new Date()) { //user would not be able to delete the levae if it currently under taken
 
                 let dbutton = document.createElement("button");
                 dbutton.setAttribute("class", "btn btn-danger");

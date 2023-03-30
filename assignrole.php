@@ -15,14 +15,12 @@
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                aria-controls="offcanvasExample">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button>
             <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">Human Resource Management
                 Software</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
-                aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar" aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="container-sm text-end text-white text-wrap fs-6">
@@ -32,8 +30,7 @@
             <div class="collapse navbar-collapse" id="topNavBar">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-fill"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -49,8 +46,7 @@
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
         <div class="offcanvas-body p-0">
-            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp"
-                class="img-thumbnail">
+            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp" class="img-thumbnail">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <li>
@@ -59,7 +55,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="index.html" class="nav-link px-3 active">
+                        <a href="index.php" class="nav-link px-3 active">
                             <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                             <span>Dashboard</span>
                         </a>
@@ -83,25 +79,19 @@
                         <div class="collapse" id="layouts">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="employee.html" class="nav-link px-3">
+                                    <a href="employee.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Employee Profile</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="newemployee.html" class="nav-link px-3">
+                                    <a href="newemployee.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Add Employee</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="editemployee.html" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-gear"></i></span>
-                                        <span>Edit Employee</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="deleteemployee.html" class="nav-link px-3">
+                                    <a href="deleteemployee.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-dash"></i></span>
                                         <span>Delete Employee</span>
                                     </a>
@@ -123,13 +113,13 @@
                         <div class="collapse" id="layouts2">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="dailyattendance.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Daily Attendance</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="attendanceprofile.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Attendance Report</span>
                                     </a>
@@ -138,7 +128,7 @@
                         </div>
                     </li>
                     <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#leave">
                             <span class="me-2"><i class="bi bi-people"></i></i></span>
                             <span>Leave</span>
                             <span class="ms-auto">
@@ -147,24 +137,18 @@
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse" id="layouts2">
+                        <div class="collapse" id="leave">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="leaveprofile.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Leave Profile</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="leaverequest.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Leave Requistions</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Cancell Leave</span>
                                     </a>
                                 </li>
                             </ul>
@@ -172,7 +156,7 @@
                     </li>
 
                     <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#role">
                             <span class="me-2"><i class="bi bi-people"></i></i></span>
                             <span>Role & Department </span>
                             <span class="ms-auto">
@@ -181,34 +165,22 @@
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse" id="layouts2">
+                        <div class="collapse" id="role">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="newrole.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>New Role</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="assignrole.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Assign & Free Role</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Department Profile</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-3">
-                            <span class="me-2"><i class="bi bi-book-fill"></i></span>
-                            <span>PayRoll</span>
-                        </a>
                     </li>
                     <li class="my-4">
                         <hr class="dropdown-divider bg-light" />
@@ -231,8 +203,7 @@
                 <div class="col-md-9">
                     <div class="row mt-5">
                         <div class="col-md-2 mb-2">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                onclick="GenerateRoles()">Assign</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="GenerateRoles()">Assign</button>
                         </div>
                         <div class="col-md-2 mb-2">
                             <button class="btn btn-primary" onclick="freeRole()">Free</button>
@@ -324,8 +295,7 @@
         </div>
     </main>
 
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -356,8 +326,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal"
-                        onclick="AssignRole()">Assign</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="AssignRole()">Assign</button>
                 </div>
             </div>
         </div>
@@ -372,8 +341,9 @@
     <script src="./js/time.js"></script>
     <script>
         setInterval(updateClock, 1000 * 60);
-        function GenerateRoles() {  //copies the value of roles and employees into modal form
-            let froles = document.getElementById("roles");//here the options of select element has
+
+        function GenerateRoles() { //copies the value of roles and employees into modal form
+            let froles = document.getElementById("roles"); //here the options of select element has
             //id of its own id
             let femp = document.getElementById("freeEmp");
 
@@ -383,7 +353,7 @@
             let SelectableEmp = document.getElementById("SelectableEmp");
             let SelectableRole = document.getElementById("SelectableRole");
             removeAllChildNodes(SelectableEmp);
-            removeAllChildNodes(SelectableRole);//removing all childs
+            removeAllChildNodes(SelectableRole); //removing all childs
             for (let i = 0; i < freeRoleslist.length; i++) {
                 let option = document.createElement("option");
                 option.setAttribute("id", "rid" + freeRoleslist[i].id);
@@ -399,19 +369,22 @@
                 SelectableEmp.appendChild(option);
             }
         }
-        function removeAllChildNodes(parent) {//function to remove all childs of given parent element
+
+        function removeAllChildNodes(parent) { //function to remove all childs of given parent element
             while (parent.firstChild) {
                 parent.removeChild(parent.firstChild);
             }
         }
-        function AssignRole()//assigning role 
+
+        function AssignRole() //assigning role 
         {
-            let emp = document.getElementById("SelectableEmp").selectedOptions;//passing selected elements collection
+            let emp = document.getElementById("SelectableEmp").selectedOptions; //passing selected elements collection
             let role = document.getElementById("SelectableRole").selectedOptions;
-            addRecordtoTable(emp, role);//updating table
+            addRecordtoTable(emp, role); //updating table
             deleteFromfreeRoles(role);
             deleteFromfreeEmployees(emp);
         }
+
         function freeRole() {
             let tablebody = document.getElementById("assignmentTable");
             let allcheckboxes = document.getElementsByTagName("input");
@@ -438,6 +411,7 @@
                 deletefromRecordTable(tablerow);
             }
         }
+
         function SwichRole() {
 
             let tablebody = document.getElementById("assignmentTable");
@@ -475,11 +449,12 @@
             tablerow2.id = newid2;
             return true;
         }
-        function addRecordtoTable(...args)//empid,enamae,role
+
+        function addRecordtoTable(...args) //empid,enamae,role
         {
             let tablebody = document.getElementById("assignmentTable");
             let tablerow = document.createElement("tr");
-            for (let i = 0; i < args.length; i++) {//looping through passed arguments
+            for (let i = 0; i < args.length; i++) { //looping through passed arguments
                 if (i == 0) {
                     let td = document.createElement("td");
                     let idtextdata = document.createTextNode((args[i][0].id).slice(3));
@@ -489,14 +464,13 @@
                     td2.appendChild(nametextdata);
                     tablerow.appendChild(td);
                     tablerow.appendChild(td2);
-                }
-                else {
+                } else {
                     let td = document.createElement("td");
                     let textdata = document.createTextNode(args[i][0].value);
                     td.appendChild(textdata);
                     tablerow.appendChild(td);
                 }
-                tablerow.setAttribute("id", args[0][0].id + "/" + args[1][0].id);//assigning employee id to table row
+                tablerow.setAttribute("id", args[0][0].id + "/" + args[1][0].id); //assigning employee id to table row
             }
             let td = document.createElement("td");
             let input = document.createElement("input");
@@ -506,6 +480,7 @@
             tablerow.appendChild(td);
             tablebody.appendChild(tablerow);
         }
+
         function addTofreeRoles(roleid, rolename) {
 
             let froles = document.getElementById("roles");
@@ -535,6 +510,7 @@
             }
 
         }
+
         function deleteFromfreeRoles(selectedOp) {
             let roleId = selectedOp[0].id.slice(3);
             let li = document.getElementById(roleId);
@@ -543,12 +519,12 @@
             if (totalPositions < 2) {
                 let parentul = li.parentNode;
                 parentul.removeChild(li);
-            }
-            else {
+            } else {
                 badge[0].innerText = --totalPositions;
             }
 
         }
+
         function addTofreeEmployees(eid, ename) {
             let femp = document.getElementById("freeEmp");
             let li = document.createElement("li");
@@ -558,10 +534,12 @@
             li.appendChild(textrolename);
             femp.appendChild(li);
         }
+
         function deletefromRecordTable(row) {
             let tablebody = row.parentNode;
             tablebody.removeChild(row);
         }
+
         function deleteFromfreeEmployees(selectedOp) {
             let eId = selectedOp[0].id.slice(3);
             let li = document.getElementById(eId);

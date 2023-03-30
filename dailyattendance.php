@@ -48,175 +48,150 @@
     <!-- top navigation bar -->
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
-        <div class="offcanvas-body p-0">
-            <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp"
-                class="img-thumbnail">
-            <nav class="navbar-dark">
-                <ul class="navbar-nav">
-                    <li>
-                        <div class="text-muted small fw-bold text-uppercase px-3 mb-3 mt-3">
-                            CORE
-                        </div>
-                    </li>
-                    <li>
-                        <a href="index.html" class="nav-link px-3 active">
-                            <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <div class="text-muted small fw-bold text-uppercase px-3 mb-3 mt-3">
-                            Interface
-                        </div>
-                    </li>
+    <div class="offcanvas-body p-0">
+      <img src="https://www.i-scoop.eu/wp-content/uploads/2019/11/HR-transformation.jpg.webp" class="img-thumbnail">
+      <nav class="navbar-dark">
+        <ul class="navbar-nav">
+          <li>
+            <div class="text-muted small fw-bold text-uppercase px-3 mb-3 mt-3">
+              CORE
+            </div>
+          </li>
+          <li>
+            <a href="index.php" class="nav-link px-3 active">
+              <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <div class="text-muted small fw-bold text-uppercase px-3 mb-3 mt-3">
+              Interface
+            </div>
+          </li>
 
-                    <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
-                            <span class="me-2"><i class="bi bi-people"></i></i></span>
-                            <span>Employee</span>
-                            <span class="ms-auto">
-                                <span class="right-icon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </span>
-                            </span>
-                        </a>
-                        <div class="collapse" id="layouts">
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a href="employee.html" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-file-person"></i></span>
-                                        <span>Employee Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="newemployee.html" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Add Employee</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="editemployee.html" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-gear"></i></span>
-                                        <span>Edit Employee</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="deleteemployee.html" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-dash"></i></span>
-                                        <span>Delete Employee</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+          <li>
+            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
+              <span class="me-2"><i class="bi bi-people"></i></i></span>
+              <span>Employee</span>
+              <span class="ms-auto">
+                <span class="right-icon">
+                  <i class="bi bi-chevron-down"></i>
+                </span>
+              </span>
+            </a>
+            <div class="collapse" id="layouts">
+              <ul class="navbar-nav ps-3">
+                <li>
+                  <a href="employee.php" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-file-person"></i></span>
+                    <span>Employee Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="newemployee.php" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                    <span>Add Employee</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="deleteemployee.php" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-person-dash"></i></span>
+                    <span>Delete Employee</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
 
-                    <li>
-                        <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#layouts2">
-                            <span class="me-2"><i class="bi bi-people"></i></i></span>
-                            <span>Attendance</span>
-                            <span class="ms-auto">
-                                <span class="right-icon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </span>
-                            </span>
-                        </a>
-                        <div class="collapse show" id="layouts2">
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a href="dailyattendance.html" class="nav-link px-3 active">
-                                        <span class="me-2"><i class="bi bi-file-person"></i></span>
-                                        <span>Daily Attendance</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="attendanceprofile.html" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Attendance Report</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
-                            <span class="me-2"><i class="bi bi-people"></i></i></span>
-                            <span>Leave</span>
-                            <span class="ms-auto">
-                                <span class="right-icon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </span>
-                            </span>
-                        </a>
-                        <div class="collapse" id="layouts2">
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-file-person"></i></span>
-                                        <span>Leave Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Leave Requistions</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Cancell Leave</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+          <li>
+            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+              <span class="me-2"><i class="bi bi-people"></i></i></span>
+              <span>Attendance</span>
+              <span class="ms-auto">
+                <span class="right-icon">
+                  <i class="bi bi-chevron-down"></i>
+                </span>
+              </span>
+            </a>
+            <div class="collapse" id="layouts2">
+              <ul class="navbar-nav ps-3">
+                <li>
+                  <a href="dailyattendance.php" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-file-person"></i></span>
+                    <span>Daily Attendance</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="attendanceprofile.php" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                    <span>Attendance Report</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#leave">
+              <span class="me-2"><i class="bi bi-people"></i></i></span>
+              <span>Leave</span>
+              <span class="ms-auto">
+                <span class="right-icon">
+                  <i class="bi bi-chevron-down"></i>
+                </span>
+              </span>
+            </a>
+            <div class="collapse" id="leave">
+              <ul class="navbar-nav ps-3">
+                <li>
+                  <a href="leaveprofile.php" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-file-person"></i></span>
+                    <span>Leave Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="leaverequest.php" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                    <span>Leave Requistions</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
 
-                    <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
-                            <span class="me-2"><i class="bi bi-people"></i></i></span>
-                            <span>Role & Department </span>
-                            <span class="ms-auto">
-                                <span class="right-icon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </span>
-                            </span>
-                        </a>
-                        <div class="collapse" id="layouts2">
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-file-person"></i></span>
-                                        <span>New Role</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Assign & Free Role</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
-                                        <span>Department Profile</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-3">
-                            <span class="me-2"><i class="bi bi-book-fill"></i></span>
-                            <span>PayRoll</span>
-                        </a>
-                    </li>
-                    <li class="my-4">
-                        <hr class="dropdown-divider bg-light" />
-                    </li>
-                </ul>
-            </nav>
-        </div>
+          <li>
+            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#role">
+              <span class="me-2"><i class="bi bi-people"></i></i></span>
+              <span>Role & Department </span>
+              <span class="ms-auto">
+                <span class="right-icon">
+                  <i class="bi bi-chevron-down"></i>
+                </span>
+              </span>
+            </a>
+            <div class="collapse" id="role">
+              <ul class="navbar-nav ps-3">
+                <li>
+                  <a href="newrole.php" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-file-person"></i></span>
+                    <span>New Role</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="assignrole.php" class="nav-link px-3">
+                    <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                    <span>Assign & Free Role</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="my-4">
+            <hr class="dropdown-divider bg-light" />
+          </li>
+        </ul>
+      </nav>
     </div>
+  </div>
     <!-- offcanvas -->
 
 
