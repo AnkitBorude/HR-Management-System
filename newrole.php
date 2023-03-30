@@ -270,78 +270,6 @@
                     <button class="btn btn-primary" type="reset">Reset</button>
                 </div>
             </form>
-            <div class="row mb-5 mt-5">
-                <h3 class="fw-bold fs-4">Department-Wise Roles</h3>
-            </div>
-            <div class="row mt-5 mb-5">
-                <div class="col-md">
-                    <div class="accordion" id="mainaccor">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Fianance & Accounting
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
-                                <div class="accordion-body" id="1">
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Production & Testing
-                                </button>
-                            </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
-                                <div class="accordion-body" id="2">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Human Resource Management
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
-                                <div class="accordion-body" id="3">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    Sales & Marketing
-                                </button>
-                            </h2>
-                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour">
-                                <div class="accordion-body" id="4">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingFive">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                Support
-                            </button>
-                        </h2>
-                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive">
-                            <div class="accordion-body" id="5">
-                                <div class="row">
-                                    <div class="col-md-8">HIII</div>
-                                    <div class="col-md-2"><button class="btn btn-warning" onclick="deleteRole(this)">Delete</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         </div>
     </main>
@@ -368,35 +296,6 @@
             updateAccordion(parseInt(department.value) % 100, rolename, maxreq);
 
             //space for ajax
-        }
-
-        function updateAccordion(dep, rolename, totalroles) {
-            console.log(dep);
-            console.log(rolename);
-            let row = document.createElement("div");
-            row.setAttribute("class", "row mt-2");
-            let col1 = document.createElement("div");
-            col1.setAttribute("class", "col-md-8");
-
-            let col2 = document.createElement("div");
-            col2.setAttribute("class", "col-md-2");
-
-            let dltbtn = document.createElement("button");
-            dltbtn.setAttribute("class", "btn btn-warning");
-            dltbtn.setAttribute("onclick", "deleteRole(this)");
-            let deleteText = document.createTextNode("Delete");
-            dltbtn.appendChild(deleteText);
-            col2.appendChild(dltbtn);
-            let role = document.createTextNode(rolename);
-            let totalroless = document.createTextNode(" Total Roles:- " + totalroles);
-            col1.appendChild(role);
-            col1.appendChild(totalroless);
-            row.appendChild(col1);
-            row.appendChild(col2);
-            if (dep != "0") {
-                document.getElementById(dep).appendChild(row);
-            }
-
         }
 
         function deleteRole(buttonEvent) //role+id
