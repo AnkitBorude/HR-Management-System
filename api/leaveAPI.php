@@ -62,6 +62,7 @@ if ($_GET["type"] == "leavebalance") {
         header("Content-type:application/json");
         echo (json_encode(['status' => 'success', 'data' => $array]));
     }
+    pg_free_result($result);
 } else if ($_GET["type"] == "leavedata") {
     $date = $_GET["date"];
     $tommorrow = $_GET["tommorrow"];
@@ -88,8 +89,7 @@ if ($_GET["type"] == "leavebalance") {
         header("Content-type:application/json");
         echo (json_encode(['status' => 'success', 'data' => $array, 'todaytotal' => $todaytotal[0], 'tommorrowtotal' => $tommorrowtot[0], 'cltotal' => $cltotal[0], 'eltotal' => $eltotal[0], 'sltotal' => $sltotal[0]]));
     }
+    pg_free_result($result);
 }
 
 pg_close($connection);
-
-//leave_id | leave_type | leave_start_date | leave_end_date | leave_total_days | leave_reason | leave_applied_date | fkemployee_id

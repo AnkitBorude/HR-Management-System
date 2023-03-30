@@ -270,6 +270,65 @@
                     <button class="btn btn-primary" type="reset">Reset</button>
                 </div>
             </form>
+            <div class="row mt-5">
+                <h3 class="fw-bold fs-3">Current Roles</h3>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span><i class="bi bi-table me-2"></i></span> Data Table
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-striped data-table" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Role Name</th>
+                                            <th>Department</th>
+                                            <th>Base Salary</th>
+                                            <th>Current Occupied</th>
+                                            <th>Max Occupation</th>
+                                            <th>Total Holding</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="roletablebody">
+                                        <?php
+                                        $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                                        $result = pg_query($connection, "select role_id,role_name,department_id,department_name,role_base_salary,role_current_holding,role_max_holding from Role inner join Department on Role.fkdepartment_id =Department.department_id");
+                                        while ($row = pg_fetch_row($result)) {
+                                            echo "<tr id=$row[0]>";
+                                            echo "<td>$row[1]</td>";
+                                            echo "<td id=$row[2]>$row[3]</td>";
+                                            echo "<td>$row[4]</td>";
+                                            echo "<td>$row[5]</td>";
+                                            echo "<td>$row[6]</td>";
+                                            $percentage = round($row[5] / $row[6] * 100);//round figurring value of holding
+                                            echo "<td>$percentage %</td>";
+                                            echo "<td><button class='btn btn-danger' onclick='deleteRole(this.parentNode.parentNode.id)'>Cancel</button></td>";
+                                        }
+                                        pg_free_result($result);
+                                        pg_close($connection);
+                                        ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Role Name</th>
+                                            <th>Department</th>
+                                            <th>Base Salary</th>
+                                            <th>Current Occupied</th>
+                                            <th>Max Occupation</th>
+                                            <th>Total Holding</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         </div>
     </main>
@@ -293,9 +352,9 @@
 
             document.getElementById("total").innerHTML = totalroles;
             console.log(department.id);
-            updateAccordion(parseInt(department.value) % 100, rolename, maxreq);
 
             //space for ajax
+            updateRoleTable(roleid, rolename, departmentName, basesalary, maxreq, currentHolding);
         }
 
         function deleteRole(buttonEvent) //role+id
@@ -306,6 +365,10 @@
             totalroles--;
             document.getElementById("total").innerHTML = totalroles;
             //tracking parent from the button on which the event has been happened
+        }
+
+        function updateRoleTable(...args) {
+
         }
     </script>
 </body>
