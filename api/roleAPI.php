@@ -28,4 +28,30 @@ if ($_GET["type"] == "newrole") {
     }
     pg_free_result($result);
 }
+else if ($_GET["type"] == "assignrole") {
+    $roleid = $_GET["roleid"];
+    if ($result = pg_query($connection, "")) {
+        $row = pg_fetch_row($result);
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'message' =>'assigned']));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
+}
+else if ($_GET["type"] == "freerole") {
+    $roleid = $_GET["roleid"];
+    if ($result = pg_query($connection, "")) {
+        $row = pg_fetch_row($result);
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'message' =>'assigned']));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
+}
 pg_close($connection);
