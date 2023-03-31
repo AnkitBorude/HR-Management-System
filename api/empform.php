@@ -25,8 +25,10 @@ if (isset($_POST["fname"])) {
         pg_free_result($result);
 } else if (isset($_GET)) {
         $delid = $_GET["deleteid"];
-        if ($result = pg_query($connection, "delete from Employees where employee_id=$delid")) {
-                header("Content-type:application/json");
+        if ($result = pg_query($connection, "update Role set role_current_holding = role_current_holding-1 where role_id = (select fkrole_id from Employees where employee_id=$delid);update Employees set fkrole_id=null where employee_id=$delid;delete from Employees where employee_id=$delid")) {
+                header("Content-type:application/json");//problem is arrising due the other tables are referencing employee table therefore
+                                                        //cascade delete is recomended would be solved later as it requires changing table constraint of each table referencing to
+                                                        //employee table to on delete cascade so that all data would be automatically deleted when employee id deletes
                 echo (json_encode(['status' => 'success', 'message' => 'deleted']));
         } else {
                 header("Content-type:application/json");
