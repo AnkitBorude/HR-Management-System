@@ -1,11 +1,26 @@
 <?php
 $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
-if ($_GET["type"] == "leavebalance") {
-    $empid = $_GET["empid"];
-    if ($result = pg_query($connection, "select employee_el_balance,employee_cl_balance,employee_sl_balance from Employees where employee_id = $empid")) {
-        $row = pg_fetch_assoc($result);
+if ($_GET["type"] == "newrole") {
+    $rolename = $_GET["rolename"];
+    $department = $_GET["department"];
+    $basesalary= $_GET["basesalary"];
+    $maxreq = $_GET["maxreq"];
+    if ($result = pg_query($connection, "insert into Role(role_name,role_base_salary,role_current_holding,fkdepartment_id,role_max_holding) values('$rolename',$basesalary,0,$department,$maxreq) returning role_id")) {
+        $row = pg_fetch_row($result);
         header("Content-type:application/json");
-        echo (json_encode(['status' => 'success', 'balance' => $row]));
+        echo (json_encode(['status' => 'success', 'role_id' => $row[0]]));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
+}else if ($_GET["type"] == "deleterole") {
+    $roleid = $_GET["roleid"];
+    if ($result = pg_query($connection, "update Employees set fkrole_id=null where fkrole_id=$roleid; delete from role where role_id=$roleid;")) {
+        $row = pg_fetch_row($result);
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'message' =>'deleted']));
     } else {
         header("Content-type:application/json");
         $error = pg_last_error($connection);
