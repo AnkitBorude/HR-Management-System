@@ -206,7 +206,7 @@
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="GenerateRoles()">Assign</button>
                         </div>
                         <div class="col-md-2 mb-2">
-                            <button class="btn btn-primary" onclick="freeRole()">Free</button>
+                            <button class="btn btn-primary" onclick="freeRole(true)">Free</button>
                         </div>
                         <div class="col-md-1">
                             <button class="btn btn-primary" onclick="SwichRole()">Switch</button>
@@ -230,13 +230,23 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="assignmentTable">
-                                                <tr id="eid102/rid145">
-                                                    <td>102</td>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td><input class="form-check-input" type="checkbox" id=""></td>
-                                                </tr>
-
+                                                <?php
+                                                $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                                                $result = pg_query($connection, "select employee_id,employee_full_name,role_id,role_name from Employees inner join Role on Employees.fkrole_id=Role.role_id");
+                                                while ($row = pg_fetch_row($result)) {
+                                                    $eid = "eid" . $row[0];
+                                                    $rid = "rid" . $row[2];
+                                                    echo "<tr id='$eid/$rid'>";
+                                                    echo "<td>$row[0]</td>";
+                                                    $array = explode(" ", $row[1]);
+                                                    echo "<td> $array[0]  $array[2]</td>";
+                                                    echo "<td>$row[3]</td>";
+                                                    echo "  <td><input class='form-check-input' type='checkbox'></td>
+                                                </tr>";
+                                                }
+                                                pg_free_result($result);
+                                                pg_close($connection);
+                                                ?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -260,18 +270,20 @@
                     </div>
                     <div class="row pb-3">
                         <ul class="list-group list-group-flush" id="roles">
-                            <li class="list-group-item" id="132">
-                                Senior Software Engineer
-                                <span class="badge bg-primary rounded-pill">1</span>
-                            </li>
-                            <li class="list-group-item" id="321">
-                                Java Developer
-                                <span class="badge bg-primary rounded-pill mx-2">2</span>
-                            </li>
-                            <li class="list-group-item" id="456">
-                                Accountant
-                                <span class="badge bg-primary rounded-pill">1</span>
-                            </li>
+                            <?php
+                            $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                            $result = pg_query($connection, "select role_id,role_name,role_current_holding,role_max_holding from Role where role_current_holding != role_max_holding;");
+                            while ($row = pg_fetch_row($result)) {
+                                echo "<li id='$row[0]' class='list-group-item'>";
+                                echo "$row[1]  ";
+                                echo  "<span class='badge bg-primary rounded-pill'>";
+                                $free = $row[3] - $row[2];
+                                echo "$free";
+                                echo "</span></li>";
+                            }
+                            pg_free_result($result);
+                            pg_close($connection);
+                            ?>
                         </ul>
                     </div>
                     <div class="row border-top border-5 pt-3">
@@ -279,15 +291,17 @@
                     </div>
                     <div class="row">
                         <ul class="list-group list-group-flush" id="freeEmp">
-                            <li class="list-group-item" id="100">
-                                Ankit Borude
-                            </li>
-                            <li class="list-group-item" id="101">
-                                Karan Bankar
-                            </li>
-                            <li class="list-group-item" id="102">
-                                Sandesh Pawar
-                            </li>
+                            <?php
+                            $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                            $result = pg_query($connection, "select employee_id,employee_full_name from Employees where fkrole_id is null");
+                            while ($row = pg_fetch_row($result)) {
+                                echo "<li id='$row[0]' class='list-group-item'>";
+                                $array = explode(" ", $row[1]);
+                                echo "$array[0]  $array[2]</li>";
+                            }
+                            pg_free_result($result);
+                            pg_close($connection);
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -306,27 +320,15 @@
                     <label for="SelectableEmp" class="form-label">Select Employee</label>
                     <select class="form-select" id="SelectableEmp">
                         <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                        <option value="4">One</option>
-                        <option value="5">Two</option>
-                        <option value="6">Three</option>
                     </select>
                     <label for="SelectableRole" class="form-label mt-2">Select Role</label>
                     <select class="form-select" id="SelectableRole">
                         <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                        <option value="4">One</option>
-                        <option value="5">Two</option>
-                        <option value="6">Three</option>
                     </select>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="AssignRole()">Assign</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="AssignRole(true)">Assign</button>
                 </div>
             </div>
         </div>
@@ -364,7 +366,7 @@
             for (let i = 0; i < freeEmployeelist.length; i++) {
                 let option = document.createElement("option");
                 let text = document.createTextNode(freeEmployeelist[i].firstChild.nodeValue);
-                option.setAttribute("id", "eid" + freeEmployeelist[i].id);
+                option.setAttribute("id", "eid" + freeEmployeelist[i].id); //suffix of eid for modal
                 option.appendChild(text);
                 SelectableEmp.appendChild(option);
             }
@@ -376,39 +378,67 @@
             }
         }
 
-        function AssignRole() //assigning role 
+        async function AssignRole(flag, eid, rid) //assigning role 
         {
-            let emp = document.getElementById("SelectableEmp").selectedOptions; //passing selected elements collection
-            let role = document.getElementById("SelectableRole").selectedOptions;
-            addRecordtoTable(emp, role); //updating table
-            deleteFromfreeRoles(role);
-            deleteFromfreeEmployees(emp);
-        }
+            if (flag == true) {
+                let emp = document.getElementById("SelectableEmp").selectedOptions; //passing selected elements collection
+                let role = document.getElementById("SelectableRole").selectedOptions;
+                let dataresponse = await fetch("/HR-Management-System/api/roleAPI.php?type=assignrole&roleid=" + role[0].id.slice(3) +
+                    "&empid=" + emp[0].id.slice(3));
+                let resjson = await dataresponse.json();
+                if (resjson.status == "success") {
 
-        function freeRole() {
-            let tablebody = document.getElementById("assignmentTable");
-            let allcheckboxes = document.getElementsByTagName("input");
-            let j = 0;
-            let CheckedCheckboxarray = [];
-            for (let i = 0; i < allcheckboxes.length; i++) {
-                if (allcheckboxes[i].checked == true) {
-                    console.log("checked");
-                    CheckedCheckboxarray[j] = allcheckboxes[i];
-                    j++;
+                    addRecordtoTable(emp, role); //updating table
+                    deleteFromfreeRoles(role);
+                    deleteFromfreeEmployees(emp);
+                }
+            } else if (flag == false) {
+                let dataresponse = await fetch("/HR-Management-System/api/roleAPI.php?type=assignrole&roleid=" + rid +
+                    "&empid=" + eid);
+                let resjson = await dataresponse.json();
+                if (resjson.status == "success") {
+                    console.log("success");
                 }
             }
-            for (let i = 0; i < CheckedCheckboxarray.length; i++) {
-                let tablerow = CheckedCheckboxarray[i].parentNode.parentNode;
-                console.log(tablerow.id.split("/"));
-                let ids = tablerow.id.split("/");
-                let eid = ids[0].slice(3);
-                let rid = ids[1].slice(3);
-                let ename = tablerow.getElementsByTagName("td")[1].innerText;
-                let rname = tablerow.getElementsByTagName("td")[2].innerText;
-                addTofreeEmployees(eid, ename);
-                addTofreeRoles(rid, rname);
-                console.log(tablerow);
-                deletefromRecordTable(tablerow);
+        }
+        async function freeRole(flag, eid, rid) {
+            if (flag == true) {
+                let tablebody = document.getElementById("assignmentTable");
+                let allcheckboxes = document.getElementsByTagName("input");
+                let j = 0;
+                let CheckedCheckboxarray = [];
+                for (let i = 0; i < allcheckboxes.length; i++) {
+                    if (allcheckboxes[i].checked == true) {
+                        console.log("checked");
+                        CheckedCheckboxarray[j] = allcheckboxes[i];
+                        j++;
+                    }
+                }
+                for (let i = 0; i < CheckedCheckboxarray.length; i++) {
+                    let tablerow = CheckedCheckboxarray[i].parentNode.parentNode;
+                    let ids = tablerow.id.split("/");
+                    let eid = ids[0].slice(3);
+                    let rid = ids[1].slice(3);
+                    let dataresponse = await fetch("/HR-Management-System/api/roleAPI.php?type=freerole&roleid=" + rid +
+                        "&empid=" + eid);
+                    let resjson = await dataresponse.json();
+                    if (resjson.status == "success") {
+                        console.log("success");
+                        let ename = tablerow.getElementsByTagName("td")[1].innerText;
+                        let rname = tablerow.getElementsByTagName("td")[2].innerText;
+                        addTofreeEmployees(eid, ename);
+                        addTofreeRoles(rid, rname);
+                        //console.log(tablerow);
+                        deletefromRecordTable(tablerow);
+                    }
+                }
+            } else if (flag == false) {
+                let dataresponse = await fetch("/HR-Management-System/api/roleAPI.php?type=freerole&roleid=" + rid +
+                    "&empid=" + eid);
+                let resjson = await dataresponse.json();
+                if (resjson.status == "success") {
+                    console.log("success");
+                }
             }
         }
 
@@ -425,7 +455,8 @@
                     j++;
                 }
             }
-            if (CheckedCheckboxarray.length > 2 || CheckedCheckboxarray.length == 1) {
+            if (CheckedCheckboxarray.length > 2 || CheckedCheckboxarray.length < 2) {
+                alert("Please choose 2 employees to switch roles between");
                 return false;
             }
             let tablerow1 = CheckedCheckboxarray[0].parentNode.parentNode;
@@ -433,11 +464,13 @@
             let ids1 = tablerow1.id.split("/");
             let eid1 = ids1[0];
             let rid1 = ids1[1];
-
+            freeRole(false, eid1.slice(3), rid1.slice(3));
             let ids2 = tablerow2.id.split("/");
             let eid2 = ids2[0];
             let rid2 = ids2[1];
-
+            freeRole(false, eid2.slice(3), rid2.slice(3));
+            AssignRole(false, eid1.slice(3), rid2.slice(3));
+            AssignRole(false, eid2.slice(3), rid1.slice(3));
             let newid1 = eid1 + "/" + rid2;
             let newid2 = eid2 + "/" + rid1;
 
@@ -447,6 +480,9 @@
             tablerow2.getElementsByTagName("td")[2].innerText = rname1;
             tablerow1.id = newid1;
             tablerow2.id = newid2;
+            for (let i = 0; i < CheckedCheckboxarray.length; i++) { //unchecking all the checkboxes
+                CheckedCheckboxarray[i].checked = false;
+            }
             return true;
         }
 
@@ -457,7 +493,7 @@
             for (let i = 0; i < args.length; i++) { //looping through passed arguments
                 if (i == 0) {
                     let td = document.createElement("td");
-                    let idtextdata = document.createTextNode((args[i][0].id).slice(3));
+                    let idtextdata = document.createTextNode((args[i][0].id).slice(3)); //slicing empid
                     td.appendChild(idtextdata);
                     let td2 = document.createElement("td");
                     let nametextdata = document.createTextNode(args[i][0].value);
