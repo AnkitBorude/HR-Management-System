@@ -309,10 +309,10 @@
           <div class="card h-100">
             <div class="card-header">
               <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-              Area Chart Example
+              Department Wise Roles
             </div>
             <div class="card-body">
-              <canvas class="chart" width="400" height="200"></canvas>
+              <div class="chart" style="height: 100%; width:100%;" id="chartContainer"></div>
             </div>
           </div>
         </div>
@@ -821,6 +821,7 @@
   <script src="./js/script.js"></script>
   <script src="./js/time.js"></script>
   <script src="./js/attendance.js"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <script>
     setInterval(updateClock, 1000 * 60);
     async function updateCounts() {
@@ -837,6 +838,39 @@
       let resultAsjson2 = await daydataresp.json();
       let todayab = resultAsjson2.data;
       absent.innerHTML = parseInt(totalemployees.innerHTML) - parseInt(todayab);
+    }
+  </script>
+  <?php
+
+  $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+  $result = pg_query($connection, "select department_name,count(*) from role inner join Department on role.fkdepartment_id=Department.department_id group by department_name order by department_name;
+");
+  $array = array();
+  while ($row = pg_fetch_array($result)) {
+    array_push($array, array("label" => $row[0], "y" => $row[1]));
+  }
+  pg_free_result($result);
+  pg_close($connection);
+
+  $dataPoints = $array;
+  ?>
+  <script>
+    window.onload = viewdate();
+    window.onload = updateCounts();
+    window.onload = function() {
+      var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        exportEnabled: true,
+        data: [{
+          type: "doughnut",
+          showInLegend: "true",
+          legendText: "{label}",
+          indexLabelFontSize: 14,
+          indexLabel: "{label} - #percent%",
+          dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+        }]
+      });
+      chart.render();
     }
   </script>
 </body>
