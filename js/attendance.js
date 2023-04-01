@@ -209,3 +209,9 @@ async function getTodaysLeaves() {
         signinspan.appendChild(ptag);
     }
 }
+// async function getTodaysPresentNo() {
+//     var tdate = getDBdate(new Date());//todays date as db fromat
+//     let daydataresp = await fetch("/HR-Management-System/api/attendanceAPI.php?type=todaypresent&date=" + tdate);
+//     let resultAsjson = await daydataresp.json();
+    
+// }

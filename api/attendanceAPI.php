@@ -65,5 +65,17 @@ if ($_GET["type"] == "signin") { //signing in and returning attendid
         echo (json_encode(['status' => 'error', 'message' => $error]));
     }
     pg_free_result($result);
+} else if ($_GET["type"] == "todaypresent") {
+    $date = $_GET["date"];
+    if ($result = pg_query($connection, "select count(attendance_id) as todaypresent from Attendance where attendance_date= '$date'")) {
+        $row = pg_fetch_row($result);
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'data' => $row[0]]));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
 }
 pg_close($connection);

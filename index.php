@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body onload="viewdate()">
+<body onload="viewdate(),updateCounts()">
   <!-- top navigation bar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
@@ -205,7 +205,7 @@
           ;">
             <h5 class="card-header">Total Employee</h5>
             <div class="card-body py-5">
-              <div class="card-text fs-2 fw-bold">
+              <div class="card-text fs-2 fw-bold" id="totalemployees">
                 <?php
                 $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
                 $result = pg_query($connection, "select count(*) from Employees");
@@ -226,8 +226,8 @@
           <div class="card text-dark h-100 text-center bg-warning">
             <h5 class="card-header">Absent</h5>
             <div class="card-body py-5">
-              <div class="card-text fs-2 fw-bold">56</div>
-              <div class="card-text fs-6 fw-light pt-3">On leave <span>3</span></div>
+              <div class="card-text fs-2 fw-bold" id="absent">0</div>
+              <div class="card-text fs-6 fw-light pt-3">On leave <span id="onleave">0</span></div>
             </div>
           </div>
         </div>
@@ -820,8 +820,24 @@
   <script src="./js/dataTables.bootstrap5.min.js"></script>
   <script src="./js/script.js"></script>
   <script src="./js/time.js"></script>
+  <script src="./js/attendance.js"></script>
   <script>
     setInterval(updateClock, 1000 * 60);
+    async function updateCounts() {
+      let absent = document.getElementById("absent");
+      let onleave = document.getElementById("onleave");
+      let totalemployees = document.getElementById("totalemployees");
+      let today = getDBdate(new Date());
+      let tommorrow = getDBdate(addDaystoDate(new Date(), 1)); //tommorrows date
+      let dataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=leavedata&date=" + today + "&tommorrow=" + tommorrow);
+      let resultAsjson1 = await dataresp.json();
+      onleave.innerHTML = resultAsjson1.todaytotal;
+      var tdate = getDBdate(new Date()); //todays date as db fromat
+      let daydataresp = await fetch("/HR-Management-System/api/attendanceAPI.php?type=todaypresent&date=" + tdate);
+      let resultAsjson2 = await daydataresp.json();
+      let todayab = resultAsjson2.data;
+      absent.innerHTML = parseInt(totalemployees.innerHTML) - parseInt(todayab);
+    }
   </script>
 </body>
 
