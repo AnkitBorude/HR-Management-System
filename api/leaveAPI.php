@@ -90,6 +90,18 @@ if ($_GET["type"] == "leavebalance") {
         echo (json_encode(['status' => 'success', 'data' => $array, 'todaytotal' => $todaytotal[0], 'tommorrowtotal' => $tommorrowtot[0], 'cltotal' => $cltotal[0], 'eltotal' => $eltotal[0], 'sltotal' => $sltotal[0]]));
     }
     pg_free_result($result);
+} else if ($_GET["type"] == "todaysleavedata") {
+    $date = $_GET["date"];
+    if ($result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date")) {
+        $row = pg_fetch_row($result);
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'data' => $row[0]]));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
 }
 
 pg_close($connection);
