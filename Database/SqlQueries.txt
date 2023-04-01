@@ -81,4 +81,10 @@ create sequence mysequence start 1;
 
 alter table role alter column role_id set default nextval('mysequence');
 
+alter table attendance drop column fkemployee_id;
 
+alter table attendance add column fkemployee_id int references Employees(employee_id) on delete cascade;
+
+alter table leave drop column fkemployee_id;
+
+alter table leave add column fkemployee_id int references Employees(employee_id) on delete cascade;
