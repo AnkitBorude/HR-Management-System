@@ -298,10 +298,21 @@
           <div class="card h-100">
             <div class="card-header">
               <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-              Daily Attendance
+              Total Leaves in Week
             </div>
             <div class="card-body">
-              <canvas class="chart" style="height: 300px; width:100%;"></canvas>
+              <table class="table table-hover">
+                <thead class="table-dark">
+                  <th>Date</th>
+                  <th>Leaves</th>
+                </thead>
+                <tbody id="leavesinweek">
+                  <tr>
+                    <td>2023-01-02</td>
+                    <td>12</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -421,6 +432,37 @@
 
     window.onload =
       createpiechart();
+
+    async function nextweekleaves() {
+      var tdate = getDBdate(new Date());
+      let tablebody = document.getElementById("leavesinweek");
+      removeAllChildNodes(tablebody);
+      for (let i = 0; i <= 7; i++) {
+        tdate = getDBdate(addDaystoDate(new Date(), i));
+        let daydataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=todaysleavedata&date=" + tdate);
+        let resultAsjson = await daydataresp.json();
+
+        const tablerow = document.createElement("tr");
+
+        let td = document.createElement("td");
+        let idtextdata = document.createTextNode(tdate);
+        td.appendChild(idtextdata);
+
+        let td1 = document.createElement("td");
+        let idtextdata1 = document.createTextNode(resultAsjson.data);
+        td1.appendChild(idtextdata1);
+
+        tablerow.appendChild(td);
+        tablerow.appendChild(td1);
+        tablebody.appendChild(tablerow);
+      }
+    }
+
+    function removeAllChildNodes(parent) { //function to remove all childs of given parent element
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+      }
+    }
   </script>
 </body>
 
