@@ -132,7 +132,7 @@ function addRemarkbatch(tablecolumn, remark) {
         spantagpresent.appendChild(present);
         tablecolumn.appendChild(spantagpresent);
     }
-    else{
+    else {
         const spantagovertime = document.createElement("span");
         spantagovertime.setAttribute("class", "badge text-dark bg-secondary");
         const overtime = document.createTextNode(remark);
@@ -186,4 +186,26 @@ async function getTodaysData() {
 
     }
 
+}
+async function getTodaysLeaves() {
+    let today = getDBdate(new Date());
+    let tommorrow = getDBdate(addDaystoDate(new Date(), 1));
+    let dataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=leavedata&date=" + today + "&tommorrow=" + tommorrow);
+    let resultAsjson = await dataresp.json();
+    for (let i = 0; i < resultAsjson.data.length; i++) {
+        var mainrow = document.getElementById(resultAsjson.data[i].emp_id);
+        var tabledata = mainrow.getElementsByTagName("td");
+        var signoutspan = tabledata[4].firstChild;
+        var signinspan = tabledata[3].firstChild;
+        const ptag = document.createElement("p");
+        const node = document.createTextNode("On Leave");
+        ptag.setAttribute("class", "text-danger");
+        ptag.appendChild(node);
+
+        const btn1 = signoutspan.firstChild;
+        const btn2 = signinspan.firstChild;
+        signoutspan.removeChild(btn1);
+        signinspan.removeChild(btn2);
+        signinspan.appendChild(ptag);
+    }
 }

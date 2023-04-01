@@ -1,7 +1,7 @@
 <?php
 //requested handled only sign in sign out daydata
 $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
-if ($_GET["type"] == "signin") {//signing in and returning attendid
+if ($_GET["type"] == "signin") { //signing in and returning attendid
     $empid = $_GET["empid"];
     $date = $_GET["date"];
     $signintime = $_GET["signintime"];
@@ -52,7 +52,7 @@ if ($_GET["type"] == "signin") {//signing in and returning attendid
 } else if ($_GET["type"] == "rangedata") {
     $fromdate = $_GET["from"];
     $todate = $_GET["to"];
-    if ($result = pg_query($connection, "select employee_id,employee_full_name,role_name, attendance_sign_in,attendance_sign_out,attendance_date from Attendance right join Employees on Attendance.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id and attendance_date between '$fromdate' and '$todate'")) {
+    if ($result = pg_query($connection, "select * from (select employee_id,employee_full_name,role_name,attendance_sign_in,attendance_sign_out,attendance_date from Attendance inner join Employees on Attendance.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id) as empjoin where attendance_date >='$fromdate' and attendance_date<= '$todate';")) {
         $array = [];
         while ($row = pg_fetch_assoc($result)) {
             $array[] = $row;

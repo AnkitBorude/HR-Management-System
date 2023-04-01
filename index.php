@@ -205,7 +205,20 @@
           ;">
             <h5 class="card-header">Total Employee</h5>
             <div class="card-body py-5">
-              <div class="card-text fs-2 fw-bold">56</div>
+              <div class="card-text fs-2 fw-bold">
+                <?php
+                $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                $result = pg_query($connection, "select count(*) from Employees");
+                $row = pg_fetch_row($result);
+                if ($row[0] == null) {
+                  echo "0";
+                } else {
+                  echo $row[0];
+                }
+                pg_free_result($result);
+                pg_close($connection);
+                ?>
+              </div>
             </div>
           </div>
         </div>
@@ -222,7 +235,21 @@
           <div class="card text-dark h-100 text-center bg-secondary">
             <h5 class="card-header">Roles Vacant</h5>
             <div class="card-body py-5">
-              <div class="card-text fs-2 fw-bold">100 %</div>
+              <div class="card-text fs-2 fw-bold">
+                <?php
+                $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                $result = pg_query($connection, "select sum(role_current_holding),sum(role_max_holding) from Role");
+                $row = pg_fetch_row($result);
+                if ($row[1] == null) {
+                  echo "0";
+                } else {
+                  $percentage = ((($row[1] - $row[0]) / $row[1]) * 100);
+                  echo $percentage . "%";
+                }
+                pg_free_result($result);
+                pg_close($connection);
+                ?>
+              </div>
             </div>
           </div>
         </div>
@@ -230,9 +257,37 @@
           <div class="card text-dark h-100 text-center bg-primary">
             <h5 class="card-header">Total Overtime/Hr</h5>
             <div class="card-body py-5">
-              <div class="card-text fs-2 fw-bold">10 Hr</div>
-              <div class="card-text fs-6 fw-light pt-3">Highest O/T By <span style="text-decoration: underline;">Ankit
-                  Borude</span></div>
+              <div class="card-text fs-2 fw-bold">
+                <?php
+                $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                $result = pg_query($connection, "select sum(attendace_totalovertime) from attendance");
+                $row = pg_fetch_row($result);
+                if ($row[0] == null) {
+                  echo "0";
+                } else {
+                  echo $row[0] . "Hrs.";
+                }
+                pg_free_result($result);
+                pg_close($connection);
+                ?>
+              </div>
+              <div class="card-text fs-6 fw-light pt-3">Highest O/T By <span style="text-decoration: underline;">
+                  <?php
+                  $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                  $result = pg_query($connection, "select employee_full_name,sum(attendace_totalovertime) from attendance inner join Employees on attendance.fkemployee_id = Employees.employee_id group by employee_full_name;");
+                  $name = " ";
+                  $max = 0;
+                  while ($row = pg_fetch_array($result)) {
+                    if ($row[1] > $max) {
+                      $max = $row[1];
+                      $name = $row[0];
+                    }
+                  }
+                  echo $name;
+                  pg_free_result($result);
+                  pg_close($connection);
+                  ?>
+                </span></div>
             </div>
           </div>
         </div>
