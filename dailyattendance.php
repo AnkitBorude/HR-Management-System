@@ -196,10 +196,18 @@
     <div class="container-fluid">
       <!---page content here-->
       <div class="row">
+        <h3 class="fw-bold fs-2">Daily Attendance Book</h3>
+        <h6 class="text-info">Working Time :- 10 AM - 17 PM</h6>
+        <h6 class="text-danger">1)Sign In after 10AM would be counted as Late.</h6>
+        <h6 class="text-danger">2)Sign out before 17PM would be counted as Half Day.</h6>
+        <h6 class="text-danger">3)Sign out window is between 17 PM and 17:30 PM. </h6>
+        <h6 class="text-danger">4)Sign out after given time window would be counted as overtime otherwise absentee would be considered.</h6>
+      </div>
+      <div class="row mt-2">
         <div class="col-md-12 mb-3">
           <div class="card">
             <div class="card-header">
-              <span><i class="bi bi-table me-2"></i></span> Data Table Office time:- 10AM-17PM
+              <span><i class="bi bi-table me-2"></i></span> Attendance Book
             </div>
             <div class="card-body">
               <div class="table-responsive">
