@@ -196,7 +196,7 @@
         <div class="container-fluid">
             <!---page content here-->
             <div class="row">
-                <h3 class="fw-bold fs-2">Leave Form</h3>
+                <h3 class="fw-bold fs-2">Apply For Leave</h3>
             </div>
             <div class="row">
                 <div class="col-md-9">
@@ -264,7 +264,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 mt-3" id="cards">
-                            <div class="card text-dark text-center bg-info" style="width:4rem;height:5rem">
+                            <div class="card text-white text-center" style="width:4rem;height:5rem;background-color:#58508d;">
                                 <h5 class="card-header">EL</h5>
                                 <div class="card-body">
                                     <div class="card-text fw-bold" id="elbalance">0</div>
@@ -272,7 +272,7 @@
                             </div>
                         </div>
                         <div class=" col-md-4 mt-3" id="cards">
-                            <div class="card text-dark text-center bg-success" style="width:4rem;height:5rem">
+                            <div class="card text-white text-center" style="width:4rem;height:5rem;background-color:#bc5090;">
                                 <h5 class="card-header">CL</h5>
                                 <div class="card-body">
                                     <div class="card-text fw-bold" id="clbalance">0</div>
@@ -280,7 +280,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 mt-3" id="cards">
-                            <div class="card text-dark text-center bg-primary" style="width:4rem;height:5rem">
+                            <div class="card text-white text-center" style="width:4rem;height:5rem;background-color:#ffa600;">
                                 <h5 class="card-header">SL</h5>
                                 <div class="card-body">
                                     <div class="card-text fw-bold" id="slbalance">0</div>
@@ -290,7 +290,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-5">
+            <div class="row mt-2">
                 <h3 class="fw-bold fs-3">Recent Leave Applications</h3>
             </div>
             <div class="row mt-2">
