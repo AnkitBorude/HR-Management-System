@@ -203,7 +203,7 @@
             <!---page content here-->
             <div class="row">
                 <div class="col-md-3 mb-5 mt-5" id="cards">
-                    <div class="card text-white h-100 text-center" style="background-color:  #712cf9;
+                    <div class="card text-white h-100 text-center" style="background-color:  #003f5c;
                   ;">
                         <h5 class="card-header">Today On Leave</h5>
                         <div class="card-body">
@@ -212,7 +212,7 @@
                     </div>
                 </div>
                 <div class="col-md-3 mb-5 mt-5" id="cards">
-                    <div class="card text-dark h-100 text-center bg-warning">
+                    <div class="card text-white h-100 text-center" style="background-color:  #58508d;">
                         <h5 class="card-header">Tommorrow On Leave</h5>
                         <div class="card-body">
                             <div class="card-text fs-2 fw-bold" id="tmol">0</div>
@@ -220,7 +220,7 @@
                     </div>
                 </div>
                 <div class="col-md-3 mb-5 mt-5" id="cards">
-                    <div class="card text-dark h-100 text-center bg-secondary">
+                    <div class="card text-white h-100 text-center" style="background-color:#bc5090;">
                         <h5 class="card-header">Sick Leave Today</h5>
                         <div class="card-body">
                             <div class="card-text fs-2 fw-bold" id="slt">0</div>
@@ -228,7 +228,7 @@
                     </div>
                 </div>
                 <div class="col-md-3 mb-5 mt-5" id="cards">
-                    <div class="card text-dark h-100 text-center bg-primary">
+                    <div class="card text-white h-100 text-center" style="background-color:  #ff6361;">
                         <h5 class="card-header">Casual Leave Today</h5>
                         <div class="card-body">
                             <div class="card-text fs-2 fw-bold" id="clt">0</div>
@@ -236,7 +236,7 @@
                     </div>
                 </div>
                 <div class="col-md-3 mb-5 mt-5" id="cards">
-                    <div class="card text-dark h-100 text-center bg-primary">
+                    <div class="card text-white h-100 text-center" style="background-color:  #ffa600">
                         <h5 class="card-header">Privilege Leave Today</h5>
                         <div class="card-body">
                             <div class="card-text fs-2 fw-bold" id="elt">0</div>
