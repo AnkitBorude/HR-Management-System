@@ -201,8 +201,7 @@
       </div>
       <div class="row">
         <div class="col-md-3 mb-3">
-          <div class="card text-white h-100 text-center" style="background-color:  #712cf9;
-          ;">
+          <div class="card text-white h-100 text-center" style="background-color:#9E58FF;">
             <h5 class="card-header">Total Employee</h5>
             <div class="card-body py-5">
               <div class="card-text fs-2 fw-bold" id="totalemployees">
@@ -216,14 +215,13 @@
                   echo $row[0];
                 }
                 pg_free_result($result);
-                pg_close($connection);
                 ?>
               </div>
             </div>
           </div>
         </div>
         <div class="col-md-3 mb-3">
-          <div class="card text-dark h-100 text-center bg-warning">
+          <div class="card text-dark h-100 text-center" style="background-color:#FE9496;">
             <h5 class="card-header">Absent</h5>
             <div class="card-body py-5">
               <div class="card-text fs-2 fw-bold" id="absent">0</div>
@@ -232,12 +230,11 @@
           </div>
         </div>
         <div class="col-md-3 mb-3">
-          <div class="card text-dark h-100 text-center bg-secondary">
+          <div class="card text-white h-100 text-center" style="background-color:#4BCBEB;">
             <h5 class="card-header">Roles Vacant</h5>
             <div class="card-body py-5">
               <div class="card-text fs-2 fw-bold">
                 <?php
-                $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
                 $result = pg_query($connection, "select sum(role_current_holding),sum(role_max_holding) from Role");
                 $row = pg_fetch_row($result);
                 if ($row[1] == null) {
@@ -247,19 +244,17 @@
                   echo $percentage . "%";
                 }
                 pg_free_result($result);
-                pg_close($connection);
                 ?>
               </div>
             </div>
           </div>
         </div>
         <div class="col-md-3 mb-3">
-          <div class="card text-dark h-100 text-center bg-primary">
+          <div class="card text-white h-100 text-center" style="background-color:#1BCFB4;">
             <h5 class="card-header">Total Overtime/Hr</h5>
             <div class="card-body py-5">
               <div class="card-text fs-2 fw-bold">
                 <?php
-                $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
                 $result = pg_query($connection, "select sum(attendace_totalovertime) from attendance");
                 $row = pg_fetch_row($result);
                 if ($row[0] == null) {
@@ -268,12 +263,10 @@
                   echo $row[0] . "Hrs.";
                 }
                 pg_free_result($result);
-                pg_close($connection);
                 ?>
               </div>
               <div class="card-text fs-6 fw-light pt-3">Highest O/T By <span style="text-decoration: underline;">
                   <?php
-                  $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
                   $result = pg_query($connection, "select employee_full_name,sum(attendace_totalovertime) from attendance inner join Employees on attendance.fkemployee_id = Employees.employee_id group by employee_full_name;");
                   $name = " ";
                   $max = 0;
@@ -285,7 +278,6 @@
                   }
                   echo $name;
                   pg_free_result($result);
-                  pg_close($connection);
                   ?>
                 </span></div>
             </div>
@@ -340,15 +332,33 @@
                 <table id="example" class="table table-striped data-table" style="width: 100%">
                   <thead>
                     <tr>
+                      <th>Id</th>
                       <th>Name</th>
+                      <th>Date Of Join</th>
                       <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Phone No.</th>
+                      <th>Email</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <?php
+                    $result = pg_query($connection, " select employee_id,employee_full_name,role_name,employee_date_of_join,employee_phone_no,employee_email_id from Employees left join Role on Employees.fkrole_id=Role.role_id");
+                    while ($row = pg_fetch_row($result)) {
+                      echo "<tr>";
+                      echo "<td> $row[0]</td>";
+                      echo "<td> $row[1]</td>";
+                      echo "<td> $row[3]</td>";
+                      if (is_null($row[2])) {
+                        echo "<td> Not Assigned</td>";
+                      } else {
+                        echo "<td>$row[2]</td>";
+                      }
+                      echo "<td> $row[4]</td>";
+                      echo "<td> $row[5]</td>";
+                    }
+                    pg_free_result($result);
+
+                    ?>
                   </tbody>
                   <tfoot>
                     <tr>
@@ -396,8 +406,6 @@
     }
   </script>
   <?php
-
-  $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
   $result = pg_query($connection, "select department_name,count(*) from role inner join Department on role.fkdepartment_id=Department.department_id group by department_name order by department_name;
 ");
   $array = array();
@@ -441,7 +449,6 @@
         tdate = getDBdate(addDaystoDate(new Date(), i));
         let daydataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=todaysleavedata&date=" + tdate);
         let resultAsjson = await daydataresp.json();
-
         const tablerow = document.createElement("tr");
 
         let td = document.createElement("td");
