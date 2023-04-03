@@ -265,7 +265,7 @@
                 pg_free_result($result);
                 ?>
               </div>
-              <div class="card-text fs-6 fw-light pt-3">Highest O/T By <span style="text-decoration: underline;">
+              <div class="card-text fs-6 fw-light pt-3">Highest O/T By <span style="text-decoration: underline;" class="text-dark">
                   <?php
                   $result = pg_query($connection, "select employee_full_name,sum(attendace_totalovertime) from attendance inner join Employees on attendance.fkemployee_id = Employees.employee_id group by employee_full_name;");
                   $name = " ";

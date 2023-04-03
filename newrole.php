@@ -261,7 +261,9 @@
       </form>
       <div class="row mt-2">
         <h3 class="fw-bold fs-3">Current Roles</h3>
-        <h5 class="text-danger">*Deleting a role will free all the employees holding it</h5>
+        <div class="alert alert-warning" role="alert">
+          Deleting a role will free all the employees holding it
+        </div>
       </div>
       <div class="row mt-2">
         <div class="col-md-12 mb-3">

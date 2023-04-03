@@ -197,11 +197,15 @@
             <!---page content here-->
             <div class="row">
                 <h3 class="hw-3">Roles Assignment Management</h3>
+
             </div>
 
             <div class="row border-top border-5 mb-2">
                 <div class="col-md-9">
                     <div class="row mt-5">
+                        <div class="alert alert-info" role="alert">
+                            Please select Employees you want to free or switch role and click the respective button
+                        </div>
                         <div class="col-md-2 mb-2">
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="GenerateRoles()">Assign</button>
                         </div>

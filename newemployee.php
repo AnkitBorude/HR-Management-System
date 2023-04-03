@@ -197,8 +197,10 @@
     <div class="container-fluid">
       <div class="row">
         <h3 class="fw-bold fs-2">New Employee Details</h3>
-        <h6 class="text-danger">1)All fields all compulsory Avoid Duplicate Entries</h6>
-        <h6 class="text-danger">2)Fill fields carefully recheck before submission</h6>
+        <div class="alert alert-warning" role="alert">
+          All fields all compulsory Avoid Duplicate Entries.
+          Fill fields carefully and Recheck before submission.
+        </div>
         <div id="liveAlertPlaceholder"></div>
       </div>
 

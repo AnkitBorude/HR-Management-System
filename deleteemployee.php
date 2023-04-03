@@ -197,7 +197,9 @@
     <div class="container-fluid">
       <div class="row">
         <h3 class="fw-bold fs-2">Delete Employee Details</h3>
-        <h6 class="text-danger fw-bold">Warning deleting an employee record will cause all its previous records deletion (Like Leave, Attendance, Role).</h6>
+        <div class="alert alert-danger" role="alert">
+        Warning deleting an employee record will cause all its all previous records deletion (Ex.Leaves, Attendance,Role etc.).
+        </div>
           <div id="liveAlertPlaceholder"></div>
       </div>
       <div class="row mt-5">
