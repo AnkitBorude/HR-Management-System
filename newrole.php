@@ -259,14 +259,15 @@
           <button class="btn btn-primary" type="reset">Reset</button>
         </div>
       </form>
-      <div class="row mt-5">
+      <div class="row mt-2">
         <h3 class="fw-bold fs-3">Current Roles</h3>
+        <h5 class="text-danger">*Deleting a role will free all the employees holding it</h5>
       </div>
       <div class="row mt-2">
         <div class="col-md-12 mb-3">
           <div class="card">
             <div class="card-header">
-              <span><i class="bi bi-table me-2"></i></span> Data Table
+              <span><i class="bi bi-table me-2"></i></span> Current Roles
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -295,7 +296,7 @@
                       echo "<td>$row[6]</td>";
                       $percentage = round($row[5] / $row[6] * 100); //round figurring value of holding
                       echo "<td>$percentage %</td>";
-                      echo "<td><button class='btn btn-danger' onclick='deleteRole(this.parentNode.parentNode.id)'>Cancel</button></td>";
+                      echo "<td><button class='btn btn-danger' onclick='deleteRole(this.parentNode.parentNode.id)'>Delete</button></td>";
                     }
                     pg_free_result($result);
                     pg_close($connection);
@@ -370,7 +371,7 @@
           let dbutton = document.createElement("button");
           dbutton.setAttribute("class", "btn btn-danger");
           dbutton.setAttribute("onclick", "deleteRole(this.parentNode.parentNode.id)")
-          const text = document.createTextNode("Cancel");
+          const text = document.createTextNode("Delete");
           dbutton.appendChild(text);
           tdata.appendChild(dbutton);
         }
