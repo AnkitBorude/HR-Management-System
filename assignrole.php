@@ -249,7 +249,6 @@
                                                 </tr>";
                                                 }
                                                 pg_free_result($result);
-                                                pg_close($connection);
                                                 ?>
                                             </tbody>
                                             <tfoot>
@@ -275,7 +274,7 @@
                     <div class="row pb-3">
                         <ul class="list-group list-group-flush" id="roles">
                             <?php
-                            $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+
                             $result = pg_query($connection, "select role_id,role_name,role_current_holding,role_max_holding from Role where role_current_holding != role_max_holding;");
                             while ($row = pg_fetch_row($result)) {
                                 echo "<li id='$row[0]' class='list-group-item'>";
@@ -286,7 +285,7 @@
                                 echo "</span></li>";
                             }
                             pg_free_result($result);
-                            pg_close($connection);
+
                             ?>
                         </ul>
                     </div>
@@ -296,7 +295,6 @@
                     <div class="row">
                         <ul class="list-group list-group-flush" id="freeEmp">
                             <?php
-                            $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
                             $result = pg_query($connection, "select employee_id,employee_full_name from Employees where fkrole_id is null");
                             while ($row = pg_fetch_row($result)) {
                                 echo "<li id='$row[0]' class='list-group-item'>";

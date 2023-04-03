@@ -210,7 +210,6 @@
                 echo $row[0];
               }
               pg_free_result($result);
-              pg_close($connection);
               ?>
             </span></h3>
         </div>
@@ -227,7 +226,7 @@
             <select class="form-select" id="department">
               <option value="0" selected>None</option>
               <?php
-              $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+
               $result = pg_query($connection, "select department_id,department_name from Department");
               while ($row = pg_fetch_row($result)) {
                 echo "<option id=$row[0]>";
@@ -235,7 +234,7 @@
                 echo "</option>";
               }
               pg_free_result($result);
-              pg_close($connection);
+
               ?>
             </select>
             <label for="floatingSelectGrid">Name of Department</label>
@@ -287,7 +286,7 @@
                   </thead>
                   <tbody id="roletablebody">
                     <?php
-                    $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+
                     $result = pg_query($connection, "select role_id,role_name,department_id,department_name,role_base_salary,role_current_holding,role_max_holding from Role inner join Department on Role.fkdepartment_id =Department.department_id");
                     while ($row = pg_fetch_row($result)) {
                       echo "<tr id=$row[0]>";
