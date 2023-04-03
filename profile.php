@@ -215,7 +215,7 @@ pg_close($connection);
                                 <?php if (is_null($row[17])) {
                                     echo "<td> Not Assigned</td>";
                                 } else {
-                                    echo "<td>$row[3]</td>";
+                                    echo "<td>$row[17]</td>";
                                 } ?></h5>
                         </div>
                     </div>
@@ -230,17 +230,17 @@ pg_close($connection);
                                 <li class="list-group-item">Full Name :-<span class="fw-bold">
                                         <?php echo $row[1] ?>
                                     </span></li>
-                                <li class="list-group-item">Date OF Birth <span class="fw-bold">
+                                <li class="list-group-item">Date OF Birth :- <span class="fw-bold">
                                         <?php echo $row[3] ?></span></li>
-                                <li class="list-group-item">Gender<span class="fw-bold"> <?php echo $row[4] ?></span>
+                                <li class="list-group-item">Gender :- <span class="fw-bold"> <?php echo $row[4] ?></span>
                                 </li>
                                 <li class="list-group-item">Email :- <span class="fw-bold"> <?php echo $row[2] ?></span>
                                 </li>
                                 <li class="list-group-item">Phone no:- <span class="fw-bold"><?php echo $row[5] ?></span></li>
-                                <li class="list-group-item">City <span class="fw-bold"><?php echo $row[6] ?></span></li>
-                                <li class="list-group-item">State <span class="fw-bold"><?php echo $row[7] ?></span>
+                                <li class="list-group-item">City :- <span class="fw-bold"><?php echo $row[6] ?></span></li>
+                                <li class="list-group-item">State :- <span class="fw-bold"><?php echo $row[7] ?></span>
                                 </li>
-                                <li class="list-group-item">Pincode <span class="fw-bold"><?php echo $row[8] ?></span>
+                                <li class="list-group-item">Pincode :- <span class="fw-bold"><?php echo $row[8] ?></span>
                                 </li>
                             </ul>
                         </div>
@@ -253,11 +253,11 @@ pg_close($connection);
                     <div class="card-body">
                         <ul class="list-group">
                             <li class="list-group-item">Date Of Joining :- <span class="fw-bold"><?php echo $row[9] ?></span></li>
-                            <li class="list-group-item">Department <span class="fw-bold">
+                            <li class="list-group-item">Department :- <span class="fw-bold">
                                     <?php if (is_null($row[18])) {
                                         echo "<td> Not Assigned</td>";
                                     } else {
-                                        echo "<td>$row[3]</td>";
+                                        echo "<td>$row[18]</td>";
                                     } ?></span> </li>
                         </ul>
                     </div>
@@ -268,11 +268,11 @@ pg_close($connection);
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item">PAN No. <span class="fw-bold"><?php echo $row[10] ?>
+                            <li class="list-group-item">PAN No. :- <span class="fw-bold"><?php echo $row[10] ?>
                                 </span></li>
-                            <li class="list-group-item">A/C No. <span class="fw-bold"><?php echo $row[11] ?></span>
+                            <li class="list-group-item">A/C No. :- <span class="fw-bold"><?php echo $row[11] ?></span>
                             </li>
-                            <li class="list-group-item">IFSC Code <span class="fw-bold"><?php echo $row[12] ?></span>
+                            <li class="list-group-item">IFSC Code :- <span class="fw-bold"><?php echo $row[12] ?></span>
                             </li>
                         </ul>
                     </div>
