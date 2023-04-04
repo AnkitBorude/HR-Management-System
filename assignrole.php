@@ -207,13 +207,13 @@
                             Please select Employees you want to free or switch role and click the respective button
                         </div>
                         <div class="col-md-2 mb-2">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="GenerateRoles()">Assign</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="GenerateRoles()">Assign <i class="bi bi-plus-circle"></i></button>
                         </div>
                         <div class="col-md-2 mb-2">
-                            <button class="btn btn-primary" onclick="freeRole(true)">Free</button>
+                            <button class="btn btn-primary" onclick="freeRole(true)">Free <i class="bi bi-box-arrow-up"></i></button>
                         </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-primary" onclick="SwichRole()">Switch</button>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary" onclick="SwichRole()">Switch <i class="bi bi-arrow-left-right"></i></button>
                         </div>
                     </div>
                     <div class="row mt-2">

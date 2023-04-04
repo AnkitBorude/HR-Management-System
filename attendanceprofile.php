@@ -102,7 +102,7 @@
 
           <li>
             <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
-              <span class="me-2"><i class="bi bi-people"></i></i></span>
+              <span class="me-2"><i class="bi bi-card-checklist"></i></i></span>
               <span>Attendance</span>
               <span class="ms-auto">
                 <span class="right-icon">
@@ -114,13 +114,13 @@
               <ul class="navbar-nav ps-3">
                 <li>
                   <a href="dailyattendance.php" class="nav-link px-3">
-                    <span class="me-2"><i class="bi bi-file-person"></i></span>
+                    <span class="me-2"><i class="bi bi-list-check"></i></span>
                     <span>Daily Attendance</span>
                   </a>
                 </li>
                 <li>
                   <a href="attendanceprofile.php" class="nav-link px-3">
-                    <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                    <span class="me-2"><i class="bi bi-file-text"></i></span>
                     <span>Attendance Report</span>
                   </a>
                 </li>
@@ -129,7 +129,7 @@
           </li>
           <li>
             <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#leave">
-              <span class="me-2"><i class="bi bi-people"></i></i></span>
+              <span class="me-2"><i class="bi  bi-journal-medical"></i></i></span>
               <span>Leave</span>
               <span class="ms-auto">
                 <span class="right-icon">
@@ -141,13 +141,13 @@
               <ul class="navbar-nav ps-3">
                 <li>
                   <a href="leaveprofile.php" class="nav-link px-3">
-                    <span class="me-2"><i class="bi bi-file-person"></i></span>
+                    <span class="me-2"><i class="bi bi bi-calendar-check"></i></span>
                     <span>Leave Profile</span>
                   </a>
                 </li>
                 <li>
                   <a href="leaverequest.php" class="nav-link px-3">
-                    <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                    <span class="me-2"><i class="bi  bi-calendar-plus"></i></span>
                     <span>Leave Requistions</span>
                   </a>
                 </li>
@@ -157,7 +157,7 @@
 
           <li>
             <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#role">
-              <span class="me-2"><i class="bi bi-people"></i></i></span>
+              <span class="me-2"><i class="bi bi-person-gear"></i></span>
               <span>Role & Department </span>
               <span class="ms-auto">
                 <span class="right-icon">
@@ -169,13 +169,13 @@
               <ul class="navbar-nav ps-3">
                 <li>
                   <a href="newrole.php" class="nav-link px-3">
-                    <span class="me-2"><i class="bi bi-file-person"></i></span>
+                    <span class="me-2"><i class="bi bi-plus-circle"></i></span>
                     <span>New Role</span>
                   </a>
                 </li>
                 <li>
                   <a href="assignrole.php" class="nav-link px-3">
-                    <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                    <span class="me-2"><i class="bi bi-people"></i></span>
                     <span>Assign & Free Role</span>
                   </a>
                 </li>
