@@ -27,7 +27,7 @@
               if ($username == $usernamecred && $pass == $passwordcred) {
                 $_SESSION['username'] = $username;
                 $_SESSION['Logedin'] = true;
-                header("Location:index.php");
+                header("Location:dashboard.php");
               } else {
                 echo  '<div class="alert alert-danger">
     <p><strong>Alert</strong></p>
