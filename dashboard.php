@@ -301,18 +301,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
               Total Leaves in Week
             </div>
             <div class="card-body">
-              <table class="table table-hover">
-                <thead class="table-dark">
-                  <th>Date</th>
-                  <th>Leaves</th>
-                </thead>
-                <tbody id="leavesinweek">
-                  <tr>
-                    <td>2023-01-02</td>
-                    <td>12</td>
-                  </tr>
-                </tbody>
-              </table>
+              <canvas id="myChart" style="width:100%;height:300px"></canvas>
             </div>
           </div>
         </div>
@@ -448,29 +437,34 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
 
     window.onload =
       createpiechart();
-
+    var xvalue = [];
+    var yvalue = [];
     async function nextweekleaves() {
       var tdate = getDBdate(new Date());
-      let tablebody = document.getElementById("leavesinweek");
-      removeAllChildNodes(tablebody);
+      // let tablebody = document.getElementById("leavesinweek");
+      // removeAllChildNodes(tablebody);
       for (let i = 0; i <= 7; i++) {
         tdate = getDBdate(addDaystoDate(new Date(), i));
         let daydataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=todaysleavedata&date=" + tdate);
         let resultAsjson = await daydataresp.json();
-        const tablerow = document.createElement("tr");
+        console.log(i);
+        // const tablerow = document.createElement("tr");
 
-        let td = document.createElement("td");
-        let idtextdata = document.createTextNode(tdate);
-        td.appendChild(idtextdata);
+        // let td = document.createElement("td");
+        // let idtextdata = document.createTextNode(tdate);
+        // td.appendChild(idtextdata);
 
-        let td1 = document.createElement("td");
-        let idtextdata1 = document.createTextNode(resultAsjson.data);
-        td1.appendChild(idtextdata1);
+        // let td1 = document.createElement("td");
+        // let idtextdata1 = document.createTextNode(resultAsjson.data);
+        // td1.appendChild(idtextdata1);
 
-        tablerow.appendChild(td);
-        tablerow.appendChild(td1);
-        tablebody.appendChild(tablerow);
+        // tablerow.appendChild(td);
+        // tablerow.appendChild(td1);
+        // tablebody.appendChild(tablerow);
+        xvalue.push(tdate);
+        yvalue.push(resultAsjson.data);
       }
+      generatechart();
     }
 
     function removeAllChildNodes(parent) { //function to remove all childs of given parent element
@@ -478,6 +472,32 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
         parent.removeChild(parent.firstChild);
       }
     }
+
+    var barColors = ["#1c0f30", "#31135e", "#491d8b", "#6929c4", "#8a3ffc", "#a56eff", "#d4bbff", "#be95ff"];
+
+    function generatechart() {
+      new Chart("myChart", {
+        type: "bar",
+        data: {
+          labels: xvalue,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yvalue
+          }]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            text: "Leaves from " + xvalue[0] + " to " + xvalue[7]
+          }
+        }
+      });
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
   </script>
 </body>
 
