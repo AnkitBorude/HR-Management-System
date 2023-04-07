@@ -52,7 +52,7 @@ pg_close($connection);
                             <i class="bi bi-person-fill"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Log Out</a></li>
+                            <li><a class="dropdown-item" href="logout.php">Log Out</a></li>
                         </ul>
                     </li>
                 </ul>
