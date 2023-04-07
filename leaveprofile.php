@@ -1,9 +1,9 @@
 <?php
 session_start();
 if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['Logedin'] !== true) {
-  header('HTTP/1.0 401 Unauthorized');
-  echo '401 Unauthorized Access ';
-  exit;
+    header('HTTP/1.0 401 Unauthorized');
+    echo '401 Unauthorized Access ';
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -69,7 +69,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                         </div>
                     </li>
                     <li>
-                        <a href="index.php" class="nav-link px-3 active">
+                        <a href="dashboard.php" class="nav-link px-3 active">
                             <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                             <span>Dashboard</span>
                         </a>
