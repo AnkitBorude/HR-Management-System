@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['Logedin'] !== true) {
+  header('HTTP/1.0 401 Unauthorized');
+  echo '401 Unauthorized Access ';
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

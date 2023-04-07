@@ -1,4 +1,12 @@
 <?php
+session_start();
+if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['Logedin'] !== true) {
+    header('HTTP/1.0 401 Unauthorized');
+    echo '401 Unauthorized Access ';
+    exit;
+}
+?>
+<?php
 $eid = $_GET["id"];
 $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
 $result = pg_query($connection, "select Employees.*,role_name,department_name from Employees left join Role on Employees.fkrole_id=Role.role_id left join Department on Role.fkdepartment_id=Department.department_id where Employees.employee_id=$eid;");

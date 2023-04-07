@@ -7,13 +7,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <title>Login</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
-  <!-- Google Fonts Roboto -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 
 <body>
-  <!-- Start your project here-->
   <section class="vh-100" style="background-color: #9A616D;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -28,6 +26,7 @@
               $pass = $_POST['pass'];
               if ($username == $usernamecred && $pass == $passwordcred) {
                 $_SESSION['username'] = $username;
+                $_SESSION['Logedin'] = true;
                 header("Location:index.php");
               } else {
                 echo  '<div class="alert alert-danger">
