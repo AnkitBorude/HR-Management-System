@@ -434,33 +434,17 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
       });
       chart.render();
     }
-
     window.onload =
       createpiechart();
     var xvalue = [];
     var yvalue = [];
     async function nextweekleaves() {
       var tdate = getDBdate(new Date());
-      // let tablebody = document.getElementById("leavesinweek");
-      // removeAllChildNodes(tablebody);
       for (let i = 0; i <= 7; i++) {
         tdate = getDBdate(addDaystoDate(new Date(), i));
         let daydataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=todaysleavedata&date=" + tdate);
         let resultAsjson = await daydataresp.json();
         console.log(i);
-        // const tablerow = document.createElement("tr");
-
-        // let td = document.createElement("td");
-        // let idtextdata = document.createTextNode(tdate);
-        // td.appendChild(idtextdata);
-
-        // let td1 = document.createElement("td");
-        // let idtextdata1 = document.createTextNode(resultAsjson.data);
-        // td1.appendChild(idtextdata1);
-
-        // tablerow.appendChild(td);
-        // tablerow.appendChild(td1);
-        // tablebody.appendChild(tablerow);
         xvalue.push(tdate);
         yvalue.push(resultAsjson.data);
       }
@@ -472,9 +456,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
         parent.removeChild(parent.firstChild);
       }
     }
-
     var barColors = ["#1c0f30", "#31135e", "#491d8b", "#6929c4", "#8a3ffc", "#a56eff", "#d4bbff", "#be95ff"];
-
     function generatechart() {
       new Chart("myChart", {
         type: "bar",
