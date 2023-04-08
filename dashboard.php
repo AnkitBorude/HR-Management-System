@@ -202,7 +202,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
 
   <main class="mt-5 pt-3">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row gy-5" style="margin-top: 1rem;">
         <div class="col-md-12">
           <h4 class="fw-bold fs-2">Dashboard</h4>
         </div>
@@ -351,7 +351,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                         echo "<td>$row[2]</td>";
                       }
                       echo "<td> $row[4]</td>";
-                      echo "<td> $row[5]</td>";
+                      echo "<td><a href='mailto:$row[5]'>$row[5]</a></td>";
                     }
                     pg_free_result($result);
 
@@ -359,12 +359,12 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                   </tbody>
                   <tfoot>
                     <tr>
+                      <th>Id</th>
                       <th>Name</th>
+                      <th>Date Of Join</th>
                       <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Phone No.</th>
+                      <th>Email</th>
                     </tr>
                   </tfoot>
                 </table>
@@ -457,6 +457,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
       }
     }
     var barColors = ["#1c0f30", "#31135e", "#491d8b", "#6929c4", "#8a3ffc", "#a56eff", "#d4bbff", "#be95ff"];
+
     function generatechart() {
       new Chart("myChart", {
         type: "bar",
