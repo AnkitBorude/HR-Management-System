@@ -248,7 +248,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                 if ($row[1] == null) {
                   echo "0";
                 } else {
-                  $percentage = ((($row[1] - $row[0]) / $row[1]) * 100);
+                  $percentage = round(((($row[1] - $row[0]) / $row[1]) * 100));
                   echo $percentage . "%";
                 }
                 pg_free_result($result);

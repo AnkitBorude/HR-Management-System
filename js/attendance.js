@@ -141,7 +141,12 @@ function addRemarkbatch(tablecolumn, remark) {
     }
 }
 function removeRemark(tablecolumn) {
-    tablecolumn.removeChild(tablecolumn.firstChild);
+    try {
+        tablecolumn.removeChild(tablecolumn.firstChild);
+    } catch (error) {
+        console.log(error.message);
+    }
+    
 }
 
 async function signin(elename) {
