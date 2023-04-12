@@ -69,7 +69,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                         </div>
                     </li>
                     <li>
-                        <a href="dashboard.php" class="nav-link px-3 active">
+                        <a href="dashboard.php" class="nav-link px-3">
                             <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                             <span>Dashboard</span>
                         </a>
@@ -142,7 +142,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                         </div>
                     </li>
                     <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#leave">
+                        <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#leave">
                             <span class="me-2"><i class="bi bi-people"></i></i></span>
                             <span>Leave</span>
                             <span class="ms-auto">
@@ -151,10 +151,10 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse" id="leave">
+                        <div class="collapse show" id="leave">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="leaveprofile.php" class="nav-link px-3">
+                                    <a href="leaveprofile.php" class="nav-link px-3 active">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Leave Profile</span>
                                     </a>
@@ -284,7 +284,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                                                 <th>Start date</th>
                                                 <th>End date</th>
                                                 <th>Total Days</th>
-                                                <th>Delete</th>
+                                                <th>Cancel</th>
                                             </tr>
                                         </thead>
                                         <tbody id="leavetablebody">
@@ -298,7 +298,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                                                 <th>Start date</th>
                                                 <th>End date</th>
                                                 <th>Total Days</th>
-                                                <th>Delete</th>
+                                                <th>Cancel</th>
                                             </tr>
                                         </tfoot>
 
@@ -474,7 +474,8 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                 dbutton.appendChild(text);
                 td8.appendChild(dbutton);
             } else {
-                let txt = document.createTextNode("On Leave");
+                let txt = document.createTextNode("Cannot Cancel");
+                td8.setAttribute("color", "red");
                 td8.appendChild(txt);
             }
             tablerow.appendChild(td);
