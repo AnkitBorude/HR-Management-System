@@ -207,7 +207,9 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
         <div class="row">
           <h3 class="hw-3">Attendance Report</h3>
         </div>
-
+        <div class="alert alert-info" role="alert">
+          Enter from - to date range to get Attendance Report
+        </div>
         <form class="row g-3 justify-content-center row-cols-auto h-25">
           <div class="col-md-6">
             <label for="fromdate" class="form-label">From</label>

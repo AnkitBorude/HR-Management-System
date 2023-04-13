@@ -206,7 +206,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
       <div class="row">
         <h3 class="fw-bold fs-2">Delete Employee Details</h3>
         <div class="alert alert-danger" role="alert">
-          Warning deleting an employee record will cause all its all previous records deletion (Ex.Leaves, Attendance,Role etc.).
+          Warning deleting an employee record will clear all its previous records(Ex.Leaves, Attendance,Role etc.).
         </div>
         <div id="liveAlertPlaceholder"></div>
       </div>

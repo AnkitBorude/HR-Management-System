@@ -256,7 +256,10 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                 <div class="row">
                     <h3 class="hw-3">Leave Report or Cancel Leave</h3>
                 </div>
-
+                <div class="alert alert-info mt-2 mb-2" role="alert">
+                    Enter from - to date range to get future/past Leave Reports.<br>
+                    Past Leaves or current Leaves Cannot be Cancelled
+                </div>
                 <form class="row g-3 justify-content-center row-cols-auto h-25">
                     <div class=" col-md-2 input-group">
                         <input type="date" class="form-control" placeholder="Choose a Date" aria-label="Choose Date" id="sdate">
