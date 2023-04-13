@@ -63,7 +63,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                         </div>
                     </li>
                     <li>
-                        <a href="dashboard.php" class="nav-link px-3 active">
+                        <a href="dashboard.php" class="nav-link px-3">
                             <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                             <span>Dashboard</span>
                         </a>
@@ -136,7 +136,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                         </div>
                     </li>
                     <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#leave">
+                        <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#leave">
                             <span class="me-2"><i class="bi bi-people"></i></i></span>
                             <span>Leave</span>
                             <span class="ms-auto">
@@ -145,7 +145,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse" id="leave">
+                        <div class="collapse show" id="leave">
                             <ul class="navbar-nav ps-3">
                                 <li>
                                     <a href="leaveprofile.php" class="nav-link px-3">
@@ -154,7 +154,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="leaverequest.php" class="nav-link px-3">
+                                    <a href="leaverequest.php" class="nav-link px-3 active">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Leave Requistions</span>
                                     </a>

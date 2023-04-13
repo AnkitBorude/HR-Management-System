@@ -72,7 +72,7 @@ pg_close($connection);
                         </div>
                     </li>
                     <li>
-                        <a href="dashboard.php" class="nav-link px-3 active">
+                        <a href="dashboard.php" class="nav-link px-3">
                             <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                             <span>Dashboard</span>
                         </a>
@@ -84,7 +84,7 @@ pg_close($connection);
                     </li>
 
                     <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts">
+                        <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#layouts">
                             <span class="me-2"><i class="bi bi-people"></i></i></span>
                             <span>Employee</span>
                             <span class="ms-auto">
@@ -93,10 +93,10 @@ pg_close($connection);
                                 </span>
                             </span>
                         </a>
-                        <div class="collapse" id="layouts">
+                        <div class="collapse show" id="layouts">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="employee.php" class="nav-link px-3">
+                                    <a href="employee.php" class="nav-link px-3 active">
                                         <span class="me-2"><i class="bi bi-file-person"></i></span>
                                         <span>Employee Profile</span>
                                     </a>

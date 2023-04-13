@@ -63,7 +63,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
             </div>
           </li>
           <li>
-            <a href="dashboard.php" class="nav-link px-3 active">
+            <a href="dashboard.php" class="nav-link px-3">
               <span class="me-2"><i class="bi bi-speedometer2"></i></span>
               <span>Dashboard</span>
             </a>
@@ -164,7 +164,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
           </li>
 
           <li>
-            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#role">
+            <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#role">
               <span class="me-2"><i class="bi bi-person-gear"></i></span>
               <span>Role & Department </span>
               <span class="ms-auto">
@@ -173,10 +173,10 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                 </span>
               </span>
             </a>
-            <div class="collapse" id="role">
+            <div class="collapse show" id="role">
               <ul class="navbar-nav ps-3">
                 <li>
-                  <a href="newrole.php" class="nav-link px-3">
+                  <a href="newrole.php" class="nav-link px-3 active">
                     <span class="me-2"><i class="bi bi-plus-circle"></i></span>
                     <span>New Role</span>
                   </a>

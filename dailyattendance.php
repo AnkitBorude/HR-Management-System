@@ -63,7 +63,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
             </div>
           </li>
           <li>
-            <a href="dashboard.php" class="nav-link px-3 active">
+            <a href="dashboard.php" class="nav-link px-3">
               <span class="me-2"><i class="bi bi-speedometer2"></i></span>
               <span>Dashboard</span>
             </a>
@@ -109,7 +109,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
           </li>
 
           <li>
-            <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#layouts2">
+            <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#layouts2">
               <span class="me-2"><i class="bi bi-card-checklist"></i></i></span>
               <span>Attendance</span>
               <span class="ms-auto">
@@ -118,10 +118,10 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                 </span>
               </span>
             </a>
-            <div class="collapse" id="layouts2">
+            <div class="collapse show" id="layouts2">
               <ul class="navbar-nav ps-3">
                 <li>
-                  <a href="dailyattendance.php" class="nav-link px-3">
+                  <a href="dailyattendance.php" class="nav-link px-3 active">
                     <span class="me-2"><i class="bi bi-list-check"></i></span>
                     <span>Daily Attendance</span>
                   </a>
