@@ -228,7 +228,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                         <div class="col-md-12 mb-3">
                             <div class="card">
                                 <div class="card-header">
-                                    <span><i class="bi bi-table me-2"></i></span> Data Table
+                                    <span><i class="bi bi-table me-2"></i></span> Assigned Roles
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
