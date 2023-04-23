@@ -9,7 +9,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
 <?php
 $eid = $_GET["id"];
 $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
-$result = pg_query($connection, "select Employees.*,role_name,department_name from Employees left join Role on Employees.fkrole_id=Role.role_id left join Department on Role.fkdepartment_id=Department.department_id where Employees.employee_id=$eid;");
+$result = pg_query($connection, "select Employees.*,role_name,department_name,NOW()::date-employee_date_of_join as days,extract(year from age(employee_dob)) as year from Employees left join Role on Employees.fkrole_id=Role.role_id left join Department on Role.fkdepartment_id=Department.department_id where Employees.employee_id=$eid;");
 $row = pg_fetch_row($result);
 pg_free_result($result);
 pg_close($connection);
@@ -240,6 +240,8 @@ pg_close($connection);
                                     </span></li>
                                 <li class="list-group-item">Date OF Birth :- <span class="fw-bold">
                                         <?php echo $row[3] ?></span></li>
+                                <li class="list-group-item">Age :- <span class="fw-bold">
+                                        <?php echo $row[20] ?></span></li>
                                 <li class="list-group-item">Gender :- <span class="fw-bold"> <?php echo $row[4] ?></span>
                                 </li>
                                 <li class="list-group-item">Email :- <span class="fw-bold"> <?php echo $row[2] ?></span>
@@ -267,6 +269,7 @@ pg_close($connection);
                                     } else {
                                         echo "<td>$row[18]</td>";
                                     } ?></span> </li>
+                            <li class="list-group-item">Total Days :- <span class="fw-bold"><?php echo $row[19] ?></span></li>
                         </ul>
                     </div>
                 </div>
