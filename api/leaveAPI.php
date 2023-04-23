@@ -102,6 +102,21 @@ if ($_GET["type"] == "leavebalance") {
         echo (json_encode(['status' => 'error', 'message' => $error]));
     }
     pg_free_result($result);
+} else if ($_GET["type"] == "creditbalance") {
+    $el = $_GET["el"];
+    $cl = $_GET["cl"];
+    $sl = $_GET["sl"];
+    if ($result = pg_query($connection, "update Employees set employee_el_balance=employee_el_balance+$el,employee_sl_balance=employee_sl_balance+$sl,employee_cl_balance=employee_cl_balance+$cl")) {
+        $row = pg_fetch_row($result);
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'data' => $row[0]]));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
 }
+
 
 pg_close($connection);

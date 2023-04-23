@@ -404,6 +404,35 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                         </div>
                     </div>
                 </div>
+                <div class="row mt-5">
+                    <h3 class="hw-3"> Credit Balance</h3>
+                    <div id="liveAlertPlaceholder"></div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <form class="row g-3 needs-validation mb-5" id="lform">
+                            <div class=" col-md-4 mt-2">
+                                <label for="totalel" class="form-label">EL Balance to Credit</label>
+                                <input type="number" class="form-control" value="0" id="totalel" max="12" min="0" />
+                            </div>
+                            <div class=" col-md-4 mt-2">
+                                <label for="totalcl" class="form-label">CL Balance to Credit</label>
+                                <input type="number" class="form-control" value="0" id="totalcl" max="12" min="0" />
+                            </div>
+                            <div class=" col-md-4 mt-2">
+                                <label for="totalsl" class="form-label">SL Balance to Credit</label>
+                                <input type="number" value="0" class="form-control" id="totalsl" max="12" min="0" />
+                            </div>
+                            <div class="col-3 mt-4">
+                                <button class="btn btn-success" type="submit" onclick="event.preventDefault(), creditBalance()">Credit</button>
+                            </div>
+
+                            <div class="col-1 mt-4">
+                                <button class="btn btn-primary" type="reset">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -548,6 +577,33 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
             let dataresponse = await fetch("/HR-Management-System/api/leaveAPI.php?type=deleteleave&leaveid=" + id + "&leavetype=" + leavetype + "&totaldays=" + totaldays + "&eid=" + eid);
             let rowtobedeleted = document.getElementById(id);
             tablebody.removeChild(rowtobedeleted);
+        }
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+        const alertme = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
+        }
+        async function creditBalance() {
+            let totalel = document.getElementById("totalel").value;
+            let totalcl = document.getElementById("totalcl").value;
+            let totalsl = document.getElementById("totalsl").value;
+            let dataresp = await fetch("/HR-Management-System/api/leaveAPI.php?type=creditbalance&el=" + totalel + "&cl=" + totalcl + "&sl=" + totalsl);
+            let resultAsjson = await dataresp.json();
+            if (resultAsjson.status == "success") {
+                alertme("Balance Credited", "success");
+            } else {
+                alertme("Error", "danger");
+            }
+            console.log(totalcl);
+            console.log(totalsl);
+            console.log(totalel);
         }
     </script>
 </body>
