@@ -601,9 +601,6 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
             } else {
                 alertme("Error", "danger");
             }
-            console.log(totalcl);
-            console.log(totalsl);
-            console.log(totalel);
         }
     </script>
 </body>
