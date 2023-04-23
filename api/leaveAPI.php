@@ -54,7 +54,7 @@ if ($_GET["type"] == "leavebalance") {
 } else if ($_GET["type"] == "rangedata") {
     $fromdate = $_GET["from"];
     $todate = $_GET["to"];
-    if ($result = pg_query($connection, "select employee_full_name,leave_id,role_name,leave_type,leave_start_date,leave_end_date,leave_total_days,leave_applied_date,fkemployee_id as emp_id from Leave inner join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id and leave_start_date between '$fromdate' and '$todate'")) {
+    if ($result = pg_query($connection, "select employee_full_name,leave_id,role_name,leave_type,leave_start_date,leave_end_date,leave_total_days,leave_applied_date,fkemployee_id as emp_id from Leave inner join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id where leave_start_date>= '$fromdate' and leave_end_date<='$todate' order by leave_applied_date;")) {
         $array = [];
         while ($row = pg_fetch_assoc($result)) {
             $array[] = $row;
