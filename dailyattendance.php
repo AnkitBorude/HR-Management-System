@@ -204,17 +204,27 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
     <div class="container-fluid">
       <!---page content here-->
       <div class="row">
-        <h3 class="fw-bold fs-2">Daily Attendance Book</h3>
-        <div class="alert alert-info" role="alert">
-          Working Time :- 10 AM - 17 PM
+        <div class="col-md-6">
+          <h3 class="fw-bold fs-2">Daily Attendance Book</h3>
+          <div class="alert alert-info" role="alert">
+            Working Time :- 10 AM - 17 PM
+          </div>
+          <div class="alert alert-warning" role="alert">
+            <ol class="list-group list-group-numbered list-group-flush">
+              <li class="list-group-item" style="background-color: inherit;">Sign In after 10AM would be counted as Late.</li>
+              <li class="list-group-item" style="background-color: inherit;"> Sign out before 17PM would be counted as Half Day.</li>
+              <li class="list-group-item" style="background-color: inherit;"> Sign out window is between 17 PM and 17:30 PM.</li>
+              <li class="list-group-item" style="background-color: inherit;">Sign out after given time window would be counted as overtime otherwise absentee would be considered.</li>
+            </ol>
+          </div>
         </div>
-        <div class="alert alert-warning" role="alert">
-          <ol class="list-group list-group-numbered list-group-flush">
-            <li class="list-group-item" style="background-color: inherit;">Sign In after 10AM would be counted as Late.</li>
-            <li class="list-group-item" style="background-color: inherit;"> Sign out before 17PM would be counted as Half Day.</li>
-            <li class="list-group-item" style="background-color: inherit;"> Sign out window is between 17 PM and 17:30 PM.</li>
-            <li class="list-group-item" style="background-color: inherit;">Sign out after given time window would be counted as overtime otherwise absentee would be considered.</li>
-          </ol>
+        <div class="col-md-6">
+          <div class="card text-white h-100 text-center" style="background-color:#1BCFB4;">
+            <h5 class="card-header">Total Overtime/Hr</h5>
+            <div class="card-body py-5" id="reader">
+              <!-- <div id="reader" class="card"> -->
+            </div>
+          </div>
         </div>
       </div>
       <div class="row mt-2">
@@ -282,17 +292,41 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
       </div>
     </div>
   </main>
-  <script src="./js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
-  <script src="./js/jquery-3.5.1.js"></script>
-  <script src="./js/jquery.dataTables.min.js"></script>
-  <script src="./js/dataTables.bootstrap5.min.js"></script>
-  <script src="./js/script.js"></script>
-  <script src="./js/time.js"></script>
-  <script src="./js/attendance.js"></script>
-  <script>
-    setInterval(updateClock, 1000 * 60); //update the clock after 1 min interval
-  </script>
+  <div class="modal fade" id="mymodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">success</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          QR Scanned of Employee ID:-<P id="empidscanned"></p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+    <script src="./js/jquery-3.5.1.js"></script>
+    <script src="./js/jquery.dataTables.min.js"></script>
+    <script src="./js/dataTables.bootstrap5.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/time.js"></script>
+    <script src="./js/attendance.js"></script>
+    <script src="./js/qrcode.js"></script>
+    <script>
+      setInterval(updateClock, 1000 * 60); //update the clock after 1 min interval
+      var html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", {
+          fps: 24,
+          qrbox: 300,
+          rememberLastUsedCamera: true,
+          supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+        });
+      html5QrcodeScanner.render(onScanSuccess);
+    </script>
 </body>
 
 </html>

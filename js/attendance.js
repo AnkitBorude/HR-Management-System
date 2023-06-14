@@ -61,7 +61,7 @@ function signoutUpdateDom(x, datetimeobj) {
     signoutspan.removeChild(btn);
     signoutspan.appendChild(ptag);
     var closingdate = new Date();
-    closingdate.setHours(17, 00);//closing time of start 17 PM
+    closingdate.setHours(17,00);//closing time of start 17 PM
 
     if (datetimeobj.getHours() < closingdate.getHours()) {
 
@@ -146,7 +146,7 @@ function removeRemark(tablecolumn) {
     } catch (error) {
         console.log(error.message);
     }
-    
+
 }
 
 async function signin(elename) {
@@ -218,5 +218,14 @@ async function getTodaysLeaves() {
 //     var tdate = getDBdate(new Date());//todays date as db fromat
 //     let daydataresp = await fetch("/HR-Management-System/api/attendanceAPI.php?type=todaypresent&date=" + tdate);
 //     let resultAsjson = await daydataresp.json();
-    
+
 // }
+
+function onScanSuccess(decodedText, decodedResult) {
+    // Handle on success condition with the decoded text or result.
+    let empidsc = document.getElementById("empidscanned");
+    empidsc.innerHTML = decodedText;
+    $("#mymodal").modal("show");
+    console.log(`Scan result: ${decodedText}`, decodedResult);
+    console.log(decodedText);
+}
