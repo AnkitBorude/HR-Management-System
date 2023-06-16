@@ -191,7 +191,18 @@ async function getTodaysData() {
         }
 
     }
-
+    disableSingIn();
+}
+function disableSingIn() {
+    var threashholddate = new Date();
+    threashholddate.setHours(12,01);
+    var currdate = new Date();
+    if (threashholddate.getHours() < currdate.getHours()) {
+        let nodessignin = document.getElementsByClassName("btn btn-primary");
+        for (let i = 0; i < nodessignin.length; i++) {
+            nodessignin[i].setAttribute("disabled", "true");
+        }
+    }
 }
 async function getTodaysLeaves() {
     let today = getDBdate(new Date());

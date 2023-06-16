@@ -319,8 +319,8 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
     setInterval(updateClock, 1000 * 60); //update the clock after 1 min interval
     var html5QrcodeScanner = new Html5QrcodeScanner(
       "reader", {
-        fps: 24,
-        qrbox: 300,
+        fps: 12,
+        qrbox: 200,
         rememberLastUsedCamera: true,
         supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
       });
