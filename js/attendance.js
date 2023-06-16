@@ -161,7 +161,7 @@ async function signin(elename) {
         var tabledata = mainrow.getElementsByTagName("td");
         var signoutspan = tabledata[4].firstChild;
         signoutspan.firstChild.setAttribute("id", resjson.attendid);//SETTING ATTENDID RETURNED BY API AS ID OF SIGNOUT BTN
-    }
+    } return resjson.status;
 }
 async function signout(elename, attendance_id) {
     let currdate = new Date();
@@ -169,6 +169,7 @@ async function signout(elename, attendance_id) {
     var time = getcurrTime();
     let delresp = await fetch("/HR-Management-System/api/attendanceAPI.php?type=signout&attendid=" + attendance_id + "&signouttime=" + time + "&isHalfday=" + resobj.halfday + "&isPresent=" + resobj.present + "&isOvertime=" + resobj.overtime + "&totalot=" + resobj.totalot);
     let resjson = await delresp.json();
+    return resjson.status;
 }
 
 function getDifferenceeinHour(obj1, obj2) {
@@ -223,23 +224,25 @@ async function getTodaysLeaves() {
 
 function onScanSuccess(decodedText, decodedResult) {
     // Handle on success condition with the decoded text or result.
+    let empidsc = document.getElementById("toastbody");
     playsound();
     html5QrcodeScanner.pause(true);
     if (mode.checked) {
-        var mainrow2 = document.getElementById(2838);
+        var mainrow2 = document.getElementById(decodedText);
         var tabledata8 = mainrow2.getElementsByTagName("td");
         var attendanceid2 = tabledata8[4].firstChild.firstChild.id;
-        signout(decodedText, attendanceid2);
+        signout(decodedText, attendanceid2).then(result => { empidsc.innerHTML = "Sign Out" + decodedText + " " + result; });
 
     } else if (!mode.checked) {
-        signin(decodedText);
+        signin(decodedText).then(data => { empidsc.innerHTML = "Sign in" + decodedText + " " + data; });
     }
-    let empidsc = document.getElementById("empidscanned");
-    empidsc.innerHTML = decodedText;
     const toastLiveExample = document.getElementById('liveToast');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
-    html5QrcodeScanner.resume();
+    setTimeout(function () {
+        // Code to be executed after 1500 ms
+        html5QrcodeScanner.resume();//to avoid double scanning
+    }, 1000);
 }
 
 function playsound() {
