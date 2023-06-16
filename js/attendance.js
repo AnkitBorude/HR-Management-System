@@ -223,9 +223,27 @@ async function getTodaysLeaves() {
 
 function onScanSuccess(decodedText, decodedResult) {
     // Handle on success condition with the decoded text or result.
+    playsound();
+    html5QrcodeScanner.pause(true);
+    if (mode.checked) {
+        var mainrow2 = document.getElementById(2838);
+        var tabledata8 = mainrow2.getElementsByTagName("td");
+        var attendanceid2 = tabledata8[4].firstChild.firstChild.id;
+        signout(decodedText, attendanceid2);
+
+    } else if (!mode.checked) {
+        signin(decodedText);
+    }
     let empidsc = document.getElementById("empidscanned");
     empidsc.innerHTML = decodedText;
-    $("#mymodal").modal("show");
-    console.log(`Scan result: ${decodedText}`, decodedResult);
-    console.log(decodedText);
+    const toastLiveExample = document.getElementById('liveToast');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
+    html5QrcodeScanner.resume();
+}
+
+function playsound() {
+    var beepsound = new Audio(
+        'res/sounds/success.wav');
+    beepsound.play();
 }

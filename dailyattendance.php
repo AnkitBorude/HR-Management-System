@@ -220,7 +220,11 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
         </div>
         <div class="col-md-6">
           <div class="card text-white h-100 text-center" style="background-color:#1BCFB4;">
-            <h5 class="card-header">Total Overtime/Hr</h5>
+            <h5 class="card-header">Scanner</h5>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="scannermode">
+              <label class="form-check-label" for="scannermode" id="modelabel">Sign In Mode</label>
+            </div>
             <div class="card-body py-5" id="reader">
               <!-- <div id="reader" class="card"> -->
             </div>
@@ -291,42 +295,47 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
         </div>
       </div>
     </div>
-  </main>
-  <div class="modal fade" id="mymodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">success</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Notification</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          QR Scanned of Employee ID:-<P id="empidscanned"></p>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
+        <div class="toast-body">
+          Scanned <P id="empidscanned"></p>
         </div>
       </div>
     </div>
-    <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
-    <script src="./js/jquery-3.5.1.js"></script>
-    <script src="./js/jquery.dataTables.min.js"></script>
-    <script src="./js/dataTables.bootstrap5.min.js"></script>
-    <script src="./js/script.js"></script>
-    <script src="./js/time.js"></script>
-    <script src="./js/attendance.js"></script>
-    <script src="./js/qrcode.js"></script>
-    <script>
-      setInterval(updateClock, 1000 * 60); //update the clock after 1 min interval
-      var html5QrcodeScanner = new Html5QrcodeScanner(
-        "reader", {
-          fps: 24,
-          qrbox: 300,
-          rememberLastUsedCamera: true,
-          supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
-        });
-      html5QrcodeScanner.render(onScanSuccess);
-    </script>
+  </main>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+  <script src="./js/jquery-3.5.1.js"></script>
+  <script src="./js/jquery.dataTables.min.js"></script>
+  <script src="./js/dataTables.bootstrap5.min.js"></script>
+  <script src="./js/script.js"></script>
+  <script src="./js/time.js"></script>
+  <script src="./js/attendance.js"></script>
+  <script src="./js/qrcode.js"></script>
+  <script>
+    setInterval(updateClock, 1000 * 60); //update the clock after 1 min interval
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+      "reader", {
+        fps: 24,
+        qrbox: 300,
+        rememberLastUsedCamera: true,
+        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+      });
+    html5QrcodeScanner.render(onScanSuccess);
+    let mode = document.getElementById("scannermode");
+    var label = document.getElementById("modelabel");
+    mode.addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+        label.innerHTML = "Sign Out Mode"
+      } else {
+        label.innerHTML = "Sign In Mode"
+      }
+    })
+  </script>
 </body>
 
 </html>
