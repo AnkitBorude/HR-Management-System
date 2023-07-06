@@ -159,6 +159,12 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                                         <span>Leave Requistions</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="pendingleave.php" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                                        <span>Pending Leave </span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>

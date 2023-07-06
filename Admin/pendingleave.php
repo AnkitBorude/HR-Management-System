@@ -154,9 +154,15 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="leaverequest.php" class="nav-link px-3 active">
+                                    <a href="leaverequest.php" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-plus"></i></span>
                                         <span>Leave Requistions</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pendingleave.php" class="nav-link px-3 active">
+                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                                        <span>Pending Leave </span>
                                     </a>
                                 </li>
                             </ul>
@@ -296,10 +302,10 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
             let dataresponse = await fetch("/HR-Management-System/Admin/api/leaveAPI.php?type=approveleave&leaveid=" + id);
             let resjson = await dataresponse.json();
             if (resjson.status == "success") {
-             let rowtobedeleted = document.getElementById(id);
-            tablebody.removeChild(rowtobedeleted);
+                let rowtobedeleted = document.getElementById(id);
+                tablebody.removeChild(rowtobedeleted);
             }
-           
+
         }
         async function rejectLeave(id) {
             console.log(id);
@@ -311,7 +317,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
             let dataresponse = await fetch("/HR-Management-System/Admin/api/leaveAPI.php?type=rejectleave&leaveid=" + id + "&leavetype=" + leavetype + "&totaldays=" + totaldays + "&eid=" + eid);
             let resjson = await dataresponse.json();
             if (resjson.status == "success") {
-            tablebody.removeChild(tablerow);
+                tablebody.removeChild(tablerow);
             }
         }
     </script>

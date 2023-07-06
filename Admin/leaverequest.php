@@ -159,6 +159,12 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                                         <span>Leave Requistions</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="pendingleave.php" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-person-plus"></i></span>
+                                        <span>Pending Leave </span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -203,10 +209,10 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
     <main class="mt-5 pt-3">
         <div class="container-fluid">
             <!---page content here-->
-            <div class="row">
+            <div class="row g-4">
                 <h3 class="fw-bold fs-2">Apply For Leave</h3>
             </div>
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-12">
@@ -265,6 +271,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                             </form>
                         </div>
                     </div>
+                    <div id="liveAlertPlaceholder"></div>
                 </div>
                 <div class="col-md-3">
                     <div class="row mt-2">
@@ -298,7 +305,7 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                     </div>
                 </div>
             </div>
-            
+
         </div>
         </div>
     </main>
@@ -342,9 +349,9 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
                 "&leavetype=" + leavetype + "&sdate=" + sdate + "&tdate=" + tdate + "&applieddate=" + applieddate + "&totaldays=" + totaldays + "&reasons=" + reasons);
             let resjson = await dataresponse.json();
             if (resjson.status == "success") {
-                leaveid = resjson.leaveid;
-                updateLeaveTable(leaveid, eid, ename, leavetype, sdate, tdate, totaldays);
-
+                // leaveid = resjson.leaveid;
+                // updateLeaveTable(leaveid, eid, ename, leavetype, sdate, tdate, totaldays);
+                alertme("Leave Applied Successfully", "success");
             }
 
         }
@@ -421,6 +428,19 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
             dateCopy.setDate(startdate.getDate() + parseInt(balance) - 1);
             let fdate = document.getElementById("tdate");
             fdate.setAttribute("max", getDBdate(dateCopy));
+        }
+
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+        const alertme = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
         }
     </script>
 </body>

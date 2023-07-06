@@ -54,7 +54,7 @@ if ($_GET["type"] == "leavebalance") {
 } else if ($_GET["type"] == "rangedata") {
     $fromdate = $_GET["from"];
     $todate = $_GET["to"];
-    if ($result = pg_query($connection, "select employee_full_name,leave_id,role_name,leave_type,leave_start_date,leave_end_date,leave_total_days,leave_applied_date,fkemployee_id as emp_id from Leave inner join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id where leave_start_date>= '$fromdate' and leave_end_date<='$todate' order by leave_applied_date;")) {
+    if ($result = pg_query($connection, "select employee_full_name,leave_id,role_name,leave_type,leave_start_date,leave_end_date,leave_total_days,leave_applied_date,fkemployee_id as emp_id from Leave inner join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id where leave_start_date>= '$fromdate' and leave_end_date<='$todate' and leave_status = 'A' order by leave_applied_date;")) {
         $array = [];
         while ($row = pg_fetch_assoc($result)) {
             $array[] = $row;
@@ -66,24 +66,24 @@ if ($_GET["type"] == "leavebalance") {
 } else if ($_GET["type"] == "leavedata") {
     $date = $_GET["date"];
     $tommorrow = $_GET["tommorrow"];
-    if ($result = pg_query($connection, "select employee_full_name as ename,role_name as role,leave_type,leave_reason,leave_applied_date,fkemployee_id as emp_id from Leave right join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id where '$date' >= leave_start_date and '$date'<=leave_end_date;")) {
+    if ($result = pg_query($connection, "select employee_full_name as ename,role_name as role,leave_type,leave_reason,leave_applied_date,fkemployee_id as emp_id from Leave right join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_status='A';")) {
         $array = [];
         while ($row = pg_fetch_assoc($result)) {
             $array[] = $row;
         }
-        $result = pg_query($connection, "select count(*) from Leave right join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id where '$date' >= leave_start_date and '$date'<=leave_end_date");
+        $result = pg_query($connection, "select count(*) from Leave right join Employees on Leave.fkemployee_id=Employees.employee_id left join Role on Employees.fkrole_id=Role.role_id where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_status='A'");
         $todaytotal = pg_fetch_row($result);
 
-        $result = pg_query($connection, "select count(*) from Leave where '$tommorrow' >= leave_start_date and '$tommorrow'<=leave_end_date");
+        $result = pg_query($connection, "select count(*) from Leave where '$tommorrow' >= leave_start_date and '$tommorrow'<=leave_end_date and leave_status='A'");
         $tommorrowtot = pg_fetch_row($result);
 
-        $result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_type='cl'");
+        $result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_type='cl' where leave_status='A'");
         $cltotal = pg_fetch_row($result);
 
-        $result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_type='sl'");
+        $result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_type='sl' where leave_status='A'");
         $sltotal = pg_fetch_row($result);
 
-        $result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_type='el'");
+        $result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_type='el' where leave_status='A'");
         $eltotal = pg_fetch_row($result);
 
         header("Content-type:application/json");
@@ -92,7 +92,7 @@ if ($_GET["type"] == "leavebalance") {
     pg_free_result($result);
 } else if ($_GET["type"] == "todaysleavedata") {
     $date = $_GET["date"];
-    if ($result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date")) {
+    if ($result = pg_query($connection, "select count(*) from Leave where '$date' >= leave_start_date and '$date'<=leave_end_date and leave_status='A'")) {
         $row = pg_fetch_row($result);
         header("Content-type:application/json");
         echo (json_encode(['status' => 'success', 'data' => $row[0]]));
