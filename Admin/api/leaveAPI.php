@@ -22,7 +22,7 @@ if ($_GET["type"] == "leavebalance") {
     $totaldays = $_GET["totaldays"];
     $reasons = $_GET["reasons"];
     $arr = explode("-", $sdate);
-    $leaveid = $eid . $arr[1] . $arr[2];
+    $leaveid = random_int(0, PHP_INT_MAX);
     if ($result = pg_query($connection, "insert into Leave values($leaveid,'$leavetype','$sdate','$tdate',$totaldays,'$reasons','$applieddate',$eid)")) {
         $balanceof = "employee_" . $leavetype . "_balance";
         pg_query($connection, "update Employees set $balanceof = $balanceof - $totaldays where employee_id= $eid");
@@ -116,7 +116,34 @@ if ($_GET["type"] == "leavebalance") {
         echo (json_encode(['status' => 'error', 'message' => $error]));
     }
     pg_free_result($result);
-}
+} else if ($_GET["type"] == "rejectleave") {
+    $leaveid = $_GET["leaveid"];
+    $leavetype = $_GET["leavetype"];
+    $totaldays = $_GET["totaldays"];
+    $eid = $_GET["eid"];
 
+    if ($result = pg_query($connection, "update Leave set leave_status='R' where leave_id=$leaveid")) {
+        $balanceof = "employee_" . $leavetype . "_balance";
+        pg_query($connection, "update Employees set $balanceof = $balanceof + $totaldays where employee_id= $eid");
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'message' => 'rejected']));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
+} else if ($_GET["type"] == "approveleave") {
+    $leaveid = $_GET["leaveid"];
+    if ($result = pg_query($connection, "update Leave set leave_status='A' where leave_id=$leaveid")) {
+        header("Content-type:application/json");
+        echo (json_encode(['status' => 'success', 'message' => 'approved']));
+    } else {
+        header("Content-type:application/json");
+        $error = pg_last_error($connection);
+        echo (json_encode(['status' => 'error', 'message' => $error]));
+    }
+    pg_free_result($result);
+}
 
 pg_close($connection);

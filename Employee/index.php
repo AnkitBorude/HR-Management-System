@@ -63,7 +63,7 @@
                                     pg_close($connection);
                                     $_SESSION['username'] = $username;
                                     $_SESSION['Logedin'] = true;
-                                    header("Location:dashboard.html");
+                                    header("Location:dashboard.php");
                                 } else {
                                     echo  '<div class="alert alert-danger">
     <p><strong>Alert</strong></p>
