@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['username']) && $_SESSION['Logedin'] !== true) {
+if (!isset($_SESSION['userid']) && $_SESSION['LogIn'] !== true) {
     header('HTTP/1.0 401 Unauthorized');
     echo '401 Unauthorized Access ';
     exit;
@@ -62,8 +62,22 @@ if (!isset($_SESSION['username']) && $_SESSION['Logedin'] !== true) {
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><?php echo $_SESSION['username'] ?></h6>
-                        <span>Admin</span>
+                        <?php
+                        $employeeid = $_SESSION['userid'];
+                        $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                        $result = pg_query($connection, "select employee_id,employee_full_name,role_name,department_name from Employees left join Role on Employees.fkrole_id=Role.role_id left join department on role.fkdepartment_id=department.department_id where employee_id=$employeeid;");
+                        $row = pg_fetch_row($result);
+                        echo "<span id='empid'>$row[0]</span>";
+                        $array = explode(" ", $row[1]);
+                        echo " <h6 class='mb-0'>$array[0]  $array[2]</h6>";
+                        if (is_null($row[2])) {
+                            echo "<span> Not Assigned</span>";
+                        } else {
+                            echo "<span>$row[2]</span>";
+                        }
+                        pg_free_result($result);
+                        pg_close($connection);
+                        ?>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -113,46 +127,44 @@ if (!isset($_SESSION['username']) && $_SESSION['Logedin'] !== true) {
                     <div class="nav-item">
                         Time:-<span id="time" class="fw-bold"> </span>
                     </div>
-                    <div class="navbar-nav align-items-center ms-auto">
-                        <div class="nav-item px-2">
-                            Date:-<span id="date" class="fw-bold"> </span>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-bell me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Notificatin</span>
+                    <div class="nav-item px-2">
+                        Date:-<span id="date" class="fw-bold"> </span>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Notificatin</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Profile updated</h6>
+                                <small>15 minutes ago</small>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Profile updated</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">New user added</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item">
-                                    <h6 class="fw-normal mb-0">Password changed</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="#" class="dropdown-item text-center">See all notifications</a>
-                            </div>
-                        </div>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">New user added</h6>
+                                <small>15 minutes ago</small>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                <a href="#" class="dropdown-item">My Profile</a>
-                                <a href="#" class="dropdown-item">Settings</a>
-                                <a href="#" class="dropdown-item">Log Out</a>
-                            </div>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item">
+                                <h6 class="fw-normal mb-0">Password changed</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all notifications</a>
                         </div>
                     </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="#" class="dropdown-item">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
             </nav>
             <!-- Navbar End -->
 
@@ -165,7 +177,12 @@ if (!isset($_SESSION['username']) && $_SESSION['Logedin'] !== true) {
                             <i class="fa fa-chart-line fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Current Role</p>
-                                <h6 class="mb-0">xyz</h6>
+                                <h6 class="mb-0"><?php
+                                                    if (is_null($row[2])) {
+                                                        echo "<span> Not Assigned</span>";
+                                                    } else {
+                                                        echo "<span>$row[2]</span>";
+                                                    } ?></h6>
                             </div>
                         </div>
                     </div>
@@ -174,7 +191,11 @@ if (!isset($_SESSION['username']) && $_SESSION['Logedin'] !== true) {
                             <i class="fa fa-chart-bar fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Department</p>
-                                <h6 class="mb-0">xyz</h6>
+                                <h6 class="mb-0"><?php if (is_null($row[3])) {
+                                                        echo "<span> Not Assigned</span>";
+                                                    } else {
+                                                        echo "<span>$row[3]</span>";
+                                                    } ?></h6>
                             </div>
                         </div>
                     </div>
@@ -182,8 +203,21 @@ if (!isset($_SESSION['username']) && $_SESSION['Logedin'] !== true) {
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-area fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Today Overtime</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <p class="mb-2">Total Overtime</p>
+                                <h6 class="mb-0">
+                                    <?php
+                                    $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                                    $result = pg_query($connection, "select sum(attendace_totalovertime) from attendance inner join Employees on attendance.fkemployee_id = Employees.employee_id group by employee_id having employee_id=$employeeid;");
+                                    $row = pg_fetch_row($result);
+                                    if ($row[0] == null) {
+                                        echo "0";
+                                    } else {
+                                        echo $row[0] . "Hrs.";
+                                    }
+                                    pg_close($connection);
+                                    pg_free_result($result);
+                                    ?>
+                                </h6>
                             </div>
                         </div>
                     </div>
@@ -203,54 +237,6 @@ if (!isset($_SESSION['username']) && $_SESSION['Logedin'] !== true) {
                 <div class="row g-4">
                     <div class="col-sm-12 col-md-6 col-xl-4">
                         <div class="h-100 bg-light rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <h6 class="mb-0">Messages</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center pt-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-light rounded p-4">
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <h6 class="mb-0">Calender</h6>
                                 <a href="">Show All</a>
@@ -258,109 +244,51 @@ if (!isset($_SESSION['username']) && $_SESSION['Logedin'] !== true) {
                             <div id="calender"></div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-light rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">To Do List</h6>
-                                <a href="">Show All</a>
+                </div>
+                <!-- Widgets End -->
+
+
+                <!-- Footer Start -->
+                <div class="container-fluid pt-4 px-4">
+                    <div class="bg-light rounded-top p-4">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 text-center text-sm-start">
+                                &copy; <a href="#">Your Site Name</a>, All Right Reserved.
                             </div>
-                            <div class="d-flex mb-2">
-                                <input class="form-control bg-transparent" type="text" placeholder="Enter task">
-                                <button type="button" class="btn btn-primary ms-2">Add</button>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox" checked>
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span><del>Short task goes here...</del></span>
-                                        <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center pt-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
+                            <div class="col-12 col-sm-6 text-center text-sm-end">
+                                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- Footer End -->
             </div>
-            <!-- Widgets End -->
+            <!-- Content End -->
 
 
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-light rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-                        </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer End -->
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
-        <!-- Content End -->
 
+        <!-- JavaScript Libraries -->
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/chart/chart.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/tempusdominus/js/moment.min.js"></script>
+        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <!-- JavaScript Libraries -->
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-    <script src="js/time.js"></script>
-    <script>
-        setInterval(updateClock, 1000 * 60);
-    </script>
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        <script src="js/time.js"></script>
+        <script>
+            setInterval(updateClock, 1000 * 60);
+        </script>
 </body>
 
 </html>

@@ -426,7 +426,10 @@ if (!isset($_SESSION['Logedin']) && !isset($_SESSION['username']) || $_SESSION['
             let startdate = new Date(sdate.value);
             const dateCopy = new Date(startdate);
             dateCopy.setDate(startdate.getDate() + parseInt(balance) - 1);
+
             let fdate = document.getElementById("tdate");
+            fdate.value = '';
+            document.getElementById('totaldays').value = 0;
             fdate.setAttribute("max", getDBdate(dateCopy));
         }
 

@@ -61,8 +61,8 @@
                                     session_start();
                                     pg_free_result($result);
                                     pg_close($connection);
-                                    $_SESSION['username'] = $username;
-                                    $_SESSION['Logedin'] = true;
+                                    $_SESSION['userid'] = $username;
+                                    $_SESSION['LogIn'] = true;
                                     header("Location:dashboard.php");
                                 } else {
                                     echo  '<div class="alert alert-danger">

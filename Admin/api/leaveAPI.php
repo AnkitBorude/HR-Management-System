@@ -22,7 +22,7 @@ if ($_GET["type"] == "leavebalance") {
     $totaldays = $_GET["totaldays"];
     $reasons = $_GET["reasons"];
     $arr = explode("-", $sdate);
-    $leaveid = random_int(0, PHP_INT_MAX);
+    $leaveid = random_int(0, 1000000);
     if ($result = pg_query($connection, "insert into Leave values($leaveid,'$leavetype','$sdate','$tdate',$totaldays,'$reasons','$applieddate',$eid)")) {
         $balanceof = "employee_" . $leavetype . "_balance";
         pg_query($connection, "update Employees set $balanceof = $balanceof - $totaldays where employee_id= $eid");

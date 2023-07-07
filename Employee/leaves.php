@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['userid']) && $_SESSION['LogId'] !== true) {
+    header('HTTP/1.0 401 Unauthorized');
+    echo '401 Unauthorized Access ';
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,16 +37,12 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="js/time.js"></script>
 </head>
 
-<body>
+<body onload="viewdate()">
     <div class="container-fluid position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
         <!-- Spinner End -->
 
 
@@ -54,8 +58,22 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
+                        <?php
+                        $employeeid = $_SESSION['userid'];
+                        $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                        $result = pg_query($connection, "select employee_id,employee_full_name,role_name,department_name,employee_cl_balance,employee_sl_balance,employee_el_balance from Employees left join Role on Employees.fkrole_id=Role.role_id left join department on role.fkdepartment_id=department.department_id where employee_id=$employeeid;");
+                        $row = pg_fetch_row($result);
+                        echo "<span id='empid'>$row[0]</span>";
+                        $array = explode(" ", $row[1]);
+                        echo " <h6 class='mb-0'>$array[0]  $array[2]</h6>";
+                        if (is_null($row[2])) {
+                            echo "<span> Not Assigned</span>";
+                        } else {
+                            echo "<span>$row[2]</span>";
+                        }
+                        pg_free_result($result);
+                        pg_close($connection);
+                        ?>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -101,6 +119,12 @@
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item">
+                        Time:-<span id="time" class="fw-bold"> </span>
+                    </div>
+                    <div class="nav-item px-2">
+                        Date:-<span id="date" class="fw-bold"> </span>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-envelope me-lg-2"></i>
@@ -188,7 +212,7 @@
                             <i class="fa fa-chart-line fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total CL</p>
-                                <h6 class="mb-0">xyz</h6>
+                                <h6 class="mb-0" id="clbalance"><?php echo "$row[4]" ?></h6>
                             </div>
                         </div>
                     </div>
@@ -197,7 +221,7 @@
                             <i class="fa fa-chart-bar fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total SL</p>
-                                <h6 class="mb-0">xyz</h6>
+                                <h6 class="mb-0" id="slbalance"><?php echo "$row[5]" ?></h6>
                             </div>
                         </div>
                     </div>
@@ -206,7 +230,7 @@
                             <i class="fa fa-chart-area fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total EL</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <h6 class="mb-0" id="elbalance"><?php echo "$row[6]" ?></h6>
                             </div>
                         </div>
                     </div>
@@ -214,47 +238,53 @@
             </div>
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-4">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Request Leave</h6>
-
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                    <option selected>Leave Type</option>
-                                    <option value="1">CL(Casual Leave)</option>
-                                    <option value="2">SL(Sick Leave)</option>
-                                    <option value="3">EL(Earned Leave)</option>
-                                </select>
-                                <label for="floatingSelect">select</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingInput" placeholder="Starting Date">
-                                <label for="floatingInput">From Date</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingPassword" placeholder="End Date">
-                                <label for="floatingPassword">To Date</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="floatingPasswor" placeholder="Total Days" disabled>
-                                <label for="floatingPasswor">TotalDays</label>
-                            </div>
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Reason" id="floatingTextarea" style="height: 150px;"></textarea>
-                                <label for="floatingTextarea">Reason</label>
-                            </div>
-                            <div class="form-floating pt-5">
-                                <input type="button" class="btn btn-success" id="floatingPasswor" value="Apply">
-                            </div>
+                            <form id="lform">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="leavetype" onchange="setMaximumdate()" aria-label="Floating label select example" required>
+                                        <option id="cl">CL(Casual Leave)</option>
+                                        <option id="sl">SL(Sick Leave)</option>
+                                        <option id="el">EL(Earned Leave)</option>
+                                    </select>
+                                    <label for="leavetype">select</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="sdate" onchange="setMaximumdate()" placeholder="Starting Date" required>
+                                    <label for="sdate">From Date</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="tdate" placeholder="End Date" onchange="getDaysDifference()" required>
+                                    <label for="tdate">To Date</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" id="totaldays" placeholder="Total Days" disabled>
+                                    <label for="totaldays">TotalDays</label>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Reason" id="reasons" style="height: 150px;" required></textarea>
+                                    <label for="reason">Reason</label>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col justify-content-start">
+                                        <input type="submit" class="btn btn-success" value="Apply" onclick="event.preventDefault(),addRecordleave()">
+                                    </div>
+                                    <div class="col justify-content-end">
+                                        <input type="reset" class="btn btn-primary" value="reset">
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="liveAlertPlaceholder"></div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-8">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Leave Request Status</h6>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Sr No.</th>
+                                        <th scope="col">Applied Date</th>
                                         <th scope="col">Leave Type</th>
                                         <th scope="col">Start Date</th>
                                         <th scope="col">End Date</th>
@@ -263,25 +293,37 @@
                                         <th scope="col">Cancel</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>CL</td>
-                                        <td>22/7/2023</td>
-                                        <td>24/7/2023</td>
-                                        <td>2</td>
-                                        <td>Pending</td>
-                                        <td><a href="#">Cancel</a></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>CL</td>
-                                        <td>22/7/2023</td>
-                                        <td>24/7/2023</td>
-                                        <td>2</td>
-                                        <td>Pending</td>
-                                        <td><a href="#">Cancel</a></td>
-                                    </tr>
+                                <tbody id="leavetablebody">
+                                    <!--table content here-->
+                                    <?php
+                                    $connection = pg_connect("host=localhost dbname=hrm user=hrmpadmin password=hradmin@111 port=5432") or die("cannot connect");
+                                    $result = pg_query($connection, "select leave_applied_date, leave_type,leave_start_date,leave_end_date,leave_total_days,leave_status,leave_id from Leave where fkemployee_id= $employeeid and leave_start_date >= CURRENT_DATE order by leave_applied_date;");
+                                    while ($row = pg_fetch_row($result)) {
+                                        echo "<tr id='$row[6]'>";
+                                        echo "<td> $row[0]</td>";
+                                        echo "<td>$row[1]</td>";
+                                        echo "<td> $row[2]</td>";
+                                        echo "<td> $row[3]</td>";
+                                        echo "<td> $row[4]</td>";
+                                        switch ($row[5]) {
+                                            case 'A':
+                                                echo "<td class='text-success'> Approved </td>";
+                                                break;
+                                            case 'R':
+                                                echo "<td class='text-danger'> Rejected</td>";
+                                                break;
+                                            case 'P':
+                                                echo "<td class='text-primary'> Pending</td>";
+                                                break;
+                                        }
+                                        echo " <td><button class='btn btn-danger'
+                                                    onclick='cancelLeave(this.parentNode.parentNode.id)'>Cancel
+                                                    </button></td>";
+                                        echo "</tr>";
+                                    }
+                                    pg_free_result($result);
+                                    pg_close($connection);
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -315,6 +357,8 @@
     </div>
 
     <!-- JavaScript Libraries -->
+    <script src="js/main.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/chart/chart.min.js"></script>
@@ -325,8 +369,110 @@
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script>
+        setInterval(updateClock, 1000 * 60);
+        document.getElementById('sdate').valueAsDate = new Date(); //setting todays date as default value
+        document.getElementById('sdate').setAttribute("min", getDBdate(new Date()));
+        document.getElementById('tdate').setAttribute("min", getDBdate(new Date()));
+
+        function getDaysDifference() {
+            var date1 = new Date(document.getElementById("sdate").value);
+            var date2 = new Date(document.getElementById("tdate").value);
+            var diff;
+            if (date1 < date2) {
+                diff = new Date(date2 - date1);
+            } else {
+                diff = new Date(date1 - date2);
+            }
+            var days = diff.getDate();
+            document.getElementById('totaldays').value = days;
+        }
+
+        function setMaximumdate() {
+            let stype = document.getElementById("leavetype").selectedOptions[0].id;
+            let balance = document.getElementById(stype + "balance").innerHTML;
+            let sdate = document.getElementById('sdate');
+            let startdate = new Date(sdate.value);
+            const dateCopy = new Date(startdate);
+            dateCopy.setDate(startdate.getDate() + parseInt(balance) - 1);
+            let fdate = document.getElementById("tdate");
+            fdate.value = '';
+            document.getElementById('totaldays').value = 0;
+            fdate.setAttribute("max", getDBdate(dateCopy));
+        }
+        async function addRecordleave() {
+            let eid = document.getElementById("empid").innerHTML;
+            let leaveid = 0;
+            let leavetype = document.getElementById("leavetype").selectedOptions[0].id;
+            let sdate = document.getElementById("sdate").value;
+            let tdate = document.getElementById("tdate").value;
+            let totaldays = document.getElementById("totaldays").value;
+            let reasons = document.getElementById("reasons").value;
+            let applieddate = getDBdate(new Date());
+            let dataresponse = await fetch("/HR-Management-System/Admin/api/leaveAPI.php?type=newleave&eid=" + eid +
+                "&leavetype=" + leavetype + "&sdate=" + sdate + "&tdate=" + tdate + "&applieddate=" + applieddate + "&totaldays=" + totaldays + "&reasons=" + reasons);
+            let resjson = await dataresponse.json();
+            if (resjson.status == "success") {
+                leaveid = resjson.leaveid;
+                updateLeaveTable(leaveid, applieddate, leavetype, sdate, tdate, totaldays, "pending");
+                alertme("Leave Applied Successfully", "success");
+            } else {
+                alertme("Problem check log", "danger");
+            }
+
+        }
+
+        function updateLeaveTable(...args) {
+            let tablebody = document.getElementById("leavetablebody");
+            const trow = document.createElement("tr");
+            trow.setAttribute("id", args[0]); //embedding leave id
+            for (let i = 1; i < args.length; i++) {
+                const tdata = document.createElement("td");
+                let data = document.createTextNode(args[i]);
+                tdata.appendChild(data);
+                trow.appendChild(tdata);
+            }
+            let dbutton2 = document.createElement("button");
+            dbutton2.setAttribute("class", "btn btn-danger");
+            dbutton2.setAttribute("onclick", "cancelLeave(this.parentNode.parentNode.id)")
+            const text2 = document.createTextNode("cancel");
+            dbutton2.appendChild(text2);
+            const tdata2 = document.createElement("td");
+            tdata2.appendChild(dbutton2);
+            trow.appendChild(tdata2);
+
+            tablebody.appendChild(trow);
+            let balance = document.getElementById(args[2] + "balance");
+            let oldvalue = parseInt(balance.innerHTML);
+            balance.innerHTML = oldvalue - parseInt(args[5]);
+        }
+        async function cancelLeave(id) {
+            let tablerow = document.getElementById(id);
+            let tablebody = document.getElementById("leavetablebody");
+            let leavetype = tablerow.getElementsByTagName("td")[1].innerHTML;
+            let totaldays = parseInt(tablerow.getElementsByTagName("td")[4].innerHTML);
+            let eid = document.getElementById("empid").innerHTML;
+            let dataresponse = await fetch("/HR-Management-System/Admin/api/leaveAPI.php?type=deleteleave&leaveid=" + id + "&leavetype=" + leavetype + "&totaldays=" + totaldays + "&eid=" + eid);
+            let resjson = await dataresponse.json();
+            if (resjson.status == "success") {
+                let rowtobedeleted = document.getElementById(id);
+                tablebody.removeChild(rowtobedeleted);
+
+            }
+        }
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+        const alertme = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
+        }
+    </script>
 </body>
 
 </html>
