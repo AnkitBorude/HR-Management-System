@@ -1,5 +1,1 @@
-College project
-partners 
-Karan Bankar
-Ankit Borude
-project date
+HR Management Web Based Application
