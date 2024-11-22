@@ -124,6 +124,8 @@ A comprehensive cloud-based Human Resource Management platform designed to trans
 </div>
 <div align="center">
   <h2>📸 Screenshots</h2>
+      <h3>LOGIN</h3>
+  <img src="image6.png" alt="Login" width="800"/>
 </div>
 <h2>📄 Licensing</h2>
 <p>
