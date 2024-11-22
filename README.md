@@ -10,7 +10,7 @@ A comprehensive cloud-based Human Resource Management platform designed to trans
 </p>
 <h2>🚀 Technology Stack</h2>
 <table>
-    <tr>
+    <tr>HR Management and Payroll System
         <td><strong>Frontend</strong></td>
         <td>
             <ul>
@@ -124,7 +124,7 @@ A comprehensive cloud-based Human Resource Management platform designed to trans
 </p>
 <h2>📞 Support</h2>
 <p>
-    For issues and inquiries, please contact: <a href="mailto:ankitborude250@gmail.com>ankitborude250@gmail.com</a>
+    For issues and inquiries, please contact: <a href="mailto:ankitborude250@gmail.com">  ankitborude250@gmail.com </a>
 </p>
 <hr>
 <p align="center">
