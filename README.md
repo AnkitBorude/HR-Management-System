@@ -119,6 +119,10 @@ A comprehensive cloud-based Human Resource Management platform designed to trans
     <li>Submit pull requests</li>
 </ul>
 <div align="center">
+  <h2>Entity Relationship Diagram</h2>
+ <img src="image2.jpg" alt="ER DIAGRAM" width="800"/>
+</div>
+<div align="center">
   <h2>📸 Screenshots</h2>
 </div>
 <h2>📄 Licensing</h2>
