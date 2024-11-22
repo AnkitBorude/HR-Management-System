@@ -118,6 +118,9 @@ A comprehensive cloud-based Human Resource Management platform designed to trans
     <li>Follow coding standards</li>
     <li>Submit pull requests</li>
 </ul>
+<div align="center">
+  <h2>📸 Screenshots</h2>
+</div>
 <h2>📄 Licensing</h2>
 <p>
     <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License">
