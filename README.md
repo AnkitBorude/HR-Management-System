@@ -126,6 +126,49 @@ A comprehensive cloud-based Human Resource Management platform designed to trans
   <h2>📸 Screenshots</h2>
       <h3>LOGIN</h3>
   <img src="image6.png" alt="Login" width="800"/>
+        <h3>DASHBOARD</h3>
+    <img src="image7.png" alt="Login" width="800"/>
+    <img src="image8.png" alt="Login" width="800"/>
+    <h3>NEW EMPLOYEE</h3>
+     <img src="image9.png" alt="Login" width="800"/>
+    <h3>EMPLOYEE LIST</h3>
+    <img src="image10.png" alt="Login" width="800"/>
+    <h3>Employee’s Profile Details</h3>
+    <img src="image11.png" alt="Login" width="800"/>
+    <img src="image12.png" alt="Login" width="800"/>
+    <h3>Deleting Employee Profile</h3>
+    <img src="image13.png" alt="Login" width="800"/>
+    <img src="image14.png" alt="Login" width="800"/>
+    <h3>Marking Employee’s Attendance</h3>
+    <img src="image15.png" alt="Login" width="800"/>
+    <img src="image16.png" alt="Login" width="800"/>
+    <h3>Attendance Report</h3>
+    <img src="image17.png" alt="Login" width="800"/>
+    <img src="image18.png" alt="Login" width="800"/>
+    <h3>Apply for Leave</h3>
+      <img src="image19.png" alt="Login" width="800"/>
+    <img src="image20.png" alt="Login" width="800"/>
+      <img src="image21.png" alt="Login" width="800"/>
+    <img src="image22.png" alt="Login" width="800"/>
+     <h3>Leave Profile</h3>
+       <img src="image23.png" alt="Login" width="800"/>
+       <img src="image24.png" alt="Login" width="800"/>
+       <img src="image25.png" alt="Login" width="800"/>
+       <img src="image26.png" alt="Login" width="800"/>
+       <img src="image27.png" alt="Login" width="800"/>
+       <img src="image28.png" alt="Login" width="800"/>
+    <h3>Create New Role</h3>
+     <img src="image29.png" alt="Login" width="800"/>
+     <img src="image30.png" alt="Login" width="800"/>
+     <h3>Role Management</h3>
+     <img src="image31.png" alt="Login" width="800"/>
+       <img src="image32.png" alt="Login" width="800"/>
+       <img src="image33.png" alt="Login" width="800"/>
+       <img src="image34.png" alt="Login" width="800"/>
+       <img src="image35.png" alt="Login" width="800"/>
+       <img src="image36.png" alt="Login" width="800"/>
+    <h3>Log Out</h3>
+      <img src="image37.png" alt="Login" width="800"/>
 </div>
 <h2>📄 Licensing</h2>
 <p>
