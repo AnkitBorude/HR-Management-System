@@ -174,10 +174,7 @@ A comprehensive cloud-based Human Resource Management platform designed to trans
 <p>
     <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License">
 </p>
-<h2>📞 Support</h2>
-<p>
-    For issues and inquiries, please contact: <a href="mailto:ankitborude250@gmail.com">  ankitborude250@gmail.com </a>
-</p>
+
 <hr>
 <p align="center">
     <strong>Made with ❤️ by Ankit Borude </strong>
